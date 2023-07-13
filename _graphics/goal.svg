@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="96"
+   viewBox="0 0 64 96"
+   version="1.1"
+   id="svg259"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <ellipse
+     style="font-variation-settings:normal;opacity:1;fill:#4b3339;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     id="ellipse16193"
+     cx="24"
+     cy="81.125"
+     rx="11"
+     ry="6.8749943" />
+  <circle
+     style="font-variation-settings:normal;opacity:1;fill:#4b3339;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     id="circle16690"
+     cx="16"
+     cy="25"
+     r="2" />
+  <ellipse
+     style="font-variation-settings:normal;opacity:1;fill:#cfa067;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     id="path16131"
+     cx="24"
+     cy="80"
+     rx="8.0000067"
+     ry="5" />
+  <path
+     style="font-variation-settings:normal;opacity:1;fill:#4b3339;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     d="m 17,27 c 24,-3 13,17 38,13 -3,4 -3,9 -11,11 4,5 7,2 13,1 -16,22 -16,0 -36,11 z"
+     id="path16686" />
+  <path
+     style="font-variation-settings:normal;opacity:1;fill:#cfd6d0;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     d="m 17,27 c 24,-3 13,17 38,13 -3,4 -4,7 -12,9 4,5 8,4 14,3 -17,20 -16,-5 -36,6 z"
+     id="path16191" />
+  <path
+     style="font-variation-settings:normal;opacity:1;fill:#9bafc2;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     d="M 22,80 16,24 h 2 l 8,56 c -1.36155,1.37978 -2.69297,1.28621 -4,0 z"
+     id="path16187" />
+  <circle
+     style="font-variation-settings:normal;opacity:1;fill:#cfd6d0;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     id="path16189"
+     cx="17"
+     cy="24"
+     r="2" />
+  <path
+     style="font-variation-settings:normal;opacity:1;fill:#4b3339;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+     d="M 22,80 18,71 16,24 Z"
+     id="path16688" />
+</svg>

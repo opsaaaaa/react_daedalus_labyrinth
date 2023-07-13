@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.00002"
+   height="128.00011"
+   viewBox="0 0 33.86667 33.866695"
+   version="1.1"
+   id="svg259"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs256" />
+  <g
+     id="layer1"
+     transform="translate(-114.30001,-63.49998)">
+    <rect
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#cfa067;fill-opacity:1;stroke:#694641;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+       id="rect3562"
+       width="32.808334"
+       height="32.808331"
+       x="114.82916"
+       y="64.029144"
+       ry="7.937499"
+       rx="7.937499" />
+    <path
+       style="fill:#835e59;stroke:#4b3339;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
+       d="m 141.81666,89.958338 c -0.52914,0 -1.05833,0.529167 -1.05833,1.058334 v 5.291666 h 3.175 c 1.75895,0 3.175,-1.416051 3.175,-3.175 v -3.175 h -5.02708 l -0.0181,0.01602 c -0.0818,-0.0101 -0.1641,-0.01549 -0.2465,-0.01602 z"
+       id="path3564" />
+    <path
+       style="fill:#835e59;stroke:#4b3339;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
+       d="m 141.81666,70.908334 c -0.52914,0 -1.05833,-0.529167 -1.05833,-1.058334 v -5.291666 h 3.175 c 1.75895,0 3.175,1.416051 3.175,3.175 v 3.175 h -5.02708 l -0.0181,-0.01602 c -0.0818,0.0101 -0.1641,0.01549 -0.2465,0.01602 z"
+       id="path3566" />
+    <path
+       style="fill:#835e59;stroke:#4b3339;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
+       d="m 115.35836,93.133338 c 0,1.758949 1.41605,3.174998 3.175,3.174998 h 3.17501 V 64.55834 h -3.17501 c -1.75895,0 -3.175,1.41605 -3.175,3.175 z"
+       id="path3568" />
+  </g>
+</svg>
