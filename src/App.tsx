@@ -29,6 +29,8 @@ function App() {
             //   b.insertPreview(arrow.x,arrow.y)
             //   setActionCount(actionCount+1)
             // }}
+            className="arrow"
+            disabled={arrow.disabled}
             onClick={()=>{
               b.insertSlot(arrow)
               setActionCount(actionCount+1)

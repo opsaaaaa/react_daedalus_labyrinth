@@ -63,14 +63,23 @@ button {
   margin: 0;
 }
 /* .tile:hover, .tile:focus { */
-button:hover, button:focus {
+.tile:hover, .tile:focus {
   box-shadow: 0 0 5px 5px #17fa;
   /* outline: solid blue; */
   border-radius: 10px;
-  z-index: 100
+  z-index: 100;
 }
 .tile {
-  transition: transform 400ms ease
+  transition: transform 400ms ease;
+}
+.arrow {
+  opacity: .4;
+}
+.arrow:disabled {
+  display: none;
+}
+.arrow:is(:hover, :focus) {
+  opacity: 1;
 }
 
 @media (prefers-color-scheme: light) {

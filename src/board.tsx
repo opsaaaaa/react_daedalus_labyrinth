@@ -157,7 +157,7 @@ export class Board {
     ARROW_GROUPS.forEach(({con, iter, ...group})=>{
       iter()
       while(con()) {
-        out[i] = fn({id: i, x, y, disabled: false, img: arrowSvg, ...group})
+        out[i] = fn({id: i, x, y, disabled: i === this.last_insert, img: arrowSvg, ...group})
         iter()
         i++
       }
