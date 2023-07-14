@@ -3,13 +3,23 @@ import type { ReactNode } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Board } from './board'
+import type { Tile } from './board'
 import './App.css'
 
 const SIZE = 80
 
+
 function App() {
   const [actionCount, setActionCount] = useState(0)
   const [b, setBoard] = useState(new Board(5,5))
+  
+  function onClickTile(tile: Tile): void {
+    if(b.is_hand(tile)) {
+      b.rotate_hand()
+      setActionCount(actionCount+1)
+    }
+  }
+
 
   return (
     <>
@@ -61,7 +71,7 @@ function App() {
           {b.mapTiles<ReactNode>((tile)=>(
             <button
             className='tile'
-            onClick={()=>{console.log(tile)}}
+            onClick={()=>{onClickTile(tile)}}
             key={tile.id}
             style={{
               position: 'absolute',

@@ -76,13 +76,6 @@ const COMPASS = [
   {x: 1, y: 0},
 ]
 
-// const ARROWS = [
-//   {rot: 0}
-//   {rot: 0}
-//   {rot: 0}
-//   {rot: 0}
-// ]
-
 export type Tile = {
   kind: number,
   x: number,
@@ -90,6 +83,9 @@ export type Tile = {
   id: number,
 }
 
+export type Board = {
+  tiles: T
+}
 
 export class Board {
   // the tileID assiciated with 
@@ -170,6 +166,21 @@ export class Board {
     const hand = this.get_hand()
     hand.x = x
     hand.y = y
+  }
+
+  rotate_hand(): void {
+    const hand = this.get_hand()
+    if(hand.kind < 4) {
+      hand.kind = (hand.kind + 1) % 4
+    } else if (hand.kind < 8) {
+      hand.kind = (hand.kind + 1) % 4 + 4
+    } else if (hand.kind < 10) {
+      hand.kind = (hand.kind + 1) % 2 + 8
+    }
+  }
+
+  is_hand(tile: Tile): bool {
+    return this.get_hand().id === tile.id
   }
 
   insertSlot({x, y, id}: InsertArrow): void {
