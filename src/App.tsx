@@ -25,6 +25,10 @@ function App() {
         <div>
           {b.mapInsertSlots((arrow)=>(
             <button
+            // onMouseDown={()=>{
+            //   b.insertPreview(arrow.x,arrow.y)
+            //   setActionCount(actionCount+1)
+            // }}
             onClick={()=>{
               b.insertSlot(arrow)
               setActionCount(actionCount+1)

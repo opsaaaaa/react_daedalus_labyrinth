@@ -62,18 +62,12 @@ export const TILE_INFO: TileKind[] = [
 export type InsertArrow = {
   rot: number,
   id: number,
-  dir: 0 | 1 | 2 | 3,
   x: number,
   y: number,
   img: arrowSvg,
+  disabled: boolean,
 }
 
-const DIR = {
-  TOP: 0,
-  RIGHT: 1,
-  BOTTOM: 2,
-  LEFT: 3,
-}
 
 const COMPASS = [
   {x: 0, y: 1},
@@ -104,6 +98,7 @@ export class Board {
   height: number;
   width: number;
   size: number;
+  last_insert: number;
 
   constructor(h: number, w: number) {
     this.height = h
@@ -141,19 +136,19 @@ export class Board {
     let y = 0
 
     const ARROW_GROUPS = [
-      { dir: DIR.TOP, rot: 0,
+      { rot: 0,
         con: ()=>x < this.width+1,
         iter: ()=>x++,
       },
-      { dir: DIR.RIGHT, rot: 90,
+      { rot: 90,
         con: ()=>y < this.height+1,
         iter: ()=>y++,
       },
-      { dir: DIR.BOTTOM, rot: 180,
+      { rot: 180,
         con: ()=>x > 0,
         iter: ()=>x--,
       },
-      { dir: DIR.LEFT, rot: 270,
+      { rot: 270,
         con: ()=>y > 0,
         iter: ()=>y--,
       },
@@ -162,7 +157,7 @@ export class Board {
     ARROW_GROUPS.forEach(({con, iter, ...group})=>{
       iter()
       while(con()) {
-        out[i] = fn({id: i, x, y, img: arrowSvg, ...group})
+        out[i] = fn({id: i, x, y, disabled: false, img: arrowSvg, ...group})
         iter()
         i++
       }
@@ -171,12 +166,19 @@ export class Board {
     return out
   }
 
-  insertSlot({x, y}: InsertArrow): void {
-    // console.log(x,y)
-    const end = this.get_hand()
-    end.x = x
-    end.y = y
-    this.insert(x - 1,y - 1)
+  insertPreview(x:number, y:number): void {
+    const hand = this.get_hand()
+    hand.x = x
+    hand.y = y
+  }
+
+  insertSlot({x, y, id}: InsertArrow): void {
+    if(this.last_insert !== id) {
+      this.last_insert = id
+      this.insert(x - 1,y - 1)
+    } else {
+      // TODO: display a toast notise to the user
+    }
   }
 
   private insert(x:number, y:number): void {
@@ -192,18 +194,19 @@ export class Board {
 
     do {
       p = this.pos(x,y)
-      x += compass.x
-      y += compass.y
 
       tile = this.tiles[push_cell]
 
-      tile.y += compass.y
-      tile.x += compass.x
+      tile.y = y + 1
+      tile.x = x + 1
+
 
       pull_cell = this.cells[p]
       this.cells[p] = push_cell
       push_cell = pull_cell
 
+      x += compass.x
+      y += compass.y
     } while(this.in_bounds(x, y))
 
 
@@ -211,40 +214,7 @@ export class Board {
     tile.x = this.width+1
     tile.y = this.height+1
     this.cells[this.size-1] = push_cell
-
-    // if(y === 0) {
-    //   console.log(DIR.TOP)
-    //   this.insert_top(x-1)
-    // } else if(y === this.height + 1) {
-    //   console.log(DIR.BOTTOM)
-    // }
-    // if(x === 0) {console.log(DIR.LEFT)}
-    // if(x === this.width + 1) {console.log(DIR.RIGHT)}
   }
-
-  // private insert_top(x): void {
-  //   let push_cell: number = this.get_last_cell()
-  //   let pull_cell: number
-  //   let tile: Tile
-  //   let p = 0;
-
-  //   for(let y = 0; y < this.height; y++) {
-  //     p = this.pos(x,y)
-
-  //     tile = this.tiles[push_cell]
-  //     tile.y = y + 1
-
-  //     pull_cell = this.cells[p]
-  //     this.cells[p] = push_cell
-  //     push_cell = pull_cell
-  //   }
-
-  //   tile = this.tiles[push_cell]
-  //   tile.x = this.width+1
-  //   tile.y = this.height+1
-  //   this.cells[this.size-1] = push_cell
-
-  // }
 
   private get_compass(x: number, y: number): {x: number, y: number} | undefined {
     if(y < 0) { return COMPASS[0] }
