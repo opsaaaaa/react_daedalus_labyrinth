@@ -127,37 +127,34 @@ export class Board {
 
     let out: T[] = new Array(this.width*2 + this.height*2)
 
-    let i = 0
-    let x = 0
+    let id = 0
+    let x = 1
     let y = 0
+    let rot = 0
 
-    const ARROW_GROUPS = [
-      { rot: 0,
-        con: ()=>x < this.width+1,
-        iter: ()=>x++,
-      },
-      { rot: 90,
-        con: ()=>y < this.height+1,
-        iter: ()=>y++,
-      },
-      { rot: 180,
-        con: ()=>x > 0,
-        iter: ()=>x--,
-      },
-      { rot: 270,
-        con: ()=>y > 0,
-        iter: ()=>y--,
-      },
-    ]
-
-    ARROW_GROUPS.forEach(({con, iter, ...group})=>{
-      iter()
-      while(con()) {
-        out[i] = fn({id: i, x, y, disabled: i === this.last_insert, img: arrowSvg, ...group})
-        iter()
-        i++
-      }
-    })
+    for(; x < this.width+1; x++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+      id++;
+    }
+    y++
+    rot += 90
+    for(; y < this.height+1; y++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+      id++;
+    }
+    x = 1
+    rot += 90
+    for(; x < this.width+1; x++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+      id++;
+    }
+    y = 1
+    x = 0
+    rot += 90
+    for(; y < this.height+1; y++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+      id++;
+    }
 
     return out
   }
@@ -185,7 +182,8 @@ export class Board {
 
   insertSlot({x, y, id}: InsertArrow): void {
     if(this.last_insert !== id) {
-      this.last_insert = id
+      const s = this.width + this.height
+      this.last_insert = (id + s) % (s*2)
       this.insert(x - 1,y - 1)
     } else {
       // TODO: display a toast notise to the user
