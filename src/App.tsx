@@ -8,7 +8,7 @@ import './App.css'
 const SIZE = 80
 
 function App() {
-  const [turnCount, setTurnCount] = useState(0)
+  const [actionCount, setActionCount] = useState(0)
   const [b, setBoard] = useState(new Board(5,5))
 
   return (
@@ -20,28 +20,62 @@ function App() {
         height: '100%',
       }}
       >
-        {b.mapTiles<ReactNode>((tile)=>(
-          <button
-          className='tile'
-          onClick={()=>{console.log(tile)}}
-          key={tile.id}
-          style={{
-            position: 'absolute',
-            transform: `translate(${SIZE * tile.x}px,${SIZE * tile.y}px)`,
-            width: SIZE,
-            height: SIZE,
-          }}
-          >
-            <img
-            src={tile.img}
-            style={{
-              transform: `rotate(${tile.rot}deg)`,
-              width: '100%',
-              height: '100%',
+
+        {/* Arrow Buttons */}
+        <div>
+          {b.mapInsertSlots((arrow)=>(
+            <button
+            onClick={()=>{
+              b.insertSlot(arrow)
+              setActionCount(actionCount+1)
             }}
-            />
-          </button>
-        ))}
+            key={arrow.id}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (arrow.x)}px,${SIZE * (arrow.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }}
+            >
+              <img
+              src={arrow.img}
+              style={{
+                transform: `rotate(${arrow.rot}deg)`,
+                width: '100%',
+                height: '100%',
+                zIndex: 100,
+              }}
+              />
+            </button>
+          ))}
+        </div>
+
+        {/* TILES */}
+        <div>
+          {b.mapTiles<ReactNode>((tile)=>(
+            <button
+            className='tile'
+            onClick={()=>{console.log(tile)}}
+            key={tile.id}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (tile.x)}px,${SIZE * (tile.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }}
+            >
+              <img
+              src={tile.img}
+              style={{
+                transform: `rotate(${tile.rot}deg)`,
+                width: '100%',
+                height: '100%',
+              }}
+              />
+            </button>
+          ))}
+        </div>
+
       </div>
     </>
   )

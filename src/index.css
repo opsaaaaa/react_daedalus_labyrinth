@@ -58,10 +58,11 @@
 button {
   background: none;
   border: none;
-  padding: 1px;
+  padding: 0;
   margin: 0;
 }
-.tile:hover, .tile:focus {
+/* .tile:hover, .tile:focus { */
+button:hover, button:focus {
   box-shadow: 0 0 5px 5px #17fa;
   /* outline: solid blue; */
   border-radius: 10px;
