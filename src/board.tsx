@@ -88,9 +88,15 @@ export type Board = {
 }
 
 export class Board {
-  // the tileID assiciated with 
-  tiles: Tile[]; // the tile type associated with a tile id.
-  cells: number[]; // the uniq id for each individual tile.
+
+  tiles: Tile[]; // Tiles ordered tile id
+  cells: Tile[]; // Tiles ordered by placement on the board.
+  // Initiall tiles and cells are they same, but the order changes as the game is played
+  // The tiles is used to preserve rendering order
+  // while cells is used to query tiles by location.
+  // Both point to the same objects.
+  // so manipulating the properties of a tile in one list will also update the item on the other.
+
   height: number;
   width: number;
   size: number;
@@ -102,14 +108,19 @@ export class Board {
     this.size = 1 + w*h
     
     this.tiles = new Array(this.size)
+    this.cells = new Array(this.size)
+
+    let t: Tile
+
     for(let i = 0; i < this.size; i++){
-      this.tiles[i] = this.init_tile(i) 
+      t = this.init_tile(i)
+      this.tiles[i] = this.cells[i] = t
     }
-    const end = this.tiles[this.size-1]
-    end.x = w+1
-    end.y = h+1
     
-    this.cells = new Array(this.size).fill(0).map((_,i)=>(i))
+    t = this.cells[this.size-1]
+    t.x = w+1
+    t.y = h+1
+    
   }
 
   mapTiles<T>(fn: (t: Tile & TileKind)=>T): T[] {
@@ -124,6 +135,7 @@ export class Board {
 
   mapInsertSlots<T>(fn: (a: InsertArrow)=>T): T[] {
     // Walk around the board in a square and output the insert arrows.
+    // The order is important because math is used to get the oposite arrow.
 
     let out: T[] = new Array(this.width*2 + this.height*2)
 
@@ -196,33 +208,28 @@ export class Board {
     x += compass.x
     y += compass.y
 
-    let push_cell: number = this.get_last_cell()
-    let pull_cell: number
-    let tile: Tile
+    let push: Tile = this.cells[this.size-1]
+    let pull: Tile
+
     let p = 0;
 
     do {
       p = this.pos(x,y)
 
-      tile = this.tiles[push_cell]
+      push.y = y + 1
+      push.x = x + 1
 
-      tile.y = y + 1
-      tile.x = x + 1
-
-
-      pull_cell = this.cells[p]
-      this.cells[p] = push_cell
-      push_cell = pull_cell
+      pull = this.cells[p]
+      this.cells[p] = push
+      push = pull
 
       x += compass.x
       y += compass.y
     } while(this.in_bounds(x, y))
 
-
-    tile = this.tiles[push_cell]
-    tile.x = this.width+1
-    tile.y = this.height+1
-    this.cells[this.size-1] = push_cell
+    push.x = this.width+1
+    push.y = this.height+1
+    this.cells[this.size-1] = push
   }
 
   private get_compass(x: number, y: number): {x: number, y: number} | undefined {
@@ -238,18 +245,18 @@ export class Board {
   }
 
   get_hand(): Tile {
-    return this.tiles[this.cells[this.size-1]]
+    return this.cells[this.size-1]
   }
 
-  get_tile(x:number,y:number): Tile {
-    return this.tiles[this.get_cell(x,y)]
+  get_tile(id: number): Tile {
+    return this.tiles[id]
   }
 
-  get_cell(x:number, y:number): number {
+  get_cell(x:number, y:number): Tile {
     return this.cells[pos(x,y)]
   }
 
-  get_last_cell(): number {
+  get_last_cell(): Tile {
     return this.cells[this.size-1]
   }
 
