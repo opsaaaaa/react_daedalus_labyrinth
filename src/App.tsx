@@ -4,10 +4,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Board } from './board'
 import type { Tile } from './board'
+import arrowSvg from '/arrow.svg'
+import rotateSvg from '/rotate.svg'
 import './App.css'
 
 const SIZE = 80
 
+const OFFSET = {X: 1, Y: 1}
 
 function App() {
   const [actionCount, setActionCount] = useState(0)
@@ -15,8 +18,6 @@ function App() {
   
   function onClickTile(tile: Tile): void {
     if(b.is_hand(tile)) {
-      b.rotate_hand()
-      setActionCount(actionCount+1)
     }
   }
 
@@ -31,51 +32,18 @@ function App() {
       }}
       >
 
-        {/* Arrow Buttons */}
-        <div>
-          {b.mapInsertSlots((arrow)=>(
-            <button
-            // onMouseDown={()=>{
-            //   b.insertPreview(arrow.x,arrow.y)
-            //   setActionCount(actionCount+1)
-            // }}
-            className="arrow"
-            disabled={arrow.disabled}
-            onClick={()=>{
-              b.insertSlot(arrow)
-              setActionCount(actionCount+1)
-            }}
-            key={arrow.id}
-            style={{
-              position: 'absolute',
-              transform: `translate(${SIZE * (arrow.x)}px,${SIZE * (arrow.y)}px)`,
-              width: SIZE,
-              height: SIZE,
-            }}
-            >
-              <img
-              src={arrow.img}
-              style={{
-                transform: `rotate(${arrow.rot}deg)`,
-                width: '100%',
-                height: '100%',
-                zIndex: 100,
-              }}
-              />
-            </button>
-          ))}
-        </div>
-
         {/* TILES */}
         <div>
           {b.mapTiles<ReactNode>((tile)=>(
             <button
+            disabled={true}
             className='tile'
             onClick={()=>{onClickTile(tile)}}
             key={tile.id}
+            data-hand={tile.is_hand}
             style={{
               position: 'absolute',
-              transform: `translate(${SIZE * (tile.x)}px,${SIZE * (tile.y)}px)`,
+              transform: `translate(${SIZE * (OFFSET.X + tile.x)}px,${SIZE * (OFFSET.Y + tile.y)}px)`,
               width: SIZE,
               height: SIZE,
             }}
@@ -91,6 +59,60 @@ function App() {
             </button>
           ))}
         </div>
+
+        {/* Arrow Buttons */}
+        <div>
+          {b.insert_slot_btns<ReactNode>((arrow)=>(
+            <button
+            className="arrow"
+            disabled={arrow.disabled}
+            onClick={()=>{
+              b.insertSlot(arrow)
+              setActionCount(actionCount+1)
+            }}
+            key={arrow.id}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (OFFSET.X + arrow.x)}px,${SIZE * (OFFSET.Y + arrow.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }}
+            >
+              <img
+              src={arrowSvg}
+              className='arrow-svg'
+              style={{
+                transform: `rotate(${arrow.rot}deg)`,
+              }}
+              />
+            </button>
+          ))}
+
+        {/* Rotate Buttons */}
+          {b.rotate_hand_btn<ReactNode>((hand)=>(
+            <button
+            disabled={hand.disabled}
+            onClick={()=>{{
+              b.rotate_hand()
+              setActionCount(actionCount+1)
+            }}}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (OFFSET.X + hand.x)}px,${SIZE * (OFFSET.Y + hand.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }}
+            key={'hand'}
+            >
+              <img
+              className='rotate-svg anim-hint-rotate'
+              src={rotateSvg}
+              />
+            </button>
+          ))}
+        </div>
+
+
 
       </div>
     </>

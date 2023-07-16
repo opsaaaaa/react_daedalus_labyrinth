@@ -2,7 +2,6 @@ import cornerSvg from '/corner_path.svg'
 import jointSvg from '/joint_path.svg'
 import lineSvg from '/line_path.svg'
 import crossSvg from '/cross_path.svg'
-import arrowSvg from '/arrow.svg'
 
 export type TileKind = {
   nav: bool[],
@@ -64,7 +63,6 @@ export type InsertArrow = {
   id: number,
   x: number,
   y: number,
-  img: arrowSvg,
   disabled: boolean,
 }
 
@@ -81,6 +79,7 @@ export type Tile = {
   x: number,
   y: number,
   id: number,
+  is_hand: boolean,
 }
 
 export type Board = {
@@ -118,8 +117,9 @@ export class Board {
     }
     
     t = this.cells[this.size-1]
-    t.x = w+1
-    t.y = h+1
+    t.is_hand = true
+    t.x = w
+    t.y = h
     
   }
 
@@ -132,39 +132,43 @@ export class Board {
     }
     return out
   }
+  rotate_hand_btn<T>(fn: (a: {disabled: bool, x: number, y: number})=>T): T {
+    return fn({x: this.width, y: this.height, disabled: false})
+    insert_slot_btns
+  }
 
-  mapInsertSlots<T>(fn: (a: InsertArrow)=>T): T[] {
+  insert_slot_btns<T>(fn: (a: InsertArrow)=>T): T[] {
     // Walk around the board in a square and output the insert arrows.
     // The order is important because math is used to get the oposite arrow.
 
     let out: T[] = new Array(this.width*2 + this.height*2)
 
     let id = 0
-    let x = 1
-    let y = 0
+    let x = 0
+    let y = -1
     let rot = 0
 
-    for(; x < this.width+1; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+    for(; x < this.width; x++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
       id++;
     }
     y++
     rot += 90
-    for(; y < this.height+1; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+    for(; y < this.height; y++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
       id++;
     }
-    x = 1
-    rot += 90
-    for(; x < this.width+1; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
-      id++;
-    }
-    y = 1
     x = 0
     rot += 90
-    for(; y < this.height+1; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert, img: arrowSvg})
+    for(; x < this.width; x++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
+      id++;
+    }
+    y = 0
+    x = -1
+    rot += 90
+    for(; y < this.height; y++) {
+      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
       id++;
     }
 
@@ -196,7 +200,7 @@ export class Board {
     if(this.last_insert !== id) {
       const s = this.width + this.height
       this.last_insert = (id + s) % (s*2)
-      this.insert(x - 1,y - 1)
+      this.insert(x,y)
     } else {
       // TODO: display a toast notise to the user
     }
@@ -204,6 +208,7 @@ export class Board {
 
   private insert(x:number, y:number): void {
     let compass = this.get_compass(x,y)
+    console.log({compass})
     if(!compass) {return}
     x += compass.x
     y += compass.y
@@ -213,11 +218,13 @@ export class Board {
 
     let p = 0;
 
+    push.is_hand = false
+
     do {
       p = this.pos(x,y)
 
-      push.y = y + 1
-      push.x = x + 1
+      push.y = y
+      push.x = x
 
       pull = this.cells[p]
       this.cells[p] = push
@@ -227,8 +234,9 @@ export class Board {
       y += compass.y
     } while(this.in_bounds(x, y))
 
-    push.x = this.width+1
-    push.y = this.height+1
+    push.is_hand = true
+    push.x = this.width
+    push.y = this.height
     this.cells[this.size-1] = push
   }
 
@@ -278,9 +286,10 @@ export class Board {
       const kind = this.rand_tile_kind()
       return {
         kind: kind,
-        x: i % this.width + 1,
-        y: Math.floor(i / this.width) + 1,
+        x: i % this.width,
+        y: Math.floor(i / this.width),
         id: i,
+        is_hand: false,
       } as Tile
   }
 
