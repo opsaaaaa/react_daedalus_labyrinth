@@ -69,33 +69,36 @@ export class Board {
   build_actor_moves(actor: Actor): void {
     let p = 0
     let moves = Tile
-
+    const seen = new Array(this.size).fill(false)
    }
 
-  private build_actor_moves_r(actor: Actor, t: Tile): void {
+  private build_actor_moves_r(actor: Actor, t: Tile, seen: bool[], depth: number): void {
     // base case
     // in_bounds
+    if (depth >= actor.steps) { return }
     
     // pre
     let cursor: Tile
     let x: number = 0
     let y: number = 0
+    let p: number = 0
 
     // recurse
     for(compass in COMPASS) {
       x = compass.x + tile.x
       y = compass.y + tile.y
-      if(this.in_bounds(x,y)) {
-        cursor = this.get_cell(x,y)
-        t
-        // if()
-        
-        // build_actor_moves_r(actor, this.get_cell(x,y))
-      }
-    }
+      p = this.pos(x,y)
 
-    // post
-    actor.moves.push()
+      if(!this.in_bounds(x,y) || seen[p]) { continue }
+
+      cursor = this.get_cell(x,y)
+
+      if(!t.kind.nav[compass.fw] || !cursor.kind.nav[compass.bw]) { continue }
+
+      seen[p] = true
+      actor.moves.push(cursor)
+      build_actor_moves_r(actor, this.cells[p], seen, depth - 1)
+    }
 
   }
 
