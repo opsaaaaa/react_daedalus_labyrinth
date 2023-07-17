@@ -6,60 +6,8 @@ import crossSvg from '/cross_path.svg'
 import type {Actor, ActorInfo} from './game/actor'
 import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
 
-export type TileKind = {
-  nav: bool[],
-  rot: number,
-  img: crossSvg | jointSvg | lineSvg | cornerSvg,
-}
-
-export const TILE_INFO: TileKind[] = [
-  // nav: [ top, right, bottom, left]
-  {
-    nav: [false, true, true, false],
-    rot: 0,
-    img: cornerSvg,
-  },{
-    nav: [false, false, true, true],
-    rot: 90,
-    img: cornerSvg,
-  },{
-    nav: [true, false, false, true],
-    rot: 180,
-    img: cornerSvg,
-  },{
-    nav: [true, true, false, false],
-    rot: 270,
-    img: cornerSvg,
-  },{
-    nav: [true, true, true, false],
-    rot: 0,
-    img: jointSvg,
-  },{
-    nav: [false, true, true, true],
-    rot: 90,
-    img: jointSvg,
-  },{
-    nav: [true, false, true, true],
-    rot: 180,
-    img: jointSvg,
-  },{
-    nav: [true, true, false, true],
-    rot: 270,
-    img: jointSvg,
-  },{
-    nav: [true, false, true, false],
-    rot: 0,
-    img: lineSvg,
-  },{
-    nav: [false, true, false, true],
-    rot: 90,
-    img: lineSvg,
-  },{
-    nav: [true, true, true, true],
-    rot: 0,
-    img: crossSvg,
-  },
-]
+import type {Tile, TileKind} from './game/tile'
+import {TILE_INFO} from './game/tile'
 
 export type InsertArrow = {
   rot: number,
@@ -69,22 +17,12 @@ export type InsertArrow = {
   disabled: boolean,
 }
 
-
 const COMPASS = [
   {x: 0, y: 1},
   {x: -1, y: 0},
   {x: 0, y: -1},
   {x: 1, y: 0},
 ]
-
-export type Tile = {
-  kind: number,
-  x: number,
-  y: number,
-  id: number,
-  is_hand: boolean,
-}
-
 
 
 export class Board {
