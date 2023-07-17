@@ -6,6 +6,13 @@ import {TILE_INFO} from './game/tile'
 
 import type {InsertArrowBtn} from './game/btn'
 
+type CompassType = {
+  x: number,
+  y: number,
+  bw: number,
+  fw: number,
+}
+
 const COMPASS = [
   {x: 0, y: 1, fw: 0, bw: 2},
   {x: -1, y: 0, fw: 1, bw: 3},
@@ -53,6 +60,7 @@ export class Board {
 
     this.init_actors()
 
+    this.build_actors_moves()
   }
 
   rotate_hand(): void {
@@ -66,13 +74,28 @@ export class Board {
     return this.get_hand().id === tile.id
   }
 
-  build_actor_moves(actor: Actor): void {
-    let p = 0
-    let moves = Tile
-    const seen = new Array(this.size).fill(false)
-   }
+  build_actors_moves(): void {
+    // for(let i in this.actors) {
+    //   this.build_actor_moves(this.actors[i])
+    // }
+    this.actors.forEach((actor)=>{
+      this.build_actor_moves(actor)
+    })
+  }
 
-  private build_actor_moves_r(actor: Actor, t: Tile, seen: bool[], depth: number): void {
+  build_actor_moves(actor: Actor): void {
+
+    const seen = new Array(this.size).fill(false)
+
+    // get the area of a dimond shape by its radious on a grid
+    // new Array(Math.ceil((((actor.steps - .5)*2)**2)/2))
+    
+    actor.moves = []
+
+    this.build_actor_moves_r(actor, actor.tile, seen, actor.steps)
+  }
+
+  private build_actor_moves_r(actor: Actor, tile: Tile, seen: bool[], depth: number): void {
     // base case
     // in_bounds
     if (depth >= actor.steps) { return }
@@ -82,22 +105,24 @@ export class Board {
     let x: number = 0
     let y: number = 0
     let p: number = 0
-
+    let compass: CompassType
     // recurse
-    for(compass in COMPASS) {
+    // for(compass in COMPASS) {
+    for(let i = 0; i < COMPASS.length; i++) {
+      compass = COMPASS[i]
       x = compass.x + tile.x
       y = compass.y + tile.y
       p = this.pos(x,y)
 
       if(!this.in_bounds(x,y) || seen[p]) { continue }
 
-      cursor = this.get_cell(x,y)
+      cursor = this.cells[p]
 
-      if(!t.kind.nav[compass.fw] || !cursor.kind.nav[compass.bw]) { continue }
+      if(!tile.kind.nav[compass.fw] || !cursor.kind.nav[compass.bw]) { continue }
 
       seen[p] = true
       actor.moves.push(cursor)
-      build_actor_moves_r(actor, this.cells[p], seen, depth - 1)
+      this.build_actor_moves_r(actor, cursor, seen, depth - 1)
     }
 
   }
@@ -107,6 +132,7 @@ export class Board {
       const s = this.width + this.height
       this.last_insert = (id + s) % (s*2)
       this.insert(x,y)
+      this.build_actors_moves()
     } else {
       // TODO: display a toast notise to the user
     }
@@ -114,7 +140,6 @@ export class Board {
 
   private insert(x:number, y:number): void {
     let compass = this.get_compass(x,y)
-    console.log({compass})
     if(!compass) {return}
     x += compass.x
     y += compass.y
