@@ -1,18 +1,17 @@
-import type {Actor} from './game/actor'
-import {ACTOR_KIND} from './game/actor'
+import type {Actor, Moves} from './game/actor'
+import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
 
-import type {Tile} from './game/tile'
+import type {Tile, TileKind} from './game/tile'
 import {TILE_INFO} from './game/tile'
 
 import type {InsertArrowBtn} from './game/btn'
 
 const COMPASS = [
-  {x: 0, y: 1},
-  {x: -1, y: 0},
-  {x: 0, y: -1},
-  {x: 1, y: 0},
+  {x: 0, y: 1, fw: 0, bw: 2},
+  {x: -1, y: 0, fw: 1, bw: 3},
+  {x: 0, y: -1, fw: 2, bw: 0},
+  {x: 1, y: 0, fw: 3, bw: 1},
 ]
-
 
 export class Board {
 
@@ -25,6 +24,7 @@ export class Board {
   // so manipulating the properties of a tile in one list will also update the item on the other.
   
   actors: Actor[]; // the players and the minotaur
+  
 
   height: number;
   width: number;
@@ -57,17 +57,46 @@ export class Board {
 
   rotate_hand(): void {
     const hand = this.get_hand()
-    if(hand.kind < 4) {
-      hand.kind = (hand.kind + 1) % 4
-    } else if (hand.kind < 8) {
-      hand.kind = (hand.kind + 1) % 4 + 4
-    } else if (hand.kind < 10) {
-      hand.kind = (hand.kind + 1) % 2 + 8
+    if (hand.kind.next) {
+      hand.kind = hand.kind.next
     }
   }
 
   is_hand(tile: Tile): bool {
     return this.get_hand().id === tile.id
+  }
+
+  build_actor_moves(actor: Actor): void {
+    let p = 0
+    let moves = Tile
+
+   }
+
+  private build_actor_moves_r(actor: Actor, t: Tile): void {
+    // base case
+    // in_bounds
+    
+    // pre
+    let cursor: Tile
+    let x: number = 0
+    let y: number = 0
+
+    // recurse
+    for(compass in COMPASS) {
+      x = compass.x + tile.x
+      y = compass.y + tile.y
+      if(this.in_bounds(x,y)) {
+        cursor = this.get_cell(x,y)
+        t
+        // if()
+        
+        // build_actor_moves_r(actor, this.get_cell(x,y))
+      }
+    }
+
+    // post
+    actor.moves.push()
+
   }
 
   insertSlot({x, y, id}: InsertArrowBtn): void {
@@ -142,14 +171,8 @@ export class Board {
     return this.cells[this.size-1]
   }
 
-  private rand_tile_kind(): number {
-    return Math.floor( Math.random()*(TILE_INFO.length) )
-    // the math shinanigans is to even out the wieghts for lines and corners
-    // const v = Math.floor( Math.random()*(TILE_INFO.length+2) )
-    // if(v >= TILE_INFO.length) {
-    //   return v-3
-    // }
-    // return v 
+  private rand_tile_kind(): TileKind {
+    return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
   }
 
   private pos(x:number,y:number): number {

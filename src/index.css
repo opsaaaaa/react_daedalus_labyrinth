@@ -87,8 +87,8 @@ button:is(:hover, :focus-visible) .arrow-svg {
   opacity: 1;
 }
 .actor-svg {
-  height: 120%;
-  margin-top: -75%;
+  height: 140%;
+  margin-top: -60%;
 }
 
 .rotate-svg {

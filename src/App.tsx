@@ -24,7 +24,6 @@ function App() {
   }
 
 
-  console.log({actors: b.actors})
   return (
     <>
       <div
@@ -38,10 +37,9 @@ function App() {
         {/* TILES */}
         <div>
           {draw.tiles<ReactNode>(b,(tile)=>(
-            <button
+            <div
             disabled={true}
             className="tile anim-transform"
-            onClick={()=>{onClickTile(tile)}}
             key={tile.id}
             data-hand={tile.is_hand}
             style={{
@@ -52,26 +50,25 @@ function App() {
             }}
             >
               <img
-              src={tile.img}
+              src={tile.kind.img}
               style={{
-                transform: `rotate(${tile.rot}deg)`,
+                transform: `rotate(${tile.kind.rot}deg)`,
                 width: '100%',
                 height: '100%',
               }}
               />
-            </button>
+            </div>
           ))}
         </div>
 
         {/*  PLAYERS / ACTORS*/}
         <div>
           {draw.actors<ReactNode>(b,(actor)=>(
-            <button
+            <div
             // disabled={actor.disabled}
 
             className="actor anim-transform"
             key={actor.kind}
-            onClick={()=>{console.log(actor)}}
             style={{
               position: 'absolute',
               transform: `translate(${SIZE * (OFFSET.X + actor.tile.x)}px,${SIZE * (OFFSET.Y + actor.tile.y)}px)`,
@@ -83,7 +80,7 @@ function App() {
               className="actor-svg"
               src={actor.img}
               />
-            </button>
+            </div>
           ))}
 
         </div>

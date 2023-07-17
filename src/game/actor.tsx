@@ -8,10 +8,19 @@ export type Actor = {
   kind: 0 | 1 | 2 | 3,
   tile: Tile,
   human: boolean,
+  moves: Tile[],
 }
 
 export type ActorInfo = {
-  img: typeof minotaurSvg
+  img: typeof minotaurSvg,
+  color: string,
+  steps: number,
+}
+
+
+export type Move = {
+  tile: Tile,
+  quality
 }
 
 
@@ -23,9 +32,9 @@ export const ACTOR_KIND = {
 }
 
 export const ACTOR_INFO: ActorInfo[] = [
-  { img: minotaurSvg },
-  { img: playerGreenSvg },
-  { img: playerBlueSvg },
-  { img: playerOrangeSvg },
+  { img: minotaurSvg, color: 'red', steps: 4 },
+  { img: playerGreenSvg, color: 'green', steps: 2 },
+  { img: playerBlueSvg, color: 'blue', steps: 2 },
+  { img: playerOrangeSvg, color: 'orange', steps: 2 },
 ]
 

@@ -9,12 +9,10 @@ import {ACTOR_KIND, ACTOR_INFO} from './actor'
 
 import type {InsertArrowBtn} from './btn'
 
-export function tiles<T>(b: Board, fn: (t: Tile & TileKind)=>T): T[] {
+export function tiles<T>(b: Board, fn: (t: Tile)=>T): T[] {
   let out: T[] = new Array(b.size)
   for(let i = 0; i < b.size; i++){
-    const tile = b.tiles[i]
-    const tileInfo = TILE_INFO[tile.kind]
-    out[i] = fn({...tile, ...tileInfo})
+    out[i] = fn(b.tiles[i])
   }
   return out
 }
