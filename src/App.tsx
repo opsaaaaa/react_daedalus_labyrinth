@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import type { ReactNode } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -14,7 +14,7 @@ const OFFSET = {X: 1, Y: 1}
 
 function App() {
   const [actionCount, setActionCount] = useState(0)
-  const [b, setBoard] = useState(new Board(5,5))
+  const b = useMemo(()=>(new Board(5,5)),[])
   
   function onClickTile(tile: Tile): void {
     if(b.is_hand(tile)) {
@@ -22,6 +22,7 @@ function App() {
   }
 
 
+  console.log({actors: b.actors})
   return (
     <>
       <div
@@ -37,7 +38,7 @@ function App() {
           {b.mapTiles<ReactNode>((tile)=>(
             <button
             disabled={true}
-            className='tile'
+            className="tile anim-transform"
             onClick={()=>{onClickTile(tile)}}
             key={tile.id}
             data-hand={tile.is_hand}
@@ -59,6 +60,33 @@ function App() {
             </button>
           ))}
         </div>
+
+        {/*  PLAYERS / ACTORS*/}
+        <div>
+          {b.render_actors<ReactNode>((actor)=>(
+            <button
+            // disabled={actor.disabled}
+
+            className="actor anim-transform"
+            key={actor.kind}
+            onClick={()=>{console.log(actor)}}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (OFFSET.X + actor.tile.x)}px,${SIZE * (OFFSET.Y + actor.tile.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }}
+            >
+              <img
+              className="actor-svg"
+              src={actor.img}
+              />
+            </button>
+          ))}
+
+        </div>
+
+
 
         {/* Arrow Buttons */}
         <div>
@@ -111,8 +139,6 @@ function App() {
             </button>
           ))}
         </div>
-
-
 
       </div>
     </>

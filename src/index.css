@@ -69,13 +69,14 @@ button {
   border-radius: 10px;
   z-index: 100;
 }
-.tile {
+.tile, .anim-transform {
   transition: transform 400ms ease;
 }
 img {
   width: 100%;
   height: 100%;
 }
+
 .arrow-svg {
   opacity: .4;
 }
@@ -83,9 +84,12 @@ button:disabled .arrow-svg {
   display: none;
 }
 button:is(:hover, :focus-visible) .arrow-svg {
-  opacity: 0;
+  opacity: 1;
 }
-
+.actor-svg {
+  height: 120%;
+  margin-top: -75%;
+}
 
 .rotate-svg {
   opacity: 0;

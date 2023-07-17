@@ -3,6 +3,9 @@ import jointSvg from '/joint_path.svg'
 import lineSvg from '/line_path.svg'
 import crossSvg from '/cross_path.svg'
 
+import type {Actor, ActorInfo} from './game/actor'
+import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
+
 export type TileKind = {
   nav: bool[],
   rot: number,
@@ -82,9 +85,7 @@ export type Tile = {
   is_hand: boolean,
 }
 
-export type Board = {
-  tiles: T
-}
+
 
 export class Board {
 
@@ -95,6 +96,8 @@ export class Board {
   // while cells is used to query tiles by location.
   // Both point to the same objects.
   // so manipulating the properties of a tile in one list will also update the item on the other.
+  
+  actors: Actor[]; // the players and the minotaur
 
   height: number;
   width: number;
@@ -120,7 +123,9 @@ export class Board {
     t.is_hand = true
     t.x = w
     t.y = h
-    
+
+    this.init_actors()
+
   }
 
   mapTiles<T>(fn: (t: Tile & TileKind)=>T): T[] {
@@ -135,6 +140,16 @@ export class Board {
   rotate_hand_btn<T>(fn: (a: {disabled: bool, x: number, y: number})=>T): T {
     return fn({x: this.width, y: this.height, disabled: false})
     insert_slot_btns
+  }
+
+  render_actors<T>(fn: (a: Actor & ActorInfo)=>T): T[] {
+    let out: T[] = new Array(this.actors.length)
+    for(let i = 0; i < this.actors.length; i++) {
+      const actor = this.actors[i]
+      const actor_info = ACTOR_INFO[actor.kind]
+      out[i] = fn({...actor, ...actor_info})
+    }
+    return out;
   }
 
   insert_slot_btns<T>(fn: (a: InsertArrow)=>T): T[] {
@@ -173,12 +188,6 @@ export class Board {
     }
 
     return out
-  }
-
-  insertPreview(x:number, y:number): void {
-    const hand = this.get_hand()
-    hand.x = x
-    hand.y = y
   }
 
   rotate_hand(): void {
@@ -293,5 +302,16 @@ export class Board {
       } as Tile
   }
 
+  private init_actors(count: number = 4): void {
+    this.actors = new Array(4)
+    this.actors[0] = this.init_actor(ACTOR_KIND.MINOTAUR, 0, 0, true)
+    this.actors[1] = this.init_actor(ACTOR_KIND.GREEN, this.width - 1, 0, true)
+    this.actors[2] = this.init_actor(ACTOR_KIND.BLUE, 0, this.height - 1, true)
+    this.actors[3] = this.init_actor(ACTOR_KIND.ORANGE, this.width - 1, this.height - 1, true)
+  }
+
+  private init_actor(kind: 0 | 1 | 2 | 3, x: number, y: number, human: boolean = true): Actor {
+    return {kind, tile: this.cells[this.pos(x,y)], human }
+  }
 
 }
