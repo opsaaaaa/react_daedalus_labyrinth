@@ -1,21 +1,10 @@
-import cornerSvg from '/corner_path.svg'
-import jointSvg from '/joint_path.svg'
-import lineSvg from '/line_path.svg'
-import crossSvg from '/cross_path.svg'
+import type {Actor} from './game/actor'
+import {ACTOR_KIND} from './game/actor'
 
-import type {Actor, ActorInfo} from './game/actor'
-import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
-
-import type {Tile, TileKind} from './game/tile'
+import type {Tile} from './game/tile'
 import {TILE_INFO} from './game/tile'
 
-export type InsertArrow = {
-  rot: number,
-  id: number,
-  x: number,
-  y: number,
-  disabled: boolean,
-}
+import type {InsertArrowBtn} from './game/btn'
 
 const COMPASS = [
   {x: 0, y: 1},
@@ -66,68 +55,6 @@ export class Board {
 
   }
 
-  mapTiles<T>(fn: (t: Tile & TileKind)=>T): T[] {
-    let out: T[] = new Array(this.size)
-    for(let i = 0; i < this.size; i++){
-      const tile = this.tiles[i]
-      const tileInfo = TILE_INFO[tile.kind]
-      out[i] = fn({...tile, ...tileInfo})
-    }
-    return out
-  }
-  rotate_hand_btn<T>(fn: (a: {disabled: bool, x: number, y: number})=>T): T {
-    return fn({x: this.width, y: this.height, disabled: false})
-    insert_slot_btns
-  }
-
-  render_actors<T>(fn: (a: Actor & ActorInfo)=>T): T[] {
-    let out: T[] = new Array(this.actors.length)
-    for(let i = 0; i < this.actors.length; i++) {
-      const actor = this.actors[i]
-      const actor_info = ACTOR_INFO[actor.kind]
-      out[i] = fn({...actor, ...actor_info})
-    }
-    return out;
-  }
-
-  insert_slot_btns<T>(fn: (a: InsertArrow)=>T): T[] {
-    // Walk around the board in a square and output the insert arrows.
-    // The order is important because math is used to get the oposite arrow.
-
-    let out: T[] = new Array(this.width*2 + this.height*2)
-
-    let id = 0
-    let x = 0
-    let y = -1
-    let rot = 0
-
-    for(; x < this.width; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
-      id++;
-    }
-    y++
-    rot += 90
-    for(; y < this.height; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
-      id++;
-    }
-    x = 0
-    rot += 90
-    for(; x < this.width; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
-      id++;
-    }
-    y = 0
-    x = -1
-    rot += 90
-    for(; y < this.height; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === this.last_insert})
-      id++;
-    }
-
-    return out
-  }
-
   rotate_hand(): void {
     const hand = this.get_hand()
     if(hand.kind < 4) {
@@ -143,7 +70,7 @@ export class Board {
     return this.get_hand().id === tile.id
   }
 
-  insertSlot({x, y, id}: InsertArrow): void {
+  insertSlot({x, y, id}: InsertArrowBtn): void {
     if(this.last_insert !== id) {
       const s = this.width + this.height
       this.last_insert = (id + s) % (s*2)

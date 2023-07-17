@@ -8,6 +8,8 @@ import arrowSvg from '/arrow.svg'
 import rotateSvg from '/rotate.svg'
 import './App.css'
 
+import * as draw from './game/draw'
+
 const SIZE = 80
 
 const OFFSET = {X: 1, Y: 1}
@@ -35,7 +37,7 @@ function App() {
 
         {/* TILES */}
         <div>
-          {b.mapTiles<ReactNode>((tile)=>(
+          {draw.tiles<ReactNode>(b,(tile)=>(
             <button
             disabled={true}
             className="tile anim-transform"
@@ -63,7 +65,7 @@ function App() {
 
         {/*  PLAYERS / ACTORS*/}
         <div>
-          {b.render_actors<ReactNode>((actor)=>(
+          {draw.actors<ReactNode>(b,(actor)=>(
             <button
             // disabled={actor.disabled}
 
@@ -90,7 +92,7 @@ function App() {
 
         {/* Arrow Buttons */}
         <div>
-          {b.insert_slot_btns<ReactNode>((arrow)=>(
+          {draw.insert_btns<ReactNode>(b,(arrow)=>(
             <button
             className="arrow"
             disabled={arrow.disabled}
@@ -117,7 +119,7 @@ function App() {
           ))}
 
         {/* Rotate Buttons */}
-          {b.rotate_hand_btn<ReactNode>((hand)=>(
+          {draw.rotate_hand_btn<ReactNode>(b,(hand)=>(
             <button
             disabled={hand.disabled}
             onClick={()=>{{
