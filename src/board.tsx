@@ -15,6 +15,9 @@ type CompassType = {
 
 const COMPASS = [
   // top, right, bottom, left
+  // fw and bw, forwards backwards;
+  // fw and bw are indexes for on array of valid direction given a kind of tile.
+  // ie. nav: [true, false, true, false]
   {x: 0, y: -1, fw: 0, bw: 2},
   {x: 1, y: 0, fw: 1, bw: 3},
   {x: 0, y: 1, fw: 2, bw: 0},
@@ -34,6 +37,8 @@ export class Board {
   actors: Actor[]; // the players and the minotaur
  
   selected_actor: Actor | undefined;
+
+  goal: Tile;
 
   height: number;
   width: number;
@@ -65,6 +70,9 @@ export class Board {
     this.init_actors()
 
     this.build_actors_moves()
+
+
+    this.goal = this.cells[Math.floor((this.size-1) /2)]
   }
 
   rotate_hand(): void {

@@ -43,6 +43,10 @@ export function actor_move_btns<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
   return out;
 }
 
+export function goal<T>(b: Board, fn: Tile): T {
+  return fn(b.goal)
+}
+
 export function select_actor_btns<T>(b: Board, fn: (a: Actor)=>T): T[] {
   let out: T[] = []
   if(!b.selected_actor) {

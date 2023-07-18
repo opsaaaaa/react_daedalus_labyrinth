@@ -6,6 +6,7 @@ import { Board } from './board'
 import type { Tile } from './board'
 import arrowSvg from '/arrow.svg'
 import rotateSvg from '/rotate.svg'
+import goalSvg from '/goal.svg'
 import './App.css'
 
 import * as draw from './game/draw'
@@ -84,6 +85,27 @@ function App() {
             </div>
           ))}
 
+        </div>
+
+        <div>
+          {draw.goal<ReactNode>(b, (goal)=>(
+            <div
+            className="actor anim-transform"
+            key={goal.id}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (OFFSET.X + goal.x)}px,${SIZE * (OFFSET.Y + goal.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }} 
+            >
+              <img
+              className="actor-svg"
+              src={goalSvg}
+              />
+            </div>
+            
+          ))}
         </div>
 
         {/* Actor Action / Moves */}

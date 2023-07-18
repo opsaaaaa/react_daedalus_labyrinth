@@ -22,13 +22,6 @@
      cx="16"
      cy="25"
      r="2" />
-  <ellipse
-     style="font-variation-settings:normal;opacity:1;fill:#cfa067;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
-     id="path16131"
-     cx="24"
-     cy="80"
-     rx="8.0000067"
-     ry="5" />
   <path
      style="font-variation-settings:normal;opacity:1;fill:#4b3339;fill-opacity:1;stroke:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
      d="m 17,27 c 24,-3 13,17 38,13 -3,4 -3,9 -11,11 4,5 7,2 13,1 -16,22 -16,0 -36,11 z"
