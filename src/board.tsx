@@ -78,15 +78,12 @@ export class Board {
   move_actor(actor, tile): void {
     if(actor.moves.includes(tile)) {
       actor.tile = tile
-      this.build_actor_moves(actor)
+      // this.build_actor_moves(actor)
+      actor.moves = []
     }
   }
 
   build_actors_moves(): void {
-    // for(let i in this.actors) {
-    //   this.build_actor_moves(this.actors[i])
-    // }
-    // this.build_actor_moves(this.actors[0])
     this.actors.forEach((actor)=>{
       this.build_actor_moves(actor)
     })
@@ -106,17 +103,14 @@ export class Board {
 
   private build_actor_moves_r(actor: Actor, tile: Tile, seen: bool[], depth: number): void {
     // base case
-    // in_bounds
     if (depth >= actor.kind.steps) { return }
 
-    // pre
     let cursor: Tile
     let x: number = 0
     let y: number = 0
     let p: number = 0
     let compass: CompassType
-    // recurse
-    // for(compass in COMPASS) {
+
     for(let i = 0; i < COMPASS.length; i++) {
       compass = COMPASS[i]
       x = compass.x + tile.x

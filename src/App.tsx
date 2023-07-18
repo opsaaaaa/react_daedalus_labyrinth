@@ -92,7 +92,6 @@ function App() {
               className="actor-move"
               key={`${actor.id}-${move.id}`}
               onClick={()=>{
-                console.log({actor,move})
                 b.move_actor(actor,move)
                 setActionCount(actionCount+1)
               }}
