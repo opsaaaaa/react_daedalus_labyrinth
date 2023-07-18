@@ -26,17 +26,38 @@ export function actors<T>(b: Board, fn: (a: Actor)=>T): T[] {
   return out;
 }
 
-export function actors_moves<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
-  let out: T[] = new Array(b.size)
-  for(let a = 0; a < b.actors.length; a++) {
-    const actor = b.actors[a]
+export function actor_move_btns<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
+  let out: T[] = new Array()
+  if(b.selected_actor) {
+    const actor = b.selected_actor
     for(let m = 0; m < actor.moves.length; m++) {
       out.push(fn(actor, actor.moves[m]))
     }
   }
+  // for(let a = 0; a < b.actors.length; a++) {
+  //   const actor = b.actors[a]
+  //   for(let m = 0; m < actor.moves.length; m++) {
+  //     out.push(fn(actor, actor.moves[m]))
+  //   }
+  // }
   return out;
 }
 
+export function select_actor_btns<T>(b: Board, fn: (a: Actor)=>T): T[] {
+  let out: T[] = []
+  if(!b.selected_actor) {
+    for(let i = 0; i < b.actors.length; i++) {
+      const actor = b.actors[i]
+      if (actor.moves.length > 0) {
+        out.push(fn(actor))
+      }
+    }
+    return out
+  } else {
+    return [fn(b.selected_actor)]
+  }
+  // return b.actors.map(fn)
+}
 
 export function rotate_hand_btn<T>(b: Board,fn: (a: {disabled: bool, x: number, y: number})=>T): T {
   return fn({x: b.width, y: b.height, disabled: false})

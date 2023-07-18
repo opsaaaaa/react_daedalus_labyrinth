@@ -51,6 +51,7 @@ function App() {
             >
               <img
               src={tile.kind.img}
+              className="anim-transform"
               style={{
                 transform: `rotate(${tile.kind.rot}deg)`,
                 width: '100%',
@@ -87,7 +88,7 @@ function App() {
 
         {/* Actor Action / Moves */}
         <div>
-          {draw.actors_moves<T>(b, (actor,move)=>(
+          {draw.actor_move_btns<ReactNode>(b, (actor,move)=>(
             <button
               className="actor-move"
               key={`${actor.id}-${move.id}`}
@@ -100,6 +101,25 @@ function App() {
                 color: actor.kind.color,
                 position: 'absolute',
                 transform: `translate(${SIZE * (OFFSET.X + move.x)}px,${SIZE * (OFFSET.Y + move.y)}px)`,
+                width: SIZE,
+                height: SIZE,
+              }}
+            />
+          ))}
+
+          {draw.select_actor_btns<ReactNode>(b, (actor)=>(
+            <button
+              className="actor-move"
+              key={actor.id}
+              onClick={()=>{
+                b.select_actor(actor)
+                setActionCount(actionCount+1)
+              }}
+              style={{
+                // background: actor.kind.color,
+                color: actor.kind.color,
+                position: 'absolute',
+                transform: `translate(${SIZE * (OFFSET.X + actor.tile.x)}px,${SIZE * (OFFSET.Y + actor.tile.y)}px)`,
                 width: SIZE,
                 height: SIZE,
               }}

@@ -32,7 +32,8 @@ export class Board {
   // so manipulating the properties of a tile in one list will also update the item on the other.
   
   actors: Actor[]; // the players and the minotaur
-  
+ 
+  selected_actor: Actor | undefined;
 
   height: number;
   width: number;
@@ -46,6 +47,8 @@ export class Board {
     
     this.tiles = new Array(this.size)
     this.cells = new Array(this.size)
+
+    this.selected_actor = undefined
 
     let t: Tile
 
@@ -80,6 +83,15 @@ export class Board {
       actor.tile = tile
       // this.build_actor_moves(actor)
       actor.moves = []
+      this.selected_actor = undefined
+    }
+  }
+
+  select_actor(actor: Actor) {
+    if (this.selected_actor && this.selected_actor.id === actor.id) {
+      this.selected_actor = undefined
+    } else {
+      this.selected_actor = actor
     }
   }
 
@@ -138,6 +150,7 @@ export class Board {
       this.last_insert = (id + s) % (s*2)
       this.insert(x,y)
       this.build_actors_moves()
+      this.selected_actor = undefined
     } else {
       // TODO: display a toast notise to the user
     }
