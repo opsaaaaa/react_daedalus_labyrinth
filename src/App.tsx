@@ -63,6 +63,28 @@ function App() {
           ))}
         </div>
 
+        {/* goal */}
+        <div>
+          {draw.goal<ReactNode>(b, (goal)=>(
+            <div
+            className="actor anim-transform"
+            key={goal.id}
+            style={{
+              position: 'absolute',
+              transform: `translate(${SIZE * (OFFSET.X + goal.x)}px,${SIZE * (OFFSET.Y + goal.y)}px)`,
+              width: SIZE,
+              height: SIZE,
+            }} 
+            >
+              <img
+              className="actor-svg"
+              src={goalSvg}
+              />
+            </div>
+            
+          ))}
+        </div>
+
         {/*  PLAYERS / ACTORS*/}
         <div>
           {draw.actors<ReactNode>(b,(actor)=>(
@@ -85,27 +107,6 @@ function App() {
             </div>
           ))}
 
-        </div>
-
-        <div>
-          {draw.goal<ReactNode>(b, (goal)=>(
-            <div
-            className="actor anim-transform"
-            key={goal.id}
-            style={{
-              position: 'absolute',
-              transform: `translate(${SIZE * (OFFSET.X + goal.x)}px,${SIZE * (OFFSET.Y + goal.y)}px)`,
-              width: SIZE,
-              height: SIZE,
-            }} 
-            >
-              <img
-              className="actor-svg"
-              src={goalSvg}
-              />
-            </div>
-            
-          ))}
         </div>
 
         {/* Actor Action / Moves */}
