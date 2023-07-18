@@ -1,4 +1,4 @@
-import type {Actor, Moves} from './game/actor'
+import type {Actor, Moves, ActorKind} from './game/actor'
 import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
 
 import type {Tile, TileKind} from './game/tile'
@@ -14,10 +14,11 @@ type CompassType = {
 }
 
 const COMPASS = [
-  {x: 0, y: 1, fw: 0, bw: 2},
-  {x: -1, y: 0, fw: 1, bw: 3},
-  {x: 0, y: -1, fw: 2, bw: 0},
-  {x: 1, y: 0, fw: 3, bw: 1},
+  // top, right, bottom, left
+  {x: 0, y: -1, fw: 0, bw: 2},
+  {x: 1, y: 0, fw: 1, bw: 3},
+  {x: 0, y: 1, fw: 2, bw: 0},
+  {x: -1, y: 0, fw: 3, bw: 1},
 ]
 
 export class Board {
@@ -74,10 +75,18 @@ export class Board {
     return this.get_hand().id === tile.id
   }
 
+  move_actor(actor, tile): void {
+    if(actor.moves.includes(tile)) {
+      actor.tile = tile
+      this.build_actor_moves(actor)
+    }
+  }
+
   build_actors_moves(): void {
     // for(let i in this.actors) {
     //   this.build_actor_moves(this.actors[i])
     // }
+    // this.build_actor_moves(this.actors[0])
     this.actors.forEach((actor)=>{
       this.build_actor_moves(actor)
     })
@@ -91,15 +100,15 @@ export class Board {
     // new Array(Math.ceil((((actor.steps - .5)*2)**2)/2))
     
     actor.moves = []
-
-    this.build_actor_moves_r(actor, actor.tile, seen, actor.steps)
+    seen[this.pos(actor.tile.x,actor.tile.y)] = true
+    this.build_actor_moves_r(actor, actor.tile, seen, 0)
   }
 
   private build_actor_moves_r(actor: Actor, tile: Tile, seen: bool[], depth: number): void {
     // base case
     // in_bounds
-    if (depth >= actor.steps) { return }
-    
+    if (depth >= actor.kind.steps) { return }
+
     // pre
     let cursor: Tile
     let x: number = 0
@@ -114,15 +123,17 @@ export class Board {
       y = compass.y + tile.y
       p = this.pos(x,y)
 
-      if(!this.in_bounds(x,y) || seen[p]) { continue }
+      if(this.in_bounds(x,y) && !seen[p]) {
+        cursor = this.cells[p]
+        
+        if(tile.kind.nav[compass.fw] && cursor.kind.nav[compass.bw]) {
+          seen[p] = true
+          actor.moves.push(cursor)
+          this.build_actor_moves_r(actor, cursor, seen, depth + 1)
+        }
+      }
 
-      cursor = this.cells[p]
 
-      if(!tile.kind.nav[compass.fw] || !cursor.kind.nav[compass.bw]) { continue }
-
-      seen[p] = true
-      actor.moves.push(cursor)
-      this.build_actor_moves_r(actor, cursor, seen, depth - 1)
     }
 
   }
@@ -172,10 +183,10 @@ export class Board {
   }
 
   private get_compass(x: number, y: number): {x: number, y: number} | undefined {
-    if(y < 0) { return COMPASS[0] }
-    if(x >= this.width) { return COMPASS[1] }
-    if(y >= this.height) { return COMPASS[2] }
-    if(x < 0) { return COMPASS[3] }
+    if(y < 0) { return COMPASS[2] }
+    if(x >= this.width) { return COMPASS[3] }
+    if(y >= this.height) { return COMPASS[0] }
+    if(x < 0) { return COMPASS[1] }
     return undefined;
   }
 
@@ -220,14 +231,14 @@ export class Board {
 
   private init_actors(count: number = 4): void {
     this.actors = new Array(4)
-    this.actors[0] = this.init_actor(ACTOR_KIND.MINOTAUR, 0, 0, true)
-    this.actors[1] = this.init_actor(ACTOR_KIND.GREEN, this.width - 1, 0, true)
-    this.actors[2] = this.init_actor(ACTOR_KIND.BLUE, 0, this.height - 1, true)
-    this.actors[3] = this.init_actor(ACTOR_KIND.ORANGE, this.width - 1, this.height - 1, true)
+    this.actors[0] = this.init_actor(0,ACTOR_KIND.MINOTAUR, 0, 0, true)
+    this.actors[1] = this.init_actor(1,ACTOR_KIND.GREEN, this.width - 1, 0, true)
+    this.actors[2] = this.init_actor(2,ACTOR_KIND.BLUE, 0, this.height - 1, true)
+    this.actors[3] = this.init_actor(3,ACTOR_KIND.ORANGE, this.width - 1, this.height - 1, true)
   }
 
-  private init_actor(kind: 0 | 1 | 2 | 3, x: number, y: number, human: boolean = true): Actor {
-    return {kind, tile: this.cells[this.pos(x,y)], human }
+  private init_actor(id: number, kind: ActorKind, x: number, y: number, human: boolean = true): Actor {
+    return {moves: [],id, kind, tile: this.cells[this.pos(x,y)], human }
   }
 
 }

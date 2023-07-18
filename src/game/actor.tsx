@@ -5,13 +5,14 @@ import playerOrangeSvg from '/player_orange.svg'
 
 
 export type Actor = {
-  kind: 0 | 1 | 2 | 3,
+  id: number,
+  kind: ActorKind,
   tile: Tile,
   human: boolean,
   moves: Tile[],
 }
 
-export type ActorInfo = {
+export type ActorKind = {
   img: typeof minotaurSvg,
   color: string,
   steps: number,
@@ -20,21 +21,20 @@ export type ActorInfo = {
 
 export type Move = {
   tile: Tile,
-  quality
 }
 
 
 export const ACTOR_KIND = {
-  MINOTAUR: 0,
-  GREEN: 1,
-  BLUE: 2,
-  ORANGE: 3,
+  MINOTAUR: { img: minotaurSvg, color: 'red', steps: 3 },
+  GREEN: { img: playerGreenSvg, color: 'green', steps: 2 },
+  BLUE: { img: playerBlueSvg, color: 'blue', steps: 2 },
+  ORANGE: { img: playerOrangeSvg, color: 'orange', steps: 2 },
 }
 
-export const ACTOR_INFO: ActorInfo[] = [
-  { img: minotaurSvg, color: 'red', steps: 4 },
-  { img: playerGreenSvg, color: 'green', steps: 2 },
-  { img: playerBlueSvg, color: 'blue', steps: 2 },
-  { img: playerOrangeSvg, color: 'orange', steps: 2 },
-]
+// export const ACTOR_INFO: ActorInfo[] = [
+//   { img: minotaurSvg, color: 'red', steps: 4 },
+//   { img: playerGreenSvg, color: 'green', steps: 2 },
+//   { img: playerBlueSvg, color: 'blue', steps: 2 },
+//   { img: playerOrangeSvg, color: 'orange', steps: 2 },
+// ]
 

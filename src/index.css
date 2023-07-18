@@ -63,12 +63,12 @@ button {
   margin: 0;
 }
 /* .tile:hover, .tile:focus { */
-.tile:is(:hover, :focus):not(:disabled) {
-  box-shadow: 0 0 5px 5px #17fa;
-  /* outline: solid blue; */
-  border-radius: 10px;
-  z-index: 100;
-}
+/* .tile:is(:hover, :focus):not(:disabled) { */
+/*   box-shadow: 0 0 5px 5px #17fa; */
+/*   /1* outline: solid blue; *1/ */
+/*   border-radius: 10px; */
+/*   z-index: 100; */
+/* } */
 .tile, .anim-transform {
   transition: transform 400ms ease;
 }
@@ -89,6 +89,17 @@ button:is(:hover, :focus-visible) .arrow-svg {
 .actor-svg {
   height: 140%;
   margin-top: -60%;
+}
+
+.actor-move {
+  box-sizing: border-box;
+  opacity: 0.4;
+  border: currentColor solid 8px;
+  border-radius: 1rem;
+}
+.actor-move:is(:hover, :focus) {
+  box-shadow: 0 0 5px 5px currentColor;
+  opacity: 0.8;
 }
 
 .rotate-svg {

@@ -3,7 +3,7 @@ import { Board } from '../board'
 import type { Tile, TileKind } from './tile'
 import { TILE_INFO } from './tile'
 
-import type {Actor, ActorInfo} from './actor'
+import type {Actor} from './actor'
 import {ACTOR_KIND, ACTOR_INFO} from './actor'
 
 
@@ -18,12 +18,21 @@ export function tiles<T>(b: Board, fn: (t: Tile)=>T): T[] {
 }
 
 
-export function actors<T>(b: Board, fn: (a: Actor & ActorInfo)=>T): T[] {
+export function actors<T>(b: Board, fn: (a: Actor)=>T): T[] {
   let out: T[] = new Array(b.actors.length)
   for(let i = 0; i < b.actors.length; i++) {
-    const actor = b.actors[i]
-    const actor_info = ACTOR_INFO[actor.kind]
-    out[i] = fn({...actor, ...actor_info})
+    out[i] = fn(b.actors[i])
+  }
+  return out;
+}
+
+export function actors_moves<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
+  let out: T[] = new Array(b.size)
+  for(let a = 0; a < b.actors.length; a++) {
+    const actor = b.actors[a]
+    for(let m = 0; m < actor.moves.length; m++) {
+      out.push(fn(actor, actor.moves[m]))
+    }
   }
   return out;
 }

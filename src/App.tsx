@@ -68,7 +68,7 @@ function App() {
             // disabled={actor.disabled}
 
             className="actor anim-transform"
-            key={actor.kind}
+            key={actor.id}
             style={{
               position: 'absolute',
               transform: `translate(${SIZE * (OFFSET.X + actor.tile.x)}px,${SIZE * (OFFSET.Y + actor.tile.y)}px)`,
@@ -78,13 +78,35 @@ function App() {
             >
               <img
               className="actor-svg"
-              src={actor.img}
+              src={actor.kind.img}
               />
             </div>
           ))}
 
         </div>
 
+        {/* Actor Action / Moves */}
+        <div>
+          {draw.actors_moves<T>(b, (actor,move)=>(
+            <button
+              className="actor-move"
+              key={`${actor.id}-${move.id}`}
+              onClick={()=>{
+                console.log({actor,move})
+                b.move_actor(actor,move)
+                setActionCount(actionCount+1)
+              }}
+              style={{
+                // background: actor.kind.color,
+                color: actor.kind.color,
+                position: 'absolute',
+                transform: `translate(${SIZE * (OFFSET.X + move.x)}px,${SIZE * (OFFSET.Y + move.y)}px)`,
+                width: SIZE,
+                height: SIZE,
+              }}
+            />
+          ))}
+        </div>
 
 
         {/* Arrow Buttons */}
