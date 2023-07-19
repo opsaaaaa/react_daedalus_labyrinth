@@ -36,12 +36,50 @@ describe('Board', ()=>{
       TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
       TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
       TILE_KIND.CROSS ])
-    
+
+    expect(b.width).toBe(2)
+    expect(b.height).toBe(3)
+
     expect(b.inspect_state()).toEqual([
       TILE_KIND.LINE_TB, TILE_KIND.LINE_RL,
       TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
       TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
       TILE_KIND.CROSS ])
+
+    b.insert(2,1)
+
+    expect(b.inspect_state()).toEqual([
+      TILE_KIND.LINE_TB, TILE_KIND.LINE_RL,
+      TILE_KIND.CORNER_LT, TILE_KIND.CROSS,
+      TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
+      TILE_KIND.CORNER_TR ])
+  })
+
+  test('.get_moves(x,y)', ()=>{
+    const b = new Board(3,3, [
+      TILE_KIND.LINE_TB, TILE_KIND.LINE_TB, TILE_KIND.LINE_RL,
+      TILE_KIND.LINE_TB, TILE_KIND.CROSS,   TILE_KIND.LINE_RL,
+      TILE_KIND.LINE_TB, TILE_KIND.LINE_TB, TILE_KIND.LINE_RL,
+      TILE_KIND.CROSS ])
+
+    expect(b.get_moves(0,0).map((m)=>(m.id))).toEqual([3,6])
+    expect(b.get_moves(2,0).map((m)=>(m.id))).toEqual([])
+    expect(b.get_moves(1,1).map((m)=>(m.id))).toEqual([1,5,7])
+  })
+
+  test('.get_moves(x,y,depth)', ()=>{
+    const b = new Board(3,3, [
+      TILE_KIND.CROSS,   TILE_KIND.LINE_RL, TILE_KIND.CROSS,
+      TILE_KIND.LINE_TB, TILE_KIND.CROSS,   TILE_KIND.LINE_TB,
+      TILE_KIND.CROSS,   TILE_KIND.LINE_RL, TILE_KIND.CROSS,
+      TILE_KIND.CROSS ])
+
+    expect(b.get_moves(0,0).map((m)=>(m.id))).toEqual([1,2,5,8,7,6,3])
+    expect(b.get_moves(0,0,4).map((m)=>(m.id))).toEqual([1,2,5,8,3,6,7])
+    expect(b.get_moves(0,0,3).map((m)=>(m.id))).toEqual([1,2,5,3,6,7])
+    expect(b.get_moves(0,0,2).map((m)=>(m.id))).toEqual([1,2,3,6])
+    expect(b.get_moves(0,0,1).map((m)=>(m.id))).toEqual([1,3])
+    expect(b.get_moves(0,0,0).map((m)=>(m.id))).toEqual([])
   })
 })
 

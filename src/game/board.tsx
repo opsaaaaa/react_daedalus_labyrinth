@@ -1,5 +1,7 @@
 import {Tile, TILE_KIND} from './tile'
 import {COMPASS} from './compass'
+import type {CompassType} from './compass'
+
 
 export class Board {
   tiles: Tile[]; // Tiles ordered tile id
@@ -9,7 +11,7 @@ export class Board {
   width: number;
   size: number;
 
-  constructor(h: number, w: number, state: TILE_KIND[] = [] ) {
+  constructor(w: number, h: number, state: TILE_KIND[] = [] ) {
     this.height = h
     this.width = w
     this.size = 1 + w*h
@@ -73,6 +75,49 @@ export class Board {
     return x >= 0 && x < this.width && y >= 0 && y < this.height
   }
 
+  get_moves(x: number, y: number, depth: number = this.size): Tile[] {
+    const moves: Tile[] = []
+    const seen: boolean[] = new Array(this.size).fill(false)
+
+    seen[this.pos(x,y)] = true
+
+    this.get_moves_r(moves, this.cell(x,y), seen, depth)
+
+    return moves
+  }
+
+  private get_moves_r(moves: Tile[], tile: Tile, seen: boolean[], depth: number): void {
+    // base case
+    if (depth <= 0) { return }
+
+    let cursor: Tile
+    let x: number = 0
+    let y: number = 0
+    let p: number = 0
+    let compass: CompassType
+
+    for(let i = 0; i < COMPASS.length; i++) {
+      compass = COMPASS[i]
+      x = compass.x + tile.x
+      y = compass.y + tile.y
+      p = this.pos(x,y)
+
+      if(this.in_bounds(x,y) && !seen[p]) {
+        cursor = this.cells[p]
+        
+        if(tile.kind.nav[compass.fw] && cursor.kind.nav[compass.bw]) {
+          seen[p] = true
+          moves.push(cursor)
+          this.get_moves_r(moves, cursor, seen, depth - 1)
+        }
+      }
+
+
+    }
+
+
+  }
+
   private pos(x:number,y:number): number {
     return x + y * this.width
   }
@@ -82,6 +127,7 @@ export class Board {
     if(x >= this.width) { return COMPASS[3] }
     if(y >= this.height) { return COMPASS[0] }
     if(x < 0) { return COMPASS[1] }
+    throw new Error('out of bounds')
     return undefined;
   }
 

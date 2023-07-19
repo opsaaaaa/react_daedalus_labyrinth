@@ -1,5 +1,5 @@
 
-type CompassType = {
+export type CompassType = {
   x: number,
   y: number,
   bw: CARDINAL,
