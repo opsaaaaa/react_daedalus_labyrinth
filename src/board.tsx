@@ -1,7 +1,7 @@
 import type {Actor, Moves, ActorKind} from './game/actor'
 import {ACTOR_KIND, ACTOR_INFO} from './game/actor'
 
-import type {Tile, TileKind} from './game/tile'
+import type {TileType, TileKind} from './game/tile'
 import {TILE_INFO} from './game/tile'
 
 import type {InsertArrowBtn} from './game/btn'
@@ -26,8 +26,8 @@ const COMPASS = [
 
 export class Board {
 
-  tiles: Tile[]; // Tiles ordered tile id
-  cells: Tile[]; // Tiles ordered by placement on the board.
+  tiles: TileType[]; // Tiles ordered tile id
+  cells: TileType[]; // Tiles ordered by placement on the board.
   // Initiall tiles and cells are they same, but the order changes as the game is played
   // The tiles is used to preserve rendering order
   // while cells is used to query tiles by location.
@@ -38,7 +38,7 @@ export class Board {
  
   selected_actor: Actor | undefined;
 
-  goal: Tile;
+  goal: TileType;
 
   height: number;
   width: number;
@@ -55,7 +55,7 @@ export class Board {
 
     this.selected_actor = undefined
 
-    let t: Tile
+    let t: TileType
 
     for(let i = 0; i < this.size; i++){
       t = this.init_tile(i)
@@ -82,7 +82,7 @@ export class Board {
     }
   }
 
-  is_hand(tile: Tile): bool {
+  is_hand(tile: TileType): bool {
     return this.get_hand().id === tile.id
   }
 
@@ -121,11 +121,11 @@ export class Board {
     this.build_actor_moves_r(actor, actor.tile, seen, 0)
   }
 
-  private build_actor_moves_r(actor: Actor, tile: Tile, seen: bool[], depth: number): void {
+  private build_actor_moves_r(actor: Actor, tile: TileType, seen: bool[], depth: number): void {
     // base case
     if (depth >= actor.kind.steps) { return }
 
-    let cursor: Tile
+    let cursor: TileType
     let x: number = 0
     let y: number = 0
     let p: number = 0
@@ -170,8 +170,8 @@ export class Board {
     x += compass.x
     y += compass.y
 
-    let push: Tile = this.cells[this.size-1]
-    let pull: Tile
+    let push: TileType = this.cells[this.size-1]
+    let pull: TileType
 
     let p = 0;
 
@@ -209,19 +209,19 @@ export class Board {
     return x >= 0 && x < this.width && y >= 0 && y < this.height
   }
 
-  get_hand(): Tile {
+  get_hand(): TileType {
     return this.cells[this.size-1]
   }
 
-  get_tile(id: number): Tile {
+  get_tile(id: number): TileType {
     return this.tiles[id]
   }
 
-  get_cell(x:number, y:number): Tile {
+  get_cell(x:number, y:number): TileType {
     return this.cells[pos(x,y)]
   }
 
-  get_last_cell(): Tile {
+  get_last_cell(): TileType {
     return this.cells[this.size-1]
   }
 
@@ -233,7 +233,7 @@ export class Board {
     return x + y * this.width
   }
 
-  private init_tile(i: number): Tile {
+  private init_tile(i: number): TileType {
       const kind = this.rand_tile_kind()
       return {
         kind: kind,
@@ -241,7 +241,7 @@ export class Board {
         y: Math.floor(i / this.width),
         id: i,
         is_hand: false,
-      } as Tile
+      } as TileType
   }
 
   private init_actors(count: number = 4): void {

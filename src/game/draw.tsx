@@ -1,6 +1,6 @@
 import { Board } from '../board'
 
-import type { Tile, TileKind } from './tile'
+import type { TileType, TileKind } from './tile'
 import { TILE_INFO } from './tile'
 
 import type {Actor} from './actor'
@@ -9,7 +9,7 @@ import {ACTOR_KIND, ACTOR_INFO} from './actor'
 
 import type {InsertArrowBtn} from './btn'
 
-export function tiles<T>(b: Board, fn: (t: Tile)=>T): T[] {
+export function tiles<T>(b: Board, fn: (t: TileType)=>T): T[] {
   let out: T[] = new Array(b.size)
   for(let i = 0; i < b.size; i++){
     out[i] = fn(b.tiles[i])
@@ -26,7 +26,7 @@ export function actors<T>(b: Board, fn: (a: Actor)=>T): T[] {
   return out;
 }
 
-export function actor_move_btns<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
+export function actor_move_btns<T>(b: Board, fn: (a: Actor, m: TileType)=>T): T[] {
   let out: T[] = new Array()
   if(b.selected_actor) {
     const actor = b.selected_actor
@@ -43,7 +43,7 @@ export function actor_move_btns<T>(b: Board, fn: (a: Actor, m: Tile)=>T): T[] {
   return out;
 }
 
-export function goal<T>(b: Board, fn: Tile): T {
+export function goal<T>(b: Board, fn: TileType): T {
   return fn(b.goal)
 }
 

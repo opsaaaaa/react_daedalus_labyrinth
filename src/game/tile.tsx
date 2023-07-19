@@ -4,7 +4,7 @@ const lineSvg = '/line_path.svg'
 const crossSvg = '/cross_path.svg'
 
 
-export type Tile = {
+export type TileType = {
   kind: TileKind,
   x: number,
   y: number,
@@ -86,14 +86,14 @@ export function rand_tile_kind(): TileKind {
   return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
 }
 
-export function create_tile(i: number, w: number): Tile {
+export function create_tile(i: number, w: number): TileType {
   return {
     kind: rand_tile_kind(),
     x: i % w,
     y: Math.floor(i / w),
     id: i,
     is_hand: false,
-  } as Tile
+  } as TileType
 }
 
 

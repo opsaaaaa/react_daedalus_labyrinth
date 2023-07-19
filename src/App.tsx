@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Board } from './board'
-import type { Tile } from './board'
 import arrowSvg from '/arrow.svg'
 import rotateSvg from '/rotate.svg'
 import goalSvg from '/goal.svg'
@@ -18,12 +17,6 @@ const OFFSET = {X: 1, Y: 1}
 function App() {
   const [actionCount, setActionCount] = useState(0)
   const b = useMemo(()=>(new Board(5,5)),[])
-  
-  function onClickTile(tile: Tile): void {
-    if(b.is_hand(tile)) {
-    }
-  }
-
 
   return (
     <>

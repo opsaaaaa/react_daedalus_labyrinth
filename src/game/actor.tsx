@@ -7,9 +7,9 @@ import playerOrangeSvg from '/player_orange.svg'
 export type Actor = {
   id: number,
   kind: ActorKind,
-  tile: Tile,
+  tile: TileType,
   human: boolean,
-  moves: Tile[],
+  moves: TileType[],
 }
 
 export type ActorKind = {
@@ -20,7 +20,7 @@ export type ActorKind = {
 
 
 export type Move = {
-  tile: Tile,
+  tile: TileType,
 }
 
 
