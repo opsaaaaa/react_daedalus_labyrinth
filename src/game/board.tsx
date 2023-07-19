@@ -1,28 +1,6 @@
 import {Tile} from './tile' 
 
-
-type CompassType = {
-  x: number,
-  y: number,
-  bw: number,
-  fw: number,
-}
-
-enum CARDINAL {
-  TOP,
-  RIGHT,
-  BOTTOM,
-  LEFT,
-}
-
-const COMPASS: CompassType[] = [
-  // fw and bw, forwards backwards for a given compass direction
-  // ie. nav: [true, false, true, false]
-  {x: 0, y: -1, fw: CARDINAL.TOP, bw: CARDINAL.BOTTOM},
-  {x: 1, y: 0, fw: CARDINAL.RIGHT, bw: CARDINAL.LEFT},
-  {x: 0, y: 1, fw: CARDINAL.BOTTOM, bw: CARDINAL.TOP},
-  {x: -1, y: 0, fw: CARDINAL.LEFT, bw: CARDINAL.RIGHT},
-]
+import {COMPASS} from './compass'
 
 export class Board {
   tiles: Tile[]; // Tiles ordered tile id
@@ -52,7 +30,7 @@ export class Board {
     return this.cells[this.pos(x,y)]
   }
 
-  insert_hand(x:number, y:number): void {
+  insert(x:number, y:number): void {
     let compass = this.get_compass(x,y)
     if(!compass) {return}
     x += compass.x
@@ -85,24 +63,24 @@ export class Board {
     this.cells[this.size-1] = push
   }
 
-  private get_compass(x: number, y: number): {x: number, y: number} | undefined {
-    if(y < 0) { return COMPASS[2] }
-    if(x >= this.width) { return COMPASS[3] }
-    if(y >= this.height) { return COMPASS[0] }
-    if(x < 0) { return COMPASS[1] }
-    return undefined;
+  hand(): Tile {
+    return this.cells[this.size-1]
+  }
+
+  in_bounds(x: number, y: number): boolean {
+    return x >= 0 && x < this.width && y >= 0 && y < this.height
   }
 
   private pos(x:number,y:number): number {
     return x + y * this.width
   }
 
-  hand(): Tile {
-    return this.cells[this.size-1]
-  }
-
-  private in_bounds(x: number, y: number): boolean {
-    return x >= 0 && x < this.width && y >= 0 && y < this.height
+  private get_compass(x: number, y: number): {x: number, y: number} | undefined {
+    if(y < 0) { return COMPASS[2] }
+    if(x >= this.width) { return COMPASS[3] }
+    if(y >= this.height) { return COMPASS[0] }
+    if(x < 0) { return COMPASS[1] }
+    return undefined;
   }
 
   private init_tiles(): void {

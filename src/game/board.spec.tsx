@@ -10,7 +10,7 @@ test('idk', ()=>{
 
   expect(b.hand().id).toEqual(9)
 
-  b.insert_hand(-1,0)
+  b.insert(-1,0)
 
   expect(b.inspect_cells()).toEqual([ 
     9,0,1,
@@ -20,7 +20,7 @@ test('idk', ()=>{
   expect(b.cell(0,0).id).toEqual(9)
   expect(b.hand().id).toEqual(2)
 
-  b.insert_hand(1,3)
+  b.insert(1,3)
 
   expect(b.inspect_cells()).toEqual([ 
     9,4,1,
