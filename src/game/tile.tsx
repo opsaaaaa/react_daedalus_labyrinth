@@ -3,7 +3,6 @@ const jointSvg = '/joint_path.svg'
 const lineSvg = '/line_path.svg'
 const crossSvg = '/cross_path.svg'
 
-
 export type TileType = {
   kind: TileKind,
   x: number,
@@ -12,57 +11,85 @@ export type TileType = {
   is_hand: boolean,
 }
 
-
 export type TileKind = {
   nav: boolean[],
   rot: number,
   img: string,
   next?: TileKind,
+  id: TILE_KIND,
+}
+
+export const enum TILE_KIND {
+  CORNER_RB,
+  CORNER_BL,
+  CORNER_LT,
+  CORNER_TR,
+
+  JOINT_TRB,
+  JOINT_RBL,
+  JOINT_BLT,
+  JOINT_LTR,
+
+  LINE_TB,
+  LINE_RL,
+
+  CROSS,
 }
 
 export const TILE_INFO: TileKind[] = [
   // nav: [ top, right, bottom, left]
   {
+    id: TILE_KIND.CORNER_RB,
     nav: [false, true, true, false],
     rot: 0,
     img: cornerSvg,
   },{
+    id: TILE_KIND.CORNER_BL,
     nav: [false, false, true, true],
     rot: 90,
     img: cornerSvg,
   },{
+    id: TILE_KIND.CORNER_LT,
     nav: [true, false, false, true],
     rot: 180,
     img: cornerSvg,
   },{
+    id: TILE_KIND.CORNER_TR,
     nav: [true, true, false, false],
     rot: 270,
     img: cornerSvg,
   },{
+    id: TILE_KIND.JOINT_TRB,
     nav: [true, true, true, false],
     rot: 0,
     img: jointSvg,
   },{
+    id: TILE_KIND.JOINT_RBL,
     nav: [false, true, true, true],
     rot: 90,
     img: jointSvg,
   },{
+    id: TILE_KIND.JOINT_BLT,
     nav: [true, false, true, true],
     rot: 180,
     img: jointSvg,
   },{
+    id: TILE_KIND.JOINT_LTR,
     nav: [true, true, false, true],
     rot: 270,
     img: jointSvg,
   },{
+    id: TILE_KIND.LINE_TB,
     nav: [true, false, true, false],
     rot: 0,
     img: lineSvg,
   },{
+    id: TILE_KIND.LINE_RL,
     nav: [false, true, false, true],
     rot: 90,
     img: lineSvg,
   },{
+    id: TILE_KIND.CROSS,
     nav: [true, true, true, true],
     rot: 0,
     img: crossSvg,
@@ -103,8 +130,12 @@ export class Tile {
   id: number;
   is_hand: boolean;
 
-  constructor(i: number, w: number) {
-    this.kind = rand_tile_kind()
+  constructor(i: number, w: number, k: number = -1) {
+    if(k === -1) {
+      this.kind = rand_tile_kind()
+    } else {
+      this.kind = TILE_INFO[k]
+    }
     this.x = i % w
     this.y = Math.floor(i / w)
     this.id = i

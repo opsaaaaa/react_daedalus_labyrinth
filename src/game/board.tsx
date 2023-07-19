@@ -1,4 +1,4 @@
-import {Tile} from './tile'
+import {Tile, TILE_KIND} from './tile'
 import {COMPASS} from './compass'
 
 export class Board {
@@ -9,7 +9,7 @@ export class Board {
   width: number;
   size: number;
 
-  constructor(h: number, w: number) {
+  constructor(h: number, w: number, state: TILE_KIND[] = [] ) {
     this.height = h
     this.width = w
     this.size = 1 + w*h
@@ -17,11 +17,15 @@ export class Board {
     this.tiles = new Array(this.size)
     this.cells = new Array(this.size)
 
-    this.init_tiles()
+    this.init_tiles(state)
   }
 
   inspect_cells(): number[] {
     return this.cells.map((c)=>(c.id))
+  }
+
+  inspect_state(): number[] {
+    return this.cells.map((c)=>(c.kind.id))
   }
 
   cell(x:number, y:number): Tile {
@@ -81,11 +85,12 @@ export class Board {
     return undefined;
   }
 
-  private init_tiles(): void {
-   let t: Tile
+  private init_tiles(state: TILE_KIND[] = []): void {
+    
+    let t: Tile
 
     for(let i = 0; i < this.size; i++){
-      t = new Tile(i, this.width)
+      t = new Tile(i, this.width, state[i])
       this.tiles[i] = this.cells[i] = t
     }
 
