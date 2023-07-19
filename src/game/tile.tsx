@@ -1,7 +1,7 @@
-import cornerSvg from '/corner_path.svg'
-import jointSvg from '/joint_path.svg'
-import lineSvg from '/line_path.svg'
-import crossSvg from '/cross_path.svg'
+const cornerSvg = '/corner_path.svg'
+const jointSvg = '/joint_path.svg'
+const lineSvg = '/line_path.svg'
+const crossSvg = '/cross_path.svg'
 
 
 export type Tile = {
@@ -14,9 +14,9 @@ export type Tile = {
 
 
 export type TileKind = {
-  nav: bool[],
+  nav: boolean[],
   rot: number,
-  img: crossSvg | jointSvg | lineSvg | cornerSvg,
+  img: string,
   next?: TileKind,
 }
 
@@ -81,4 +81,20 @@ TILE_INFO[7].next = TILE_INFO[4]
 
 TILE_INFO[8].next = TILE_INFO[9]
 TILE_INFO[9].next = TILE_INFO[8]
+
+export function rand_tile_kind(): TileKind {
+  return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
+}
+
+export function create_tile(i: number, w: number): Tile {
+  return {
+    kind: rand_tile_kind(),
+    x: i % w,
+    y: Math.floor(i / w),
+    id: i,
+    is_hand: false,
+  } as Tile
+}
+
+
 
