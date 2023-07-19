@@ -1,5 +1,4 @@
-import type {Tile} from './tile' 
-import {create_tile} from './tile' 
+import {Tile} from './tile' 
 
 
 type CompassType = {
@@ -105,7 +104,7 @@ export class Board {
    let t: Tile
 
     for(let i = 0; i < this.size; i++){
-      t = create_tile(i, this.width)
+      t = new Tile(i, this.width)
       this.tiles[i] = this.cells[i] = t
     }
 

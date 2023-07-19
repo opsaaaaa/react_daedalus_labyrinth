@@ -96,5 +96,26 @@ export function create_tile(i: number, w: number): TileType {
   } as TileType
 }
 
+export class Tile {
+  kind: TileKind;
+  x: number;
+  y: number;
+  id: number;
+  is_hand: boolean;
+
+  constructor(i: number, w: number) {
+    this.kind = rand_tile_kind()
+    this.x = i % w
+    this.y = Math.floor(i / w)
+    this.id = i
+    this.is_hand = false
+  }
+
+  rotate(): void {
+    if (this.kind.next) {
+      this.kind = this.kind.next
+    }
+  }
+}
 
 
