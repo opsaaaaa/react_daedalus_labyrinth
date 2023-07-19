@@ -8,15 +8,20 @@ type CompassType = {
   fw: number,
 }
 
+enum CARDINAL {
+  TOP,
+  RIGHT,
+  BOTTOM,
+  LEFT,
+}
+
 const COMPASS: CompassType[] = [
-  // top, right, bottom, left
-  // fw and bw, forwards backwards;
-  // fw and bw are indexes for on array of valid direction given a kind of tile.
+  // fw and bw, forwards backwards for a given compass direction
   // ie. nav: [true, false, true, false]
-  {x: 0, y: -1, fw: 0, bw: 2},
-  {x: 1, y: 0, fw: 1, bw: 3},
-  {x: 0, y: 1, fw: 2, bw: 0},
-  {x: -1, y: 0, fw: 3, bw: 1},
+  {x: 0, y: -1, fw: CARDINAL.TOP, bw: CARDINAL.BOTTOM},
+  {x: 1, y: 0, fw: CARDINAL.RIGHT, bw: CARDINAL.LEFT},
+  {x: 0, y: 1, fw: CARDINAL.BOTTOM, bw: CARDINAL.TOP},
+  {x: -1, y: 0, fw: CARDINAL.LEFT, bw: CARDINAL.RIGHT},
 ]
 
 export class Board {
@@ -113,17 +118,6 @@ export class Board {
     t.x = this.width
     t.y = this.height
   }
-
-  // private new_tile(i: number): Tile {
-  //   const kind = this.rand_tile_kind()
-  //   return {
-  //     kind: kind,
-  //     x: i % this.width,
-  //     y: Math.floor(i / this.width),
-  //     id: i,
-  //     is_hand: false,
-  //   } as Tile
-  // }
 
 }
 
