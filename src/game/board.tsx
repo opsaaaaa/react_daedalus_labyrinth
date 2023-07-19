@@ -1,11 +1,9 @@
-import {Tile} from './tile' 
-
+import {Tile} from './tile'
 import {COMPASS} from './compass'
 
 export class Board {
   tiles: Tile[]; // Tiles ordered tile id
   cells: Tile[]; // Tiles ordered by placement on the board.
-
 
   height: number;
   width: number;
