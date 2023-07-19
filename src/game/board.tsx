@@ -87,7 +87,6 @@ export class Board {
   }
 
   private get_moves_r(moves: Tile[], tile: Tile, seen: boolean[], depth: number): void {
-    // base case
     if (depth <= 0) { return }
 
     let cursor: Tile
@@ -104,18 +103,15 @@ export class Board {
 
       if(this.in_bounds(x,y) && !seen[p]) {
         cursor = this.cells[p]
-        
+
         if(tile.kind.nav[compass.fw] && cursor.kind.nav[compass.bw]) {
           seen[p] = true
           moves.push(cursor)
+
           this.get_moves_r(moves, cursor, seen, depth - 1)
         }
       }
-
-
     }
-
-
   }
 
   private pos(x:number,y:number): number {
@@ -127,12 +123,10 @@ export class Board {
     if(x >= this.width) { return COMPASS[3] }
     if(y >= this.height) { return COMPASS[0] }
     if(x < 0) { return COMPASS[1] }
-    throw new Error('out of bounds')
     return undefined;
   }
 
   private init_tiles(state: TILE_KIND[] = []): void {
-    
     let t: Tile
 
     for(let i = 0; i < this.size; i++){
@@ -145,6 +139,5 @@ export class Board {
     t.x = this.width
     t.y = this.height
   }
-
 }
 
