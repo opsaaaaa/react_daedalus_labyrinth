@@ -5,7 +5,7 @@ import {VIEWS} from './view/index'
 // import {MenuView} from './view/'
 
 function App() {
-  const [route, setRoute] = useState<string>('menu')
+  const [route, setRoute] = useState<string>('game')
 
   const View = VIEWS[route]
 

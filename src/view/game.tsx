@@ -1,32 +1,37 @@
 
+import {useState, useMemo} from 'react'
+import {Board} from '../game/board'
 import type {ViewProps} from './props'
-import {Corner} from '../canvas/corner'
-import {Joint} from '../canvas/joint'
-import {Line} from '../canvas/line'
-import {Cross} from '../canvas/cross'
-import {Svg} from '../canvas/svg'
+import {PathTile} from '../canvas/path_tile'
+import {SvgCanvas} from '../canvas/svg'
 
 export function GameView({setRoute}: ViewProps) {
+  const [actionCount, setActionCount] = useState(0)
+  const b = useMemo(()=>(new Board(8,8)),[])
+  
   return (
     <div className='game'>
-      <Svg
-       w={10}
-       h={10}
+      <SvgCanvas
+       w={b.width}
+       h={b.height}
       >
        <g>
-        <Joint x={0} y={0} rot={90} />
-        <Corner x={1} y={1} rot={0} />
-        <Corner x={1} y={2} rot={90} />
-        <Joint x={0} y={2} rot={180} />
-        <Line x={1} y={0} rot={180} />
-        <Line x={2} y={0} rot={45} />
-        <Cross x={3} y={0} rot={0} />
+        {b.tiles.map(t=>(
+          <PathTile key={t.id} t={t}/>
+        ))}
        </g>
-      </Svg>
+      </SvgCanvas>
     </div>
   )
 }
 
+        // <Joint x={0} y={0} rot={90} />
+        // <Corner x={1} y={1} rot={0} />
+        // <Corner x={1} y={2} rot={90} />
+        // <Joint x={0} y={2} rot={180} />
+        // <Line x={1} y={0} rot={180} />
+        // <Line x={2} y={0} rot={45} />
+        // <Cross x={3} y={0} rot={0} />
 // import { useState, useMemo } from 'react'
 // import type { ReactNode } from 'react'
 // import reactLogo from './assets/react.svg'

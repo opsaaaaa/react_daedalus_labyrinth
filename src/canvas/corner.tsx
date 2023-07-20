@@ -1,17 +1,13 @@
 import {SIZE, STYLE} from './const'
 import {PathRect} from './_path_rect'
+import {TileShapeProps} from './props'
 
-type Props = {
-  x: number,
-  y: nubmer,
-  rot: number,
-}
-
-export function Corner({x,y,rot}: Props) {
+export function Corner({x,y,rot, ...props}: TileShapeProps) {
   return (
     <g
     transform={`translate(${x*SIZE},${y*SIZE}) rotate(${rot})`}
     style={STYLE.TILE_GROUP}
+    {...props}
     >
 
       <PathRect />

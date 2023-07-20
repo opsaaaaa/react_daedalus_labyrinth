@@ -7,11 +7,11 @@ type Props = {
   h: number,
 }
 
-export function Svg({children, w, h}: {children: ReactNode}) {
+export function SvgCanvas({children, w, h}: {children: ReactNode}) {
   return (
     <svg
     className='canvas'
-    viewBox={`${-SIZE} ${-SIZE} ${(w+1)*SIZE} ${(h+1)*SIZE}`}
+    viewBox={`${-SIZE} ${-SIZE} ${(w+2)*SIZE} ${(h+2)*SIZE}`}
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     >

@@ -1,8 +1,5 @@
-const cornerSvg = '/corner_path.svg'
-const jointSvg = '/joint_path.svg'
-const lineSvg = '/line_path.svg'
-const crossSvg = '/cross_path.svg'
 
+// TODO delete this type
 export type TileType = {
   kind: TileKind,
   x: number,
@@ -14,9 +11,16 @@ export type TileType = {
 export type TileKind = {
   nav: boolean[],
   rot: number,
-  img: string,
+  shape: TILE_SHAPE,
   next?: TileKind,
   id: TILE_KIND,
+}
+
+export const enum TILE_SHAPE {
+  CORNER,
+  JOINT,
+  LINE,
+  CROSS,
 }
 
 export const enum TILE_KIND {
@@ -42,57 +46,52 @@ export const TILE_INFO: TileKind[] = [
     id: TILE_KIND.CORNER_RB,
     nav: [false, true, true, false],
     rot: 0,
-    img: cornerSvg,
+    shape: TILE_SHAPE.CORNER,
   },{
     id: TILE_KIND.CORNER_BL,
     nav: [false, false, true, true],
     rot: 90,
-    img: cornerSvg,
+    shape: TILE_SHAPE.CORNER,
   },{
     id: TILE_KIND.CORNER_LT,
     nav: [true, false, false, true],
     rot: 180,
-    img: cornerSvg,
+    shape: TILE_SHAPE.CORNER,
   },{
     id: TILE_KIND.CORNER_TR,
     nav: [true, true, false, false],
     rot: 270,
-    img: cornerSvg,
+    shape: TILE_SHAPE.CORNER,
   },{
     id: TILE_KIND.JOINT_TRB,
     nav: [true, true, true, false],
     rot: 0,
-    img: jointSvg,
+    shape: TILE_SHAPE.JOINT,
   },{
     id: TILE_KIND.JOINT_RBL,
     nav: [false, true, true, true],
     rot: 90,
-    img: jointSvg,
+    shape: TILE_SHAPE.JOINT,
   },{
     id: TILE_KIND.JOINT_BLT,
     nav: [true, false, true, true],
     rot: 180,
-    img: jointSvg,
+    shape: TILE_SHAPE.JOINT,
   },{
     id: TILE_KIND.JOINT_LTR,
     nav: [true, true, false, true],
     rot: 270,
-    img: jointSvg,
+    shape: TILE_SHAPE.JOINT,
   },{
     id: TILE_KIND.LINE_TB,
     nav: [true, false, true, false],
     rot: 0,
-    img: lineSvg,
-  },{
-    id: TILE_KIND.LINE_RL,
-    nav: [false, true, false, true],
-    rot: 90,
-    img: lineSvg,
+    shape: TILE_SHAPE.LINE,
   },{
     id: TILE_KIND.CROSS,
     nav: [true, true, true, true],
     rot: 0,
-    img: crossSvg,
+    shape: TILE_SHAPE.CROSS,
   },
 ]
 
@@ -109,10 +108,12 @@ TILE_INFO[7].next = TILE_INFO[4]
 TILE_INFO[8].next = TILE_INFO[9]
 TILE_INFO[9].next = TILE_INFO[8]
 
+// TODO delete this function
 export function rand_tile_kind(): TileKind {
   return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
 }
 
+// TODO delete this function
 export function create_tile(i: number, w: number): TileType {
   return {
     kind: rand_tile_kind(),
