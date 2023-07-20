@@ -1,22 +1,31 @@
 
-import './App.css'
-import {useState, ReactNode} from 'react'
-import {VIEWS} from './view/index'
-// import {MenuView} from './view/'
+import type {ViewProps} from './props'
+import {Corner} from '../canvas/corner'
+import {Joint} from '../canvas/joint'
+import {Line} from '../canvas/line'
+import {Cross} from '../canvas/cross'
+import {Svg} from '../canvas/svg'
 
-function App() {
-  const [route, setRoute] = useState<string>('menu')
-
-  const View = VIEWS[route]
-
+export function GameView({setRoute}: ViewProps) {
   return (
-    <>
-      <View setRoute={setRoute}/>
-    </>
+    <div className='game'>
+      <Svg
+       w={10}
+       h={10}
+      >
+       <g>
+        <Joint x={0} y={0} rot={90} />
+        <Corner x={1} y={1} rot={0} />
+        <Corner x={1} y={2} rot={90} />
+        <Joint x={0} y={2} rot={180} />
+        <Line x={1} y={0} rot={180} />
+        <Line x={2} y={0} rot={45} />
+        <Cross x={3} y={0} rot={0} />
+       </g>
+      </Svg>
+    </div>
   )
 }
-
-export default App
 
 // import { useState, useMemo } from 'react'
 // import type { ReactNode } from 'react'
@@ -26,7 +35,6 @@ export default App
 // import arrowSvg from '/arrow.svg'
 // import rotateSvg from '/rotate.svg'
 // import goalSvg from '/goal.svg'
-// import './App.css'
 
 // import * as draw from './game/draw'
 
