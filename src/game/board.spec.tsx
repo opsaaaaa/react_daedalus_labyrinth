@@ -37,6 +37,7 @@ describe('Board', ()=>{
       TILE_KIND.CORNER_TR, TILE_KIND.CORNER_LT,
       TILE_KIND.CROSS ])
 
+
     expect(b.width).toBe(2)
     expect(b.height).toBe(3)
 

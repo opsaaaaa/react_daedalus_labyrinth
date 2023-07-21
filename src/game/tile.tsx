@@ -88,6 +88,11 @@ export const TILE_INFO: TileKind[] = [
     rot: 0,
     shape: TILE_SHAPE.LINE,
   },{
+    id: TILE_KIND.LINE_RL,
+    nav: [false, true, false, true],
+    rot: 90,
+    shape: TILE_SHAPE.LINE,
+  },{
     id: TILE_KIND.CROSS,
     nav: [true, true, true, true],
     rot: 0,
@@ -107,6 +112,8 @@ TILE_INFO[7].next = TILE_INFO[4]
 
 TILE_INFO[8].next = TILE_INFO[9]
 TILE_INFO[9].next = TILE_INFO[8]
+
+TILE_INFO[10].next = TILE_INFO[10]
 
 // TODO delete this function
 export function rand_tile_kind(): TileKind {
