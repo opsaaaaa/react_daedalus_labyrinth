@@ -1,5 +1,6 @@
 import {useState, useMemo} from 'react'
 import {Board} from '../game/board'
+import {InsertBtns} from '../game/insert_btns'
 import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
 import {SvgCanvas} from '../canvas/svg'
@@ -8,8 +9,9 @@ import '../canvas/style.css'
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
-  const b = useMemo(()=>(new Board(8,8)),[])
-  
+  const b = useMemo(()=>(new Board(7,7)),[])
+  const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[])
+
   return (
     <div className='game'>
       <SvgCanvas
@@ -22,11 +24,14 @@ export function GameView({setRoute}: ViewProps) {
         ))}
        </g>
        <g>
-        <Arrow x={0} y={-1} rot={0}
-        onClick={()=>{
-          console.log('hia')
-        }}
+        {arrow_btns.btns.map((btn)=>(
+          <Arrow x={btn.x} y={btn.y} rot={btn.rot}
+          key={btn.id}
+          onClick={()=>{
+            console.log('hia', btn)
+          }}
         />
+        ))}
        </g>
       </SvgCanvas>
     </div>
