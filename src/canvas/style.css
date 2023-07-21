@@ -1,0 +1,54 @@
+.canvas {
+  font-variation-settings: normal;
+  vector-effect: none;
+
+  paint-order: markers stroke fill;
+  stroke-miterlimit: 4;
+  stop-color: #000000;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+}
+.canvas .arrow,
+.canvas .tile,
+.canvas .origin {
+  transform-origin: 32px 32px;
+}
+
+.canvas .tile {
+  stroke-width: 6;
+  fill-opacity: 1;
+}
+
+.canvas .tile,
+.anim-transform {
+  transition: transform 400ms ease;
+}
+
+.canvas .dirt {
+  fill: #835e59;
+  stroke: #4b3339;
+}
+
+.canvas .path {
+  fill: #cfa067;
+  stroke: #694641;
+}
+
+.canvas .btn {
+  fill: currentColor;
+  fill-opacity: 0.6;
+  stroke: none;
+}
+
+.canvas .btn:is(:hover, :active, :focus-visible) {
+  fill-opacity: 1;
+}
+
+.canvas .transparent {
+  fill: #0000;
+  stroke: none;
+}
+

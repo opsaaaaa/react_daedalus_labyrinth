@@ -1,9 +1,10 @@
-
 import {useState, useMemo} from 'react'
 import {Board} from '../game/board'
 import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
 import {SvgCanvas} from '../canvas/svg'
+import {Arrow} from '../canvas/arrow'
+import '../canvas/style.css'
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
@@ -20,10 +21,20 @@ export function GameView({setRoute}: ViewProps) {
           <PathTile key={t.id} t={t}/>
         ))}
        </g>
+       <g>
+        <Arrow x={0} y={-1} rot={0}
+        onClick={()=>{
+          console.log('hia')
+        }}
+        />
+       </g>
       </SvgCanvas>
     </div>
   )
 }
+
+
+
 
         // <Joint x={0} y={0} rot={90} />
         // <Corner x={1} y={1} rot={0} />

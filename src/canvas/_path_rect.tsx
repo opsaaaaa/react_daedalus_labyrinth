@@ -4,7 +4,7 @@ import {STYLE} from './const'
 export function PathRect() {
   return (
     <rect
-    style={STYLE.PATH}
+    className="path"
     width="59"
     height="59"
     x="3"
