@@ -44,19 +44,19 @@ export class InsertBtns {
     let rot = 0
 
     for(; x < this.w; x++) {
-      this.btns[id] = {rot,id, x, y, disabled: false} as InsertArrowBtn
+      this.btns[id] = {rot,id, x, y, disabled: false}
       id++;
     }
     y++
     rot += 90
     for(; y < this.h; y++) {
-      this.btns[id] = {rot,id, x, y, disabled: false} as InsertArrowBtn
+      this.btns[id] = {rot,id, x, y, disabled: false}
       id++;
     }
     x = 0
     rot += 90
     for(; x < this.w; x++) {
-      this.btns[id] = {rot,id, x, y, disabled: false} as InsertArrowBtn
+      this.btns[id] = {rot,id, x, y, disabled: false}
       id++;
     }
     y = 0
