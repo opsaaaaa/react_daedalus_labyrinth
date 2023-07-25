@@ -10,13 +10,19 @@ import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
 
 
-import {create_actor} from "../game/actor"
+import {create_actor_list} from "../game/actor"
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
   const b = useMemo(()=>(new Board(7,7)),[])
   const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[])
-  const a = useMemo(()=>(create_actor(b.cell(0,0))),[])
+  const actors = useMemo(()=>(create_actor_list([
+    b.cell(0,0),
+    b.cell(b.width - 1, 0),
+    b.cell(0, b.height - 1),
+    b.cell(b.width - 1, b.height - 1)
+  ])),[])
+
   const hand = b.hand()
 
 
@@ -55,7 +61,9 @@ export function GameView({setRoute}: ViewProps) {
         </g>
 
         <g>
-          <ActorPiece a={a}/>
+          {actors.map(a=>(
+            <ActorPiece a={a} key={a.id}/>
+          ))}
         </g>
       
       </SvgCanvas>
