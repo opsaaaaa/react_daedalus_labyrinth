@@ -35,3 +35,8 @@ export function create_actor(tile: Tile) {
   return {id, kind: ACTOR_KIND[id % 4], tile, moves: []}
 }
 
+
+export function create_actor_list(tiles: Tile[]) {
+  return tiles.map((tile)=>(create_actor(tile)))
+}
+
