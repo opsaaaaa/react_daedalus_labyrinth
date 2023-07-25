@@ -66,17 +66,29 @@
 }
 
 .canvas .brown-1 {
-  fill:#4b3339;
+  fill: #4b3339;
+}
+
+.canvas .blue-1 {
+  fill: #1984b6;
+}
+
+.canvas .orange-1 {
+  fill: #d38e15
+}
+
+.canvas .green-1 {
+  fill: #7ea950;
 }
 
 .canvas .red-1 {
-  fill:#94464e;
+  fill: #94464e;
 }
 
 .canvas .red-2 {
-  fill:#d96674;
+  fill: #d96674;
 }
 
 .canvas .pink-1 {
-  fill:#cc85ca;
+  fill: #cc85ca;
 }

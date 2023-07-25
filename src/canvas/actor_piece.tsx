@@ -6,10 +6,16 @@
 // import {TileShapeProps} from './props'
 import {Actor} from '../game/actor'
 import {Minotaur} from './minotaur'
+import {PlayerGreen} from './player_green'
+import {PlayerBlue} from './player_blue'
+import {PlayerOrange} from './player_orange'
 import type {ReactSVGElement} from 'react'
 
 const ACTOR_SHAPE = [
   Minotaur,
+  PlayerGreen,
+  PlayerBlue,
+  PlayerOrange,
 ]
 
 export function ActorPiece({a,...props}: {a: Actor} & ReactSVGElement) {
