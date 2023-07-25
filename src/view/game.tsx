@@ -3,10 +3,14 @@ import {Board} from '../game/board'
 import {InsertBtns} from '../game/insert_btns'
 import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
+import {ActorPiece} from '../canvas/actor_piece'
 import {SvgCanvas} from '../canvas/svg'
 import {Arrow} from '../canvas/arrow'
 import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
+
+
+import {create_actor} from "../game/actor"
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
@@ -14,38 +18,46 @@ export function GameView({setRoute}: ViewProps) {
   const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[])
   const hand = b.hand()
 
+  const a = create_actor(b.cell(0,0))
+
   return (
     <div className='game'>
       <SvgCanvas
-       w={b.width}
-       h={b.height}
+      w={b.width}
+      h={b.height}
       >
-       <g>
-        {b.tiles.map(t=>(
-          <PathTile key={t.id} t={t}/>
-        ))}
-       </g>
-       <g>
-        {arrow_btns.btns.map((btn)=>(
-          <Arrow x={btn.x} y={btn.y} rot={btn.rot}
-          key={btn.id}
-          disabled={btn.disabled}
-          onClick={()=>{
-            setActionCount(actionCount + 1)
-            b.insert(btn.x,btn.y)
-            arrow_btns.disable_opposing_btn(btn.id)
-          }}
+        <g>
+          {b.tiles.map(t=>(
+            <PathTile key={t.id} t={t}/>
+          ))}
+        </g>
+
+        <g>
+          {arrow_btns.btns.map((btn)=>(
+            <Arrow x={btn.x} y={btn.y} rot={btn.rot}
+            key={btn.id}
+            disabled={btn.disabled}
+            onClick={()=>{
+              setActionCount(actionCount + 1)
+              b.insert(btn.x,btn.y)
+              arrow_btns.disable_opposing_btn(btn.id)
+            }}
+            tabIndex={0}
+          />
+          ))}
+          <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
           tabIndex={0}
-        />
-        ))}
-        <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
-        tabIndex={0}
-        onClick={()=>{
-          hand.rotate()
-          setActionCount(actionCount + 1)
-        }}
-        />
-       </g>
+          onClick={()=>{
+            hand.rotate()
+            setActionCount(actionCount + 1)
+          }}
+          />
+        </g>
+
+        <g>
+          <ActorPiece a={a}/>
+        </g>
+      
       </SvgCanvas>
     </div>
   )
@@ -82,13 +94,13 @@ export function GameView({setRoute}: ViewProps) {
 
 //   return (
 //     <>
-//       <div
-//       style={{
+//      <div
+//      style={{
 //         position: 'relative',
 //         width: '100%',
 //         height: '100%',
-//       }}
-//       >
+//      }}
+//      >
 
 //         {/* TILES */}
 //         <div>
@@ -258,7 +270,7 @@ export function GameView({setRoute}: ViewProps) {
 //           ))}
 //         </div>
 
-//       </div>
+//      </div>
 //     </>
 //   )
 // }
@@ -272,9 +284,9 @@ export function GameView({setRoute}: ViewProps) {
 // //         <a href="https://react.dev" target="_blank">
 // //           <img src={reactLogo} className="logo react" alt="React logo" />
 // //         </a>
-// //       </div>
-// //       <h1>Vite + React</h1>
-// //       <div className="card">
+// //      </div>
+// //      <h1>Vite + React</h1>
+// //      <div className="card">
 // //         <button onClick={() => setCount((count) => count + 1)}
 // //         style={{transform: `translateX(${count}em)`, transition: 'transform 150ms'}}
 // //         >
@@ -283,7 +295,7 @@ export function GameView({setRoute}: ViewProps) {
 // //         <p>
 // //           Edit <code>src/App.tsx</code> and save to test HMR
 // //         </p>
-// //       </div>
-// //       <p className="read-the-docs">
+// //      </div>
+// //      <p className="read-the-docs">
 // //         Click on the Vite and React logos to learn more
-//       // </p>
+//      // </p>

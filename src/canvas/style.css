@@ -16,6 +16,9 @@
 .canvas .origin {
   transform-origin: 32px 32px;
 }
+.canvas .origin-piece {
+  transform-origin: 32px 80px;
+}
 
 .canvas .tile {
   stroke-width: 6;
@@ -57,3 +60,18 @@
   stroke: none;
 }
 
+.canvas .brown-1 {
+  fill:#4b3339;
+}
+
+.canvas .red-1 {
+  fill:#94464e;
+}
+
+.canvas .red-2 {
+  fill:#d96674;
+}
+
+.canvas .pink-1 {
+  fill:#cc85ca;
+}

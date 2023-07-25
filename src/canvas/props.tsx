@@ -7,3 +7,9 @@ export type TileShapeProps = {
 } & ReactSVGElement
 
 
+export type ActorProps = {
+  x: number,
+  y: nubmer,
+} & ReactSVGElement
+
+
