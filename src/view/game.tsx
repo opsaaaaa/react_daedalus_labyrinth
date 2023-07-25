@@ -5,12 +5,14 @@ import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
 import {SvgCanvas} from '../canvas/svg'
 import {Arrow} from '../canvas/arrow'
+import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
   const b = useMemo(()=>(new Board(7,7)),[])
   const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[])
+  const hand = b.hand()
 
   return (
     <div className='game'>
@@ -27,11 +29,22 @@ export function GameView({setRoute}: ViewProps) {
         {arrow_btns.btns.map((btn)=>(
           <Arrow x={btn.x} y={btn.y} rot={btn.rot}
           key={btn.id}
+          disabled={btn.disabled}
           onClick={()=>{
-            console.log('hia', btn)
+            setActionCount(actionCount + 1)
+            b.insert(btn.x,btn.y)
+            arrow_btns.disable_opposing_btn(btn.id)
           }}
+          tabIndex={0}
         />
         ))}
+        <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
+        tabIndex={0}
+        onClick={()=>{
+          hand.rotate()
+          setActionCount(actionCount + 1)
+        }}
+        />
        </g>
       </SvgCanvas>
     </div>

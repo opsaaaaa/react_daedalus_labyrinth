@@ -47,6 +47,11 @@
   fill-opacity: 1;
 }
 
+.canvas .btn[disabled] {
+  display: none;
+  fill: none;
+}
+
 .canvas .transparent {
   fill: #0000;
   stroke: none;

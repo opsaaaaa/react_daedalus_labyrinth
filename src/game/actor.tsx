@@ -23,13 +23,14 @@ export type Move = {
   tile: TileType,
 }
 
-
 export const ACTOR_KIND = {
   MINOTAUR: { img: minotaurSvg, color: 'red', steps: 3 },
   GREEN: { img: playerGreenSvg, color: 'green', steps: 2 },
   BLUE: { img: playerBlueSvg, color: 'blue', steps: 2 },
   ORANGE: { img: playerOrangeSvg, color: 'orange', steps: 2 },
 }
+
+
 
 // export const ACTOR_INFO: ActorInfo[] = [
 //   { img: minotaurSvg, color: 'red', steps: 4 },

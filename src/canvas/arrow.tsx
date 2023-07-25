@@ -8,7 +8,6 @@ export function Arrow({x,y,rot,...props}: TileShapeProps) {
       transform={`translate(${x*SIZE},${y*SIZE}) rotate(${rot})`}
       className="btn origin"
       {...props}
-      tabIndex={0}
     >
       <rect
       className="transparent"
