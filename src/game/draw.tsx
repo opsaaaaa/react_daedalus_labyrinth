@@ -68,42 +68,43 @@ export function rotate_hand_btn<T>(b: Board,fn: (a: {disabled: bool, x: number, 
 }
 
 export function insert_btns<T>(b: Board,fn: (a: InsertArrowBtn)=>T): T[] {
-    // Walk around the board in a square and output the insert arrows.
-    // The order is important because math is used to get the oposite arrow.
+  // Walk around the board in a square and output the insert arrows.
+  // The order is important because math is used to get the oposite arrow.
 
-    let out: T[] = new Array(b.width*2 + b.height*2)
+  let out: T[] = new Array(b.width*2 + b.height*2)
 
-    let id = 0
-    let x = 0
-    let y = -1
-    let rot = 0
+  let id = 0
+  let x = 0
+  let y = -1
+  let rot = 0
 
-    for(; x < b.width; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
-      id++;
-    }
-    y++
-    rot += 90
-    for(; y < b.height; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
-      id++;
-    }
-    x = 0
-    rot += 90
-    for(; x < b.width; x++) {
-      out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
-      id++;
-    }
-    y = 0
-    x = -1
-    rot += 90
-    for(; y < b.height; y++) {
-      out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
-      id++;
-    }
-
-    return out
+  for(; x < b.width; x++) {
+    out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
+    id++;
   }
+  y++
+  rot += 90
+  for(; y < b.height; y++) {
+    out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
+    id++;
+  }
+  x = 0
+  rot += 90
+  for(; x < b.width; x++) {
+    out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
+    id++;
+  }
+  y = 0
+  x = -1
+  rot += 90
+  for(; y < b.height; y++) {
+    out[id] = fn({rot,id, x, y, disabled: id === b.last_insert})
+    id++;
+  }
+
+  return out
+}
+
 
 
 

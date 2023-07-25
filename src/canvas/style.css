@@ -25,6 +25,11 @@
   fill-opacity: 1;
 }
 
+.click-through,
+.click-through * {
+  pointer-events: none;
+}
+
 .canvas .tile,
 .anim-transform {
   transition: transform 400ms ease;

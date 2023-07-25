@@ -16,9 +16,9 @@ export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
   const b = useMemo(()=>(new Board(7,7)),[])
   const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[])
+  const a = useMemo(()=>(create_actor(b.cell(0,0))),[])
   const hand = b.hand()
 
-  const a = create_actor(b.cell(0,0))
 
   return (
     <div className='game'>

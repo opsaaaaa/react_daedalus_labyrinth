@@ -6,7 +6,7 @@ export function Minotaur({x,y,rot,...props}: ActorProps) {
   return (
     <g 
       transform={`translate(${x*SIZE},${y*SIZE - 48}) rotate(0)`}
-      className="actor origin-piece"
+      className="actor origin-piece anim-transform click-through"
       {...props}
     >
       <path
