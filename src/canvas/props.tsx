@@ -12,4 +12,8 @@ export type ActorProps = {
   y: nubmer,
 } & ReactSVGElement
 
-
+export type MoveBtnProps = {
+  x: number,
+  y: number,
+  c: string
+} & ReactSVGElement

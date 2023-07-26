@@ -65,6 +65,12 @@
   stroke: none;
 }
 
+.canvas .move-btn {
+  stroke: var(--color);
+  stroke-width: 4px;
+  fill: #0000;
+}
+
 .canvas .brown-1 {
   fill: #4b3339;
 }
@@ -92,3 +98,12 @@
 .canvas .pink-1 {
   fill: #cc85ca;
 }
+.canvas .white-1 {
+  fill:#cfd6d0;
+}
+
+.canvas .gray-1 {
+  fill:#9bafc2;
+}
+
+
