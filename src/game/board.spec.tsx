@@ -63,6 +63,8 @@ describe('Board', ()=>{
       TILE_KIND.LINE_TB, TILE_KIND.LINE_TB, TILE_KIND.LINE_RL,
       TILE_KIND.CROSS ])
 
+    expect(b.get_moves(4,4).map((m)=>(m.id))).toEqual([])
+    expect(b.get_moves(3,3).map((m)=>(m.id))).toEqual([])
     expect(b.get_moves(0,0).map((m)=>(m.id))).toEqual([3,6])
     expect(b.get_moves(2,0).map((m)=>(m.id))).toEqual([])
     expect(b.get_moves(1,1).map((m)=>(m.id))).toEqual([1,5,7])

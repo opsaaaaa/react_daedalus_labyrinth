@@ -75,13 +75,17 @@ export class Board {
     return x >= 0 && x < this.width && y >= 0 && y < this.height
   }
 
-  get_moves(x: number, y: number, depth: number = this.size): Tile[] {
+  get_moves(x: number, y: number, depth: number = this.width + this.height): Tile[] {
+
     const moves: Tile[] = []
     const seen: boolean[] = new Array(this.size).fill(false)
+    const tile = this.cell(x,y)
+
+    if(!tile) {return []}
 
     seen[this.pos(x,y)] = true
 
-    this.get_moves_r(moves, this.cell(x,y), seen, depth)
+    this.get_moves_r(moves, tile, seen, depth)
 
     return moves
   }
