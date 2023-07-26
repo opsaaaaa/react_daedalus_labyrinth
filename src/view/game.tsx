@@ -34,7 +34,6 @@ export function GameView({setRoute}: ViewProps) {
   const hand = b.hand()
 
 
-  console.log({selectedActor})
   return (
     <div className='game'>
       <SvgCanvas
@@ -82,7 +81,6 @@ export function GameView({setRoute}: ViewProps) {
             c={a.kind.color}
             key={a.id}
             onClick={()=>{
-              console.log({a})
               if(selectedActor && selectedActor.id === a.id) {
                 setSelectedActor(undefined)
               } else {
