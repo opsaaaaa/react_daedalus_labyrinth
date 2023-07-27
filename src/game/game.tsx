@@ -58,6 +58,13 @@ export class Game {
     this.selected_actor = undefined
   }
 
+  insert_with_btn(btn: InsertBtns): void {
+    this.board.insert(btn.x,btn.y)
+    this.insert_btns.disable_opposing_btn(btn.id)
+    this.build_actor_moves()
+  }
+
+
 }
 
 

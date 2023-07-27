@@ -1,9 +1,12 @@
 import {Tile} from './tile'
 
 
+
 export type Actor = {
   id: number,
+  state: ACTOR_STATE
   kind: ActorKind,
+  anim: ACTOR_ANIM
   tile: Tile,
   moves: Tile[],
 }
@@ -12,6 +15,19 @@ export type ActorKind = {
   color: string,
   steps: number,
   shape: ACTOR_SHAPE,
+}
+
+export enum ACTOR_ANIM {
+  IDLE = 'anim-idle',
+  DEATH = 'anim-death',
+  WIN = 'anim-win',
+  WALK = 'anim-walk',
+}
+
+export enum ACTOR_STATE {
+  ALIVE,
+  DEAD,
+  WON,
 }
 
 export enum ACTOR_SHAPE {
@@ -32,7 +48,14 @@ let id = -1
 
 export function create_actor(tile: Tile) {
   id++;
-  return {id, kind: ACTOR_KIND[id % 4], tile, moves: []}
+  return {
+    id,
+    kind: ACTOR_KIND[id % 4],
+    tile,
+    moves: [],
+    state: ACTOR_STATE.ALIVE,
+    anim: ACTOR_ANIM.IDLE
+  }
 }
 
 

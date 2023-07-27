@@ -49,10 +49,7 @@ export function GameView({setRoute}: ViewProps) {
             key={btn.id}
             disabled={btn.disabled}
             onClick={()=>{
-              b.insert(btn.x,btn.y)
-              insert_btns.disable_opposing_btn(btn.id)
-              
-              g.build_actor_moves()
+              g.insert_with_btn(btn)
               update()
             }}
             tabIndex={0}

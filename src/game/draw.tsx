@@ -19,22 +19,15 @@ export class Draw {
   }
 
   select_actor_btns<T = any>(fn: (a: Actor, click: ()=>void)=>T): T[] {
-    const out = [] 
-    for(const a of this.game.actors) {
-      if(a.moves.length > 0) {
-        out.push(fn(a, ()=>{
-          this.game.select_actor(a)
-        }))
-      }
-    }
-    return out
+    return this.game.actors
+      .filter(a=>(a.moves.length > 0))
+      .map(a=>fn(a, ()=>{this.game.select_actor(a)}))
   }
 
   move_actor_btns<T = any>(fn: (m: Tile, click: ()=>void)=>T): T[] {
     if (!this.game.selected_actor) {return []}
-    return this.game.selected_actor.moves.map((m)=>(fn(m,()=>{
-      this.game.move_selected_actor(m)
-    })))
+    return this.game.selected_actor.moves
+      .map(m=>fn(m,()=>{this.game.move_selected_actor(m)}))
   }
 }
 
