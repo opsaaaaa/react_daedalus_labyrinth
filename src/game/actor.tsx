@@ -1,16 +1,6 @@
 import {Tile} from './tile'
 
 
-
-export type Actor = {
-  id: number,
-  state: ACTOR_STATE
-  kind: ActorKind,
-  anim: ACTOR_ANIM
-  tile: Tile,
-  moves: Tile[],
-}
-
 export type ActorKind = {
   color: string,
   steps: number,
@@ -44,18 +34,37 @@ export const ACTOR_KIND: ActorKind[] = [
   {shape: ACTOR_SHAPE.ORANGE, color: 'orange', steps: 2 },
 ]
 
-let id = -1
+let id = 0
+
+export class Actor {
+  id: number;
+  state: ACTOR_STATE;
+  kind: ActorKind;
+  anim: ACTOR_ANIM
+  tile: Tile;
+  moves: Tile[];
+
+  constructor(tile: Tile) {
+    this.id = id
+    this.kind = ACTOR_KIND[id % 4]
+    this.tile = tile
+    this.moves = []
+    this.state = ACTOR_STATE.ALIVE
+    this.anim = ACTOR_ANIM.IDLE
+    id++;
+  }
+}
 
 export function create_actor(tile: Tile) {
-  id++;
-  return {
-    id,
-    kind: ACTOR_KIND[id % 4],
-    tile,
-    moves: [],
-    state: ACTOR_STATE.ALIVE,
-    anim: ACTOR_ANIM.IDLE
-  }
+  return new Actor(tile)
+  // return {
+  //   id,
+  //   kind: ACTOR_KIND[id % 4],
+  //   tile,
+  //   moves: [],
+  //   state: ACTOR_STATE.ALIVE,
+  //   anim: ACTOR_ANIM.IDLE
+  // }
 }
 
 
