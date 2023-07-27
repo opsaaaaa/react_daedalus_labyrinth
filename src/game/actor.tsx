@@ -53,18 +53,28 @@ export class Actor {
     this.anim = ACTOR_ANIM.IDLE
     id++;
   }
+
+  is_minotaur(): boolean {
+    return this.kind.shape === ACTOR_SHAPE.MINOTAUR
+  }
+
+  is_alive(): boolean {
+    return this.state === ACTOR_STATE.ALIVE
+  }
+
+  win(): void {
+    this.state = ACTOR_STATE.WON
+    this.anim = ACTOR_ANIM.WIN
+  }
+
+  die(): void {
+    this.state = ACTOR_STATE.DEAD
+    this.anim = ACTOR_ANIM.DEATH
+  }
 }
 
 export function create_actor(tile: Tile) {
   return new Actor(tile)
-  // return {
-  //   id,
-  //   kind: ACTOR_KIND[id % 4],
-  //   tile,
-  //   moves: [],
-  //   state: ACTOR_STATE.ALIVE,
-  //   anim: ACTOR_ANIM.IDLE
-  // }
 }
 
 
