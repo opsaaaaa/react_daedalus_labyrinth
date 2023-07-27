@@ -40,7 +40,9 @@ export class Game {
 
   build_actor_moves(): void {
     for(const a of this.actors) {
-      a.moves = this.board.get_moves(a.tile.x,a.tile.y,a.kind.steps)
+      if(a.is_alive()) {
+        a.moves = this.board.get_moves(a.tile.x,a.tile.y,a.kind.steps)
+      }
     }
   }
 
@@ -53,8 +55,14 @@ export class Game {
   }
 
   move_selected_actor(m: Tile): void {
+    if (!this.selected_actor) {return}
+
     this.selected_actor.tile = m
     this.selected_actor.moves = []
+
+    this.check_win(this.selected_actor)
+    this.check_death(this.selected_actor)
+
     this.selected_actor = undefined
   }
 
@@ -64,6 +72,28 @@ export class Game {
     this.build_actor_moves()
   }
 
+  check_win(a: Actor): void {
+    if (a.is_minotaur()) {return}
+    if (this.goal.id !== a.tile.id) { return }
+    a.win()
+  }
+
+  check_death(a: Actor): void {
+    if(a.is_minotaur()) {
+      const kill = this.actors.find(k=>a.tile.id === k.tile.id && !a.is_minotaur() && a.is_alive())
+      if (!kill) {return}
+      kill.die()
+    } else {
+      const mino = this.get_minotar()
+      if(mino.tile.id !== a.tile.id) { return }
+      a.die()
+    }
+  }
+
+  get_minotar(): Actor {
+    // this minotaur will be the first element, but im not going to assume that.
+    return this.actors.find(a=>a.is_minotaur())
+  }
 
 }
 
