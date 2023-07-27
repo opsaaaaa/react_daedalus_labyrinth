@@ -1,5 +1,7 @@
 import {useState, useMemo} from 'react'
 import {Board} from '../game/board'
+import {Game} from '../game/game'
+import {Draw} from '../game/draw'
 import {InsertBtns} from '../game/insert_btns'
 import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
@@ -16,23 +18,18 @@ import {create_actor_list} from "../game/actor"
 
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
-  const [selectedActor, setSelectedActor] = useState<Actor | undefined>(undefined) 
 
-  const b = useMemo(()=>(new Board(7,7)),[])
-
-  const arrow_btns = useMemo(()=>(new InsertBtns(7,7)),[b])
-
-  const actors = useMemo(()=>(create_actor_list([
-    b.cell(0,0),
-    b.cell(b.width - 1, 0),
-    b.cell(0, b.height - 1),
-    b.cell(b.width - 1, b.height - 1)
-  ])),[b])
-
-  const goal = useMemo(()=>(b.cell( Math.floor((b.width - 1)/2), Math.floor((b.height - 1)/2) )),[b])
+  const [g,b,actors,insert_btns, draw] = useMemo(()=>{
+    const g = new Game(7,7)
+    const d = new Draw(g)
+    return [g, g.board, g.actors, g.insert_btns, d]
+  },[])
 
   const hand = b.hand()
 
+  function update() {
+    setActionCount(actionCount + 1)
+  }
 
   return (
     <div className='game'>
@@ -47,19 +44,16 @@ export function GameView({setRoute}: ViewProps) {
         </g>
 
         <g>
-          {arrow_btns.btns.map((btn)=>(
+          {insert_btns.btns.map((btn)=>(
             <Arrow x={btn.x} y={btn.y} rot={btn.rot}
             key={btn.id}
             disabled={btn.disabled}
             onClick={()=>{
               b.insert(btn.x,btn.y)
-              arrow_btns.disable_opposing_btn(btn.id)
-
-              for(const a of actors) {
-                a.moves = b.get_moves(a.tile.x,a.tile.y,a.kind.steps)
-              }
-
-              setActionCount(actionCount + 1)
+              insert_btns.disable_opposing_btn(btn.id)
+              
+              g.build_actor_moves()
+              update()
             }}
             tabIndex={0}
           />
@@ -68,43 +62,37 @@ export function GameView({setRoute}: ViewProps) {
           tabIndex={0}
           onClick={()=>{
             hand.rotate()
-            setActionCount(actionCount + 1)
+            update()
           }}
           />
         </g>
 
         <g>
-          {actors.map((a)=>( (a.moves.length > 0) && (
+          {draw.select_actor_btns((a, click)=>(
             <MoveBtn
             x={a.tile.x}
             y={a.tile.y}
             c={a.kind.color}
             key={a.id}
             onClick={()=>{
-              if(selectedActor && selectedActor.id === a.id) {
-                setSelectedActor(undefined)
-              } else {
-                setSelectedActor(a)
-              }
-              setActionCount(actionCount + 1)
+              click()
+              update()
             }}
             />
-          )))}
+          ))}
         </g>
 
-
         <g>
-          {selectedActor && selectedActor.moves.map((m)=>(
+
+          {draw.move_actor_btns((m, click)=>(
             <MoveBtn
             x={m.x}
             y={m.y}
-            c={selectedActor.kind.color}
+            c={g.selected_actor.kind.color}
             key={m.id}
             onClick={()=>{
-              selectedActor.tile = m
-              selectedActor.moves = []
-              setSelectedActor(undefined)
-              setActionCount(actionCount + 1)
+              click()
+              update()
             }}
             />
           ))}
@@ -117,7 +105,7 @@ export function GameView({setRoute}: ViewProps) {
         </g>
 
         <g>
-          <Flag x={goal.x} y={goal.y} />
+          <Flag x={g.goal.x} y={g.goal.y} />
         </g>
 
       </SvgCanvas>
