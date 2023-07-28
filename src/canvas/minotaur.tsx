@@ -2,11 +2,11 @@ import {SIZE} from './const'
 import {PathRect} from './_path_rect'
 import {ActorProps} from './props'
 
-export function Minotaur({x,y,rot,...props}: ActorProps) {
+export function Minotaur({x,y,rot,className = '',...props}: ActorProps) {
   return (
     <g 
       transform={`translate(${x*SIZE},${y*SIZE - 48}) rotate(0)`}
-      className="actor origin-piece anim-transform click-through"
+      className={`actor origin-piece anim-transform click-through ${className}`}
       {...props}
     >
       <path

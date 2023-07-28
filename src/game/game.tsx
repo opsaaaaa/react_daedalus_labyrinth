@@ -5,11 +5,6 @@ import {InsertBtns} from './insert_btns'
 import {create_actor_list} from "../game/actor"
 
 // TODO: implement some kind of settings for board size.
-// export const board = new Board(5,5)
-
-// export const turns = 0
-
-// export function insert
 
 export class Game {
   board: Board;
@@ -41,9 +36,13 @@ export class Game {
   build_actor_moves(): void {
     for(const a of this.actors) {
       if(a.is_alive()) {
-        a.moves = this.board.get_moves(a.tile.x,a.tile.y,a.kind.steps)
+        this.build_single_actor_moves(a)
       }
     }
+  }
+
+  build_single_actor_moves(a: Actor): void {
+    a.moves = this.board.get_moves(a.tile.x,a.tile.y,a.kind.steps)
   }
 
   select_actor(a: Actor): void {
@@ -61,6 +60,7 @@ export class Game {
     this.selected_actor.moves = []
 
     this.check_win(this.selected_actor)
+    this.check_revive(this.selected_actor)
     this.check_death(this.selected_actor)
 
     this.selected_actor = undefined
@@ -91,6 +91,15 @@ export class Game {
     }
   }
 
+  check_revive(a: Actor): void {
+    if (a.is_minotaur()) {return}
+    const r = this.actors.find(r=>(a.tile.id === r.tile.id && r.is_dead()))
+    if (!r) {return}
+
+    r.revive()
+    this.build_single_actor_moves(r)
+  }
+
   get_minotar(): Actor {
     // this minotaur will be the first element, but im not going to assume that.
     return this.actors.find(a=>a.is_minotaur())
@@ -99,11 +108,3 @@ export class Game {
 }
 
 
-
-  // const goal = useMemo(()=>(board.cell( Math.floor((b.width - 1)/2), Math.floor((b.height - 1)/2) )),[b])
-
-  // const hand = board.hand()
-
-
-
-// start or resume game

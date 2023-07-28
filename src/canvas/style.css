@@ -33,7 +33,11 @@
 .canvas .tile,
 .anim-transform {
   /* transition: transform 400ms ease, z-index 400ms step-end; */
-  transition: transform 400ms ease;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.anim-death, .anim-win {
+  opacity: 0.3;
 }
 
 .canvas .dirt {

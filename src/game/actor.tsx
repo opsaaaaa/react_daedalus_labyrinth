@@ -62,6 +62,10 @@ export class Actor {
     return this.state === ACTOR_STATE.ALIVE
   }
 
+  is_dead(): boolean {
+    return this.state === ACTOR_STATE.DEAD
+  }
+
   win(): void {
     this.state = ACTOR_STATE.WON
     this.anim = ACTOR_ANIM.WIN
@@ -72,6 +76,11 @@ export class Actor {
     this.state = ACTOR_STATE.DEAD
     this.anim = ACTOR_ANIM.DEATH
     this.moves = []
+  }
+
+  revive(): void {
+    this.state = ACTOR_STATE.ALIVE
+    this.anim = ACTOR_ANIM.IDLE
   }
 }
 

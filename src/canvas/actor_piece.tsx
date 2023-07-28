@@ -22,7 +22,7 @@ export function ActorPiece({a,...props}: {a: Actor} & ReactSVGElement) {
   const Piece: typeof Minotaur = ACTOR_SHAPE[a.kind.shape] || Minotaur
 
   return (
-    <Piece x={a.tile.x} y={a.tile.y} {...props}/>
+    <Piece x={a.tile.x} y={a.tile.y} className={a.anim} {...props}/>
   )
 
 }
