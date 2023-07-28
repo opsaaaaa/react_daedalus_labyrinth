@@ -56,13 +56,15 @@ export function GameView({setRoute}: ViewProps) {
               tabIndex={0}
             />
             ))}
-            <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
-            tabIndex={0}
-            onClick={()=>{
-              hand.rotate()
-              update()
-            }}
-            />
+            { hand.can_rotate() && (
+              <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
+              tabIndex={0}
+              onClick={()=>{
+                hand.rotate()
+                update()
+              }}
+              />
+            )}
           </g>
         )}
 

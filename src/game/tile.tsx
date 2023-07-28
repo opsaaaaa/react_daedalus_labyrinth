@@ -1,13 +1,4 @@
 
-// TODO delete this type
-export type TileType = {
-  kind: TileKind,
-  x: number,
-  y: number,
-  id: number,
-  is_hand: boolean,
-}
-
 export type TileKind = {
   nav: boolean[],
   rot: number,
@@ -113,22 +104,12 @@ TILE_INFO[7].next = TILE_INFO[4]
 TILE_INFO[8].next = TILE_INFO[9]
 TILE_INFO[9].next = TILE_INFO[8]
 
-TILE_INFO[10].next = TILE_INFO[10]
-
-// TODO delete this function
 export function rand_tile_kind(): TileKind {
   return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
 }
 
-// TODO delete this function
-export function create_tile(i: number, w: number): TileType {
-  return {
-    kind: rand_tile_kind(),
-    x: i % w,
-    y: Math.floor(i / w),
-    id: i,
-    is_hand: false,
-  } as TileType
+export function create_tile(i: number, w: number, k: number = -1): TileType {
+  return new Tile(i,w,k)
 }
 
 export class Tile {
@@ -154,6 +135,10 @@ export class Tile {
     if (this.kind.next) {
       this.kind = this.kind.next
     }
+  }
+
+  can_rotate(): boolean {
+    return !!this.kind.next
   }
 }
 
