@@ -43,57 +43,63 @@ export function GameView({setRoute}: ViewProps) {
           ))}
         </g>
 
-        <g>
-          {insert_btns.btns.map((btn)=>(
-            <Arrow x={btn.x} y={btn.y} rot={btn.rot}
-            key={btn.id}
-            disabled={btn.disabled}
-            onClick={()=>{
-              g.insert_with_btn(btn)
-              update()
-            }}
+        {( g.is_state_play_slide() &&
+          <g>
+            {insert_btns.btns.map((btn)=>(
+              <Arrow x={btn.x} y={btn.y} rot={btn.rot}
+              key={btn.id}
+              disabled={btn.disabled}
+              onClick={()=>{
+                g.insert_with_btn(btn)
+                update()
+              }}
+              tabIndex={0}
+            />
+            ))}
+            <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
             tabIndex={0}
-          />
-          ))}
-          <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
-          tabIndex={0}
-          onClick={()=>{
-            hand.rotate()
-            update()
-          }}
-          />
-        </g>
-
-        <g>
-          {draw.select_actor_btns((a, click)=>(
-            <MoveBtn
-            x={a.tile.x}
-            y={a.tile.y}
-            c={a.kind.color}
-            key={a.id}
             onClick={()=>{
-              click()
+              hand.rotate()
               update()
             }}
             />
-          ))}
-        </g>
+          </g>
+        )}
 
-        <g>
+        { g.is_state_play_move() && (
+          <>
+          <g>
+            {draw.select_actor_btns((a, click)=>(
+              <MoveBtn
+              x={a.tile.x}
+              y={a.tile.y}
+              c={a.kind.color}
+              key={a.id}
+              onClick={()=>{
+                click()
+                update()
+              }}
+              />
+            ))}
+          </g>
 
-          {draw.move_actor_btns((m, click)=>(
-            <MoveBtn
-            x={m.x}
-            y={m.y}
-            c={g.selected_actor.kind.color}
-            key={m.id}
-            onClick={()=>{
-              click()
-              update()
-            }}
-            />
-          ))}
-        </g>
+          <g>
+
+            {draw.move_actor_btns((m, click)=>(
+              <MoveBtn
+              x={m.x}
+              y={m.y}
+              c={g.selected_actor.kind.color}
+              key={m.id}
+              onClick={()=>{
+                click()
+                update()
+              }}
+              />
+            ))}
+          </g>
+          </>
+        )}
 
         <g>
           {actors.map(a=>(

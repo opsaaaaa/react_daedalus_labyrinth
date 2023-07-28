@@ -46,6 +46,14 @@ export class Game {
     this.state = GAME_STATE.PLAY_SLIDE
   }
 
+  is_state_play_move(): boolean {
+    return this.state === GAME_STATE.PLAY_MOVE
+  }
+
+  is_state_play_slide(): boolean {
+    return this.state === GAME_STATE.PLAY_SLIDE
+  }
+
   build_actor_moves(): void {
     for(const a of this.actors) {
       if(a.is_alive()) {
@@ -67,6 +75,7 @@ export class Game {
   }
 
   move_selected_actor(m: Tile): void {
+    if (!this.is_state_play_move()) {return}
     if (!this.selected_actor) {return}
 
     this.selected_actor.tile = m
@@ -77,22 +86,34 @@ export class Game {
     this.check_revive(this.selected_actor)
 
     this.selected_actor = undefined
+
+    this.check_change_state_play_slide()
   }
 
   insert_with_btn(btn: InsertBtns): void {
+    if (!this.is_state_play_slide()) {return}
+
     this.board.insert(btn.x,btn.y)
     this.insert_btns.disable_opposing_btn(btn.id)
     this.build_actor_moves()
+
+    this.state = GAME_STATE.PLAY_MOVE
   }
 
-  check_win(a: Actor): boolean {
+  private check_change_state_play_slide(): boolean {
+    if (this.actors.find(a=>a.moves.length > 0)) {return false}
+    this.state = GAME_STATE.PLAY_SLIDE
+    return true
+  }
+
+  private check_win(a: Actor): boolean {
     if (a.is_minotaur()) {return false }
     if (this.goal.id !== a.tile.id) { return false }
     a.win()
     return true
   }
 
-  check_death(a: Actor): boolean {
+  private check_death(a: Actor): boolean {
     if(a.is_minotaur()) {
       const kill = this.actors.find(k=>(a.tile.id === k.tile.id && !k.is_minotaur() && k.is_alive()))
       console.log({kill, a, m: 'kill'})
