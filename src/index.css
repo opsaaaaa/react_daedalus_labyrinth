@@ -22,12 +22,12 @@
 }
 
 .canvas {
-  max-width: 98vh;
-  max-height: 98vw;
+  max-width: 99vh;
+  max-height: 99vw;
   height: 100%;
   margin: auto;
   width: 100%;
-  border: red solid 1px;
+  /* border: red solid 1px; */
 }
 
 /* a { */
