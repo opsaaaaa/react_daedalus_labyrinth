@@ -7,11 +7,14 @@ type Props = {
   h: number,
 }
 
+const PADDING = 4
+
 export function SvgCanvas({children, w, h}: {children: ReactNode}) {
   return (
     <svg
     className='canvas'
-    viewBox={`${-SIZE} ${-SIZE} ${(w+2)*SIZE} ${(h+2)*SIZE}`}
+    viewBox={`${-SIZE - PADDING} ${-SIZE - PADDING} ${((w+2)*SIZE) + (PADDING*2)} ${((h+2)*SIZE) + (PADDING*2)}
+    `}
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     >

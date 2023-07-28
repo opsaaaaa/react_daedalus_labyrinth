@@ -99,12 +99,28 @@ export class Game {
     this.insert_btns.disable_opposing_btn(btn.id)
     this.build_actor_moves()
 
+    this.next_actor_turn()
+
     this.state = GAME_STATE.PLAY_MOVE
+  }
+
+  private next_actor_turn(): void {
+    // if(this.)
+    // get the next actor, stating from the current actors turn, who is alive, without creating a infinite loop.
+    let i = 0
+    do {
+      this.turn_actor = this.actors[(this.turn_actor.id + 1) % this.actors.length]
+      i++
+    } while(i < this.actors.length && !this.turn_actor.is_alive())
   }
 
   private check_change_state_play_slide(): boolean {
     if (this.actors.find(a=>a.moves.length > 0)) {return false}
     this.state = GAME_STATE.PLAY_SLIDE
+
+    if (!this.turn_actor.is_alive()) {
+      this.next_actor_turn()
+    }
     return true
   }
 

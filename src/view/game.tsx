@@ -43,30 +43,29 @@ export function GameView({setRoute}: ViewProps) {
           ))}
         </g>
 
-        {( g.is_state_play_slide() &&
-          <g>
-            {insert_btns.btns.map((btn)=>(
-              <Arrow x={btn.x} y={btn.y} rot={btn.rot}
-              key={btn.id}
-              disabled={btn.disabled}
-              onClick={()=>{
-                g.insert_with_btn(btn)
-                update()
-              }}
-              tabIndex={0}
+        <g>
+          {g.is_state_play_slide() && insert_btns.btns.map((btn)=>(
+            <Arrow x={btn.x} y={btn.y} rot={btn.rot}
+            key={btn.id}
+            disabled={btn.disabled}
+            onClick={()=>{
+              g.insert_with_btn(btn)
+              update()
+            }}
+            tabIndex={0}
+          />
+          ))}
+          <MoveBtn x={hand.x} y={hand.y} c={g.turn_actor.kind.color}/>
+          {g.is_state_play_slide() && hand.can_rotate() && (
+            <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
+            tabIndex={0}
+            onClick={()=>{
+              hand.rotate()
+              update()
+            }}
             />
-            ))}
-            { hand.can_rotate() && (
-              <Rotate x={hand.x} y={hand.y} rot={hand.kind.rot}
-              tabIndex={0}
-              onClick={()=>{
-                hand.rotate()
-                update()
-              }}
-              />
-            )}
-          </g>
-        )}
+          )}
+        </g>
 
         { g.is_state_play_move() && (
           <>

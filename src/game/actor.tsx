@@ -28,7 +28,7 @@ export enum ACTOR_SHAPE {
 }
 
 export const ACTOR_KIND: ActorKind[] = [
-  {shape: ACTOR_SHAPE.MINOTAUR, color: 'red', steps: 3 },
+  {shape: ACTOR_SHAPE.MINOTAUR, color: 'red', steps: 6 },
   {shape: ACTOR_SHAPE.GREEN, color: 'green', steps: 2 },
   {shape: ACTOR_SHAPE.BLUE, color: 'blue', steps: 2 },
   {shape: ACTOR_SHAPE.ORANGE, color: 'orange', steps: 2 },
