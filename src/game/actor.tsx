@@ -65,11 +65,13 @@ export class Actor {
   win(): void {
     this.state = ACTOR_STATE.WON
     this.anim = ACTOR_ANIM.WIN
+    this.moves = []
   }
 
   die(): void {
     this.state = ACTOR_STATE.DEAD
     this.anim = ACTOR_ANIM.DEATH
+    this.moves = []
   }
 }
 

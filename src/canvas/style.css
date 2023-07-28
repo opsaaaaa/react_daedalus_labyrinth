@@ -32,6 +32,7 @@
 
 .canvas .tile,
 .anim-transform {
+  /* transition: transform 400ms ease, z-index 400ms step-end; */
   transition: transform 400ms ease;
 }
 

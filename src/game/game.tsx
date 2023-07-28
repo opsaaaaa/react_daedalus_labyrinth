@@ -80,7 +80,8 @@ export class Game {
 
   check_death(a: Actor): void {
     if(a.is_minotaur()) {
-      const kill = this.actors.find(k=>a.tile.id === k.tile.id && !a.is_minotaur() && a.is_alive())
+      const kill = this.actors.find(k=>(a.tile.id === k.tile.id && !k.is_minotaur() && k.is_alive()))
+      console.log({kill, a, m: 'kill'})
       if (!kill) {return}
       kill.die()
     } else {
