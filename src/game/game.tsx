@@ -10,7 +10,7 @@ export enum GAME_STATE {
   PLAY_MOVE,
   PLAY_SLIDE,
   GAME_OVER,
-  PAUSE,
+  SETUP,
 }
 
 export class Game {
@@ -105,7 +105,6 @@ export class Game {
   }
 
   private next_actor_turn(): void {
-    // if(this.)
     // get the next actor, stating from the current actors turn, who is alive, without creating a infinite loop.
     let i = 0
     do {
