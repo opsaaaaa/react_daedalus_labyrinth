@@ -68,7 +68,9 @@ export class Game {
 
   select_actor(a: Actor): void {
     if(this.selected_actor && this.selected_actor.id === a.id) {
+      this.selected_actor.moves = []
       this.selected_actor = undefined
+      this.check_change_state_play_slide()
     } else {
       this.selected_actor = a
     }
