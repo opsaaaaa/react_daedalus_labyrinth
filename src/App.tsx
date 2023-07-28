@@ -1,5 +1,3 @@
-
-import './App.css'
 import {useState, ReactNode} from 'react'
 import {VIEWS} from './view/index'
 
