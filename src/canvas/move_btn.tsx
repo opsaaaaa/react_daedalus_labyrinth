@@ -12,10 +12,10 @@ export function MoveBtn({x,y,c,...props}: MoveBtnProps ) {
       "--color": c,
     }}
     className="move-btn"
-    width="59"
-    height="59"
-    x={x * SIZE + 3}
-    y={y * SIZE + 3}
+    width="64"
+    height="64"
+    x={x * SIZE}
+    y={y * SIZE}
     ry="14"
     rx="14"
     {...props}

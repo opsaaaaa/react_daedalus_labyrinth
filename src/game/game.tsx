@@ -73,8 +73,8 @@ export class Game {
     this.selected_actor.moves = []
 
     this.check_win(this.selected_actor) ||
-    this.check_revive(this.selected_actor) &&
-    this.check_death(this.selected_actor)
+    this.check_death(this.selected_actor) ||
+    this.check_revive(this.selected_actor)
 
     this.selected_actor = undefined
   }
