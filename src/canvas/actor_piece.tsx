@@ -9,7 +9,7 @@ import {Minotaur} from './minotaur'
 import {PlayerGreen} from './player_green'
 import {PlayerBlue} from './player_blue'
 import {PlayerOrange} from './player_orange'
-import type {ReactSVGElement} from 'react'
+import {SvgProps} from './props'
 
 const ACTOR_SHAPE = [
   Minotaur,
@@ -18,11 +18,18 @@ const ACTOR_SHAPE = [
   PlayerOrange,
 ]
 
-export function ActorPiece({a,...props}: {a: Actor} & ReactSVGElement) {
+// React.ButtonHTMLAttributes<HTMLButtonElement>
+// HTMLAttributes<HTMLDivElement>
+// HTMLAttributes<HTMLDivElement>
+
+// SVGAttributes<SVGElement>
+type Props = {a: Actor} & SvgProps
+
+export function ActorPiece({a,...props}:  Props) {
   const Piece: typeof Minotaur = ACTOR_SHAPE[a.kind.shape] || Minotaur
 
   return (
-    <Piece x={a.tile.x} y={a.tile.y} className={a.anim} {...props}/>
+    <Piece x={a.tile.x} y={a.tile.y} rot={0} className={a.anim} {...props}/>
   )
 
 }

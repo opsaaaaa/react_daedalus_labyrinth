@@ -1,19 +1,26 @@
-import type {ReactSVGElement} from 'react'
+import type {SVGAttributes} from 'react'
+
+// export type SvgProps = SVGAttributes<SVGElement>
+export type SvgProps = Omit<SVGAttributes<SVGElement>, 'x' | 'y'>
+// type Props = {a: Actor} & 
 
 export type TileShapeProps = {
   x: number,
-  y: nubmer,
+  y: number,
   rot: number,
-} & ReactSVGElement
+} & SvgProps
 
 
 export type ActorProps = {
   x: number,
-  y: nubmer,
-} & ReactSVGElement
+  y: number,
+  rot: number,
+} & SvgProps
 
 export type MoveBtnProps = {
   x: number,
   y: number,
   c: string
-} & ReactSVGElement
+} & SvgProps
+
+

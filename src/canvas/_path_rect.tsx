@@ -1,6 +1,3 @@
-
-import {STYLE} from './const'
-
 export function PathRect() {
   return (
     <rect

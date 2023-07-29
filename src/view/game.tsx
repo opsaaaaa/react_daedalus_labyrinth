@@ -1,5 +1,4 @@
 import {useState, useMemo} from 'react'
-import {Board} from '../game/board'
 import {Game} from '../game/game'
 import {Draw} from '../game/draw'
 import {InsertBtns} from '../game/insert_btns'
@@ -17,6 +16,7 @@ import '../canvas/style.css'
 import {create_actor_list} from "../game/actor"
 
 export function GameView({setRoute}: ViewProps) {
+  setRoute
   const [actionCount, setActionCount] = useState(0)
 
   const [g,b,actors,insert_btns, draw] = useMemo(()=>{
@@ -45,15 +45,16 @@ export function GameView({setRoute}: ViewProps) {
 
         <g>
           {g.is_state_play_slide() && insert_btns.btns.map((btn)=>(
-            <Arrow x={btn.x} y={btn.y} rot={btn.rot}
-            key={btn.id}
-            disabled={btn.disabled}
-            onClick={()=>{
-              g.insert_with_btn(btn)
-              update()
-            }}
-            tabIndex={0}
-          />
+            !btn.disabled && (
+              <Arrow x={btn.x} y={btn.y} rot={btn.rot}
+              key={btn.id}
+              onClick={()=>{
+                g.insert_with_btn(btn)
+                update()
+              }}
+              tabIndex={0}
+              />
+            )
           ))}
           <MoveBtn x={hand.x} y={hand.y} c={g.turn_actor.kind.color}/>
           {g.is_state_play_slide() && hand.can_rotate() && (

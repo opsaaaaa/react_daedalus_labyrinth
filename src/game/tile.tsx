@@ -108,7 +108,7 @@ export function rand_tile_kind(): TileKind {
   return TILE_INFO[Math.floor( Math.random()*(TILE_INFO.length) )]
 }
 
-export function create_tile(i: number, w: number, k: number = -1): TileType {
+export function create_tile(i: number, w: number, k: number = -1): Tile {
   return new Tile(i,w,k)
 }
 

@@ -1,10 +1,10 @@
-import {useState, ReactNode} from 'react'
-import {VIEWS} from './view/index'
+import {useState} from 'react'
+import {VIEWS, VIEWSkeys, ViewNode} from './view/index'
 
 function App() {
-  const [route, setRoute] = useState<string>('menu')
+  const [route, setRoute] = useState<VIEWSkeys>('menu')
 
-  const View = VIEWS[route]
+  const View: ViewNode = VIEWS[route]
 
   return (
     <>

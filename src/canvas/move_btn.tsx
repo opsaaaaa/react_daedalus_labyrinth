@@ -9,7 +9,7 @@ export function MoveBtn({x,y,c,...props}: MoveBtnProps ) {
   return (
     <rect
     style={{
-      "--color": c,
+      color: c,
     }}
     className="move-btn"
     width="64"

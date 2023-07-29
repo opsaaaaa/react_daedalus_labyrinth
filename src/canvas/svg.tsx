@@ -9,7 +9,7 @@ type Props = {
 
 const PADDING = 4
 
-export function SvgCanvas({children, w, h}: {children: ReactNode}) {
+export function SvgCanvas({children, w, h}: Props) {
   return (
     <svg
     className='canvas'

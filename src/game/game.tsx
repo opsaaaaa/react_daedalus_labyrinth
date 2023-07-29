@@ -1,7 +1,7 @@
 import {Board} from './board'
 import {Tile} from './tile'
 import {Actor} from './actor'
-import {InsertBtns} from './insert_btns'
+import {InsertBtns, InsertArrowBtn} from './insert_btns'
 import {create_actor_list} from "../game/actor"
 
 // TODO: implement some kind of settings for board size.
@@ -92,7 +92,7 @@ export class Game {
     this.check_change_state_play_slide()
   }
 
-  insert_with_btn(btn: InsertBtns): void {
+  insert_with_btn(btn: InsertArrowBtn): void {
     if (!this.is_state_play_slide()) {return}
 
     this.board.insert(btn.x,btn.y)
@@ -139,7 +139,7 @@ export class Game {
       return true
     } else {
       const mino = this.get_minotar()
-      if(mino.tile.id !== a.tile.id) { return false }
+      if(mino && mino.tile.id !== a.tile.id) { return false }
       a.die()
       return true
     }
@@ -155,7 +155,7 @@ export class Game {
     return true
   }
 
-  get_minotar(): Actor {
+  get_minotar(): Actor | undefined {
     // this minotaur will be the first element, but im not going to assume that.
     return this.actors.find(a=>a.is_minotaur())
   }

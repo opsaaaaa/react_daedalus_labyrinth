@@ -3,7 +3,8 @@
 // import type { TileType, TileKind } from './tile'
 // import { TILE_INFO } from './tile'
 
-// import type {Actor} from './actor'
+import {Actor} from './actor'
+import {Tile} from './Tile'
 // import {ACTOR_KIND, ACTOR_INFO} from './actor'
 // import 
 

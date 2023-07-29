@@ -1,5 +1,4 @@
 import {SIZE} from './const'
-import {PathRect} from './_path_rect'
 import {ActorProps} from './props'
 
 export function PlayerGreen({x,y,rot,className = '',...props}: ActorProps) {

@@ -1,5 +1,6 @@
+import {VIEWSkeys} from './view/index'
 
 export type ViewProps = {
-  setRoute: (string)=>void
+  setRoute: (r: VIEWSkeys)=>void
 }
 

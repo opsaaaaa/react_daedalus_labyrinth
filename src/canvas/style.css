@@ -71,7 +71,7 @@
 }
 
 .canvas .move-btn {
-  stroke: var(--color);
+  stroke: currentColor;
   stroke-width: 4px;
   fill: #0000;
 }

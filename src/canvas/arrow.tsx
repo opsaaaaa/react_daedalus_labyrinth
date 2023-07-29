@@ -1,5 +1,4 @@
 import {SIZE} from './const'
-import {PathRect} from './_path_rect'
 import {TileShapeProps} from './props'
 
 export function Arrow({x,y,rot,...props}: TileShapeProps) {
