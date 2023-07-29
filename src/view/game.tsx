@@ -1,7 +1,6 @@
 import {useState, useMemo} from 'react'
 import {Game} from '../game/game'
 import {Draw} from '../game/draw'
-import {InsertBtns} from '../game/insert_btns'
 import type {ViewProps} from './props'
 import {PathTile} from '../canvas/path_tile'
 import {ActorPiece} from '../canvas/actor_piece'
@@ -12,8 +11,6 @@ import {Arrow} from '../canvas/arrow'
 import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
 
-
-import {create_actor_list} from "../game/actor"
 
 export function GameView({setRoute}: ViewProps) {
   setRoute
@@ -91,7 +88,7 @@ export function GameView({setRoute}: ViewProps) {
               <MoveBtn
               x={m.x}
               y={m.y}
-              c={g.selected_actor.kind.color}
+              c={g.selected_actor && g.selected_actor.kind.color || ''}
               key={m.id}
               onClick={()=>{
                 click()
@@ -110,7 +107,7 @@ export function GameView({setRoute}: ViewProps) {
         </g>
 
         <g>
-          <Flag x={g.goal.x} y={g.goal.y} />
+          <Flag rot={0} x={g.goal.x} y={g.goal.y} />
         </g>
 
       </SvgCanvas>

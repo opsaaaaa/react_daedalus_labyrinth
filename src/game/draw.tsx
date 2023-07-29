@@ -4,7 +4,7 @@
 // import { TILE_INFO } from './tile'
 
 import {Actor} from './actor'
-import {Tile} from './Tile'
+import {Tile} from './tile'
 // import {ACTOR_KIND, ACTOR_INFO} from './actor'
 // import 
 

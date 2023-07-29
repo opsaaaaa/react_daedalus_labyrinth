@@ -3,8 +3,7 @@ import {Corner} from './corner'
 import {Joint} from './joint'
 import {Line} from './line'
 import {Cross} from './cross'
-// import {TileShapeProps} from './props'
-import type {ReactSVGElement} from 'react'
+import {SvgProps} from './props'
 
 const TILE_SHAPE = [
   Corner,
@@ -13,7 +12,7 @@ const TILE_SHAPE = [
   Cross,
 ]
 
-export function PathTile({t,...props}: {t: Tile} & ReactSVGElement) {
+export function PathTile({t,...props}: {t: Tile} & SvgProps) {
   const Tile: typeof Corner = TILE_SHAPE[t.kind.shape] || Corner
 
   return (
