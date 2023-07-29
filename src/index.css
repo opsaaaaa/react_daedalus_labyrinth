@@ -34,15 +34,17 @@ body {
   background: #94464e;
   border: #4b3339 solid 2px;
   border-radius: 14px;
+  text-align: center;
 }
 
+.plain-btn {
+  border: solid 2px #666;
+  border-radius: 5px;
+  padding: .6em 1em
+}
 
 .m-auto {
   margin: auto;
-}
-
-.play-btn {
-  text-align: center;
 }
 
 * {
