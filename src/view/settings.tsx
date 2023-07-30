@@ -16,12 +16,13 @@ export function SettingsView({setRoute, settings}: ViewProps) {
       display: 'grid',
       justifyContent: 'center',
       alignContent: 'center',
+      gridTemplateColumns: 'minmax(auto, 15em)',
       height: '100%',
       padding: '3rem',
       gap: '1rem',
     }}
     >
-      <h1>
+      <h1 style={{textAlign: 'center'}}>
         SETTINGS
       </h1>
       <button
@@ -33,40 +34,35 @@ export function SettingsView({setRoute, settings}: ViewProps) {
       >Back
       </button>
 
-      <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'auto auto',
-        gap: '2rem',
-      }}
-      >
-
-        <label>Width</label>
-        <div>
-          <span className="num-cir">{settings.width}</span>
-          <input
-          type="range"
-          min="2" max="20"
-          value={settings.width}
-          step="1"
-          onChange={(e)=>{ edit('width', Number(e.target.value)) }}
-          />
-        </div>
-        <label>Height</label>
-        <div>
-          <span className="num-cir">{settings.height}</span>
-          <input
-          type="range"
-          min="2" max="20"
-          value={settings.height}
-          step="1"
-          onChange={(e)=>{ edit('height', Number(e.target.value)) }}
-          />
-        </div>
-        
+      <div className="input-group">
+        <label>
+          Width
+          <strong style={{float: 'right'}}>{settings.width}</strong>
+        </label>
+        <input
+        type="range"
+        min="2" max="20"
+        value={settings.width}
+        step="1"
+        onChange={(e)=>{ edit('width', Number(e.target.value)) }}
+        />
       </div>
+      <div className="input-group">
+        <label>
+          Height
+          <strong style={{float: 'right'}}>{settings.height}</strong>
+        </label>
+        <input
+        type="range"
+        min="2" max="20"
+        value={settings.height}
+        step="1"
+        onChange={(e)=>{ edit('height', Number(e.target.value)) }}
+        />
+      </div>
+      
       <button
-      style={{position: 'absolute', bottom: 0, right: 0, marginTop: '1em'}}
+      style={{position: 'absolute', bottom: 0, right: 0, margin: '1em'}}
       className="btn large red-btn"
       onClick={()=>{
         setRoute('game')

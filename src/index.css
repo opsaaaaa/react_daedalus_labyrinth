@@ -116,9 +116,30 @@ button:disabled .arrow-svg {
 button:is(:hover, :focus-visible) .arrow-svg {
   opacity: 1;
 }
+
+/* input[type=range] + label { */
+/*   margin-left: 1em; */
+/*   vertical-align: middle; */
+/* } */
+w-100 {
+  width: 100%;
+}
+input[type=range] {
+  width: 100%;
+  vertical-align: middle;
+}
+
+
 .actor-svg {
   height: 140%;
   margin-top: -60%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.input-group * {
 }
 
 .actor-move {
