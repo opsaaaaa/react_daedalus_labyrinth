@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import {VIEWS, VIEWSkeys, ViewNode} from './view/index'
 
+import {settings} from './game/settings'
+
 function App() {
   const [route, setRoute] = useState<VIEWSkeys>('menu')
 
@@ -8,7 +10,7 @@ function App() {
 
   return (
     <>
-      <View setRoute={setRoute}/>
+      <View setRoute={setRoute} settings={settings}/>
     </>
   )
 }

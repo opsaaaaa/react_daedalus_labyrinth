@@ -12,11 +12,11 @@ import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
 
 
-export function GameView({setRoute}: ViewProps) {
+export function GameView({setRoute, settings}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
 
   const [g,b,actors,insert_btns, draw] = useMemo(()=>{
-    const g = new Game(7,7)
+    const g = new Game(settings.width,settings.height)
     const d = new Draw(g)
     return [g, g.board, g.actors, g.insert_btns, d]
   },[])
@@ -35,7 +35,7 @@ export function GameView({setRoute}: ViewProps) {
       onClick={()=>{
         setRoute('menu')
       }}
-      >Back
+      >Exit
       </button>
       <SvgCanvas
       w={b.width}

@@ -24,10 +24,18 @@ export function MenuView({setRoute}: ViewProps) {
         Good luck, and have fun!
       </p>
       <button
-      className="btn jumbo-btn m-auto"
+      className="btn jumbo red-btn m-auto"
       onClick={()=>{setRoute('game')}}
       >
         PLAY
+      </button>
+
+      <button
+      className="btn large m-auto"
+      onClick={()=>{
+        setRoute('settings')
+      }}
+      >Customize
       </button>
     </div>
   )
