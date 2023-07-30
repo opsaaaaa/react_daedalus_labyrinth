@@ -1,6 +1,7 @@
 
-import {useState} from 'react'
+import {useState, useMemo} from 'react'
 import type {ViewProps} from './props'
+import {RangeElement} from '../element/range'
 
 export function SettingsView({setRoute, settings}: ViewProps) {
   const [updater, setUpdater] = useState(1)
@@ -9,6 +10,13 @@ export function SettingsView({setRoute, settings}: ViewProps) {
     settings[key] = val
     setUpdater(updater + 1)
   }
+
+  const max_step = useMemo(()=>{
+    const m = settings.width + settings.height
+    settings.player_step = Math.min(m, settings.player_step)
+    settings.minotaur_step = Math.min(m, settings.minotaur_step)
+    return m
+  }, [settings.width, settings.height])
 
   return (
     <div
@@ -33,34 +41,39 @@ export function SettingsView({setRoute, settings}: ViewProps) {
       }}
       >Back
       </button>
-
-      <div className="input-group">
-        <label>
-          Width
-          <strong style={{float: 'right'}}>{settings.width}</strong>
-        </label>
-        <input
-        type="range"
-        min="2" max="20"
-        value={settings.width}
-        step="1"
-        onChange={(e)=>{ edit('width', Number(e.target.value)) }}
-        />
-      </div>
-      <div className="input-group">
-        <label>
-          Height
-          <strong style={{float: 'right'}}>{settings.height}</strong>
-        </label>
-        <input
-        type="range"
-        min="2" max="20"
-        value={settings.height}
-        step="1"
-        onChange={(e)=>{ edit('height', Number(e.target.value)) }}
-        />
-      </div>
       
+      <RangeElement
+        label="Width"
+        min="2" max="20" step="1"
+        value={settings.width}
+        onChange={(e)=>{ edit('width', Number(e.target.value)) }}
+      />
+
+      <RangeElement
+        label="Height"
+        min="2" max="20" step="1"
+        value={settings.height}
+        onChange={(e)=>{ edit('height', Number(e.target.value)) }}
+      />
+
+
+      <RangeElement
+        label="Player Steps"
+        min="1" max={max_step} step="1"
+        value={settings.player_step}
+        onChange={(e)=>{ edit('player_step', Number(e.target.value)) }}
+      />
+
+      <RangeElement
+        label="Minotaur Steps"
+        min="1" max={max_step} step="1"
+        value={settings.minotaur_step}
+        onChange={(e)=>{ edit('minotaur_step', Number(e.target.value)) }}
+      />
+
+
+
+
       <button
       style={{position: 'absolute', bottom: 0, right: 0, margin: '1em'}}
       className="btn large red-btn"
