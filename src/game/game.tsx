@@ -46,11 +46,11 @@ export class Game {
   }
 
   is_state_play_move(): boolean {
-    return this.state === GAME_STATE.PLAY_MOVE
+    return this.state === GAME_STATE.PLAY_MOVE || settings.sandbox_mode
   }
 
   is_state_play_slide(): boolean {
-    return this.state === GAME_STATE.PLAY_SLIDE
+    return this.state === GAME_STATE.PLAY_SLIDE || settings.sandbox_mode
   }
 
   build_actor_moves(): void {
@@ -83,6 +83,10 @@ export class Game {
     this.selected_actor.tile = m
     this.selected_actor.moves = []
 
+    if(settings.sandbox_mode) {
+      this.build_single_actor_moves(this.selected_actor)
+    }
+
     this.check_win(this.selected_actor) ||
     this.check_death(this.selected_actor) ||
     this.check_revive(this.selected_actor)
@@ -93,7 +97,7 @@ export class Game {
   }
 
   insert_with_btn(btn: InsertArrowBtn): void {
-    if (!this.is_state_play_slide()) {return}
+    if (!(this.is_state_play_slide() || settings.sandbox_mode)) {return}
 
     this.board.insert(btn.x,btn.y)
     this.insert_btns.disable_opposing_btn(btn.id)

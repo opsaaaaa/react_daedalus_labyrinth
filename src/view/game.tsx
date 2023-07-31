@@ -11,8 +11,9 @@ import {Arrow} from '../canvas/arrow'
 import {Rotate} from '../canvas/rotate'
 import '../canvas/style.css'
 
+import {settings} from '../game/settings'
 
-export function GameView({setRoute, settings}: ViewProps) {
+export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
 
   const [g,b,actors,insert_btns, draw] = useMemo(()=>{
