@@ -19,7 +19,7 @@ export function GameView({setRoute, settings}: ViewProps) {
     const g = new Game(settings.width,settings.height)
     const d = new Draw(g)
     return [g, g.board, g.actors, g.insert_btns, d]
-  },[])
+  },[settings.change])
 
   const hand = b.hand()
 

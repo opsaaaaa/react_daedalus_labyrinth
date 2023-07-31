@@ -4,8 +4,6 @@ import {Actor} from './actor'
 import {InsertBtns, InsertArrowBtn} from './insert_btns'
 import {create_actor_list} from "../game/actor"
 
-// TODO: implement some kind of settings for board size.
-
 export enum GAME_STATE {
   PLAY_MOVE,
   PLAY_SLIDE,

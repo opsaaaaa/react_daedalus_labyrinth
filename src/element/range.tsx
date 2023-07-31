@@ -1,7 +1,7 @@
 
 import type {InputHTMLAttributes} from 'react'
 
-type Props = InputHTMLAttributes<InputElement> & {label: string}
+type Props = InputHTMLAttributes<HTMLInputElement> & {label: string}
 
 export function RangeElement({label,value,...props}: Props) {
   return (

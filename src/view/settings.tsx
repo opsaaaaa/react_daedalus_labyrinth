@@ -2,13 +2,19 @@
 import {useState, useMemo} from 'react'
 import type {ViewProps} from './props'
 import {RangeElement} from '../element/range'
+import {SettingsProps} from '../game/settings'
 
 export function SettingsView({setRoute, settings}: ViewProps) {
-  const [updater, setUpdater] = useState(1)
+  const [updater, setUpdater] = useState(false)
 
-  function edit(key: 'width' | 'height', val: number): void {
+  function edit(key: keyof SettingsProps, val: number): void {
     settings[key] = val
-    setUpdater(updater + 1)
+    settings.change = !settings.change
+    setUpdater(!updater)
+  }
+
+  function check(key: keyof SettingsProps, val: boolean): void {
+    setUpdater(!updater)
   }
 
   const max_step = useMemo(()=>{
@@ -16,7 +22,8 @@ export function SettingsView({setRoute, settings}: ViewProps) {
     settings.player_step = Math.min(m, settings.player_step)
     settings.minotaur_step = Math.min(m, settings.minotaur_step)
     return m
-  }, [settings.width, settings.height])
+  }, [settings.change])
+  
 
   return (
     <div
@@ -41,7 +48,14 @@ export function SettingsView({setRoute, settings}: ViewProps) {
       }}
       >Back
       </button>
-      
+
+      <RangeElement
+        label="Player Count"
+        min="1" max="4" step="1"
+        value={settings.player_count}
+        onChange={(e)=>{ edit('player_count', Number(e.target.value)) }}
+      />
+
       <RangeElement
         label="Width"
         min="2" max="20" step="1"
@@ -70,6 +84,17 @@ export function SettingsView({setRoute, settings}: ViewProps) {
         value={settings.minotaur_step}
         onChange={(e)=>{ edit('minotaur_step', Number(e.target.value)) }}
       />
+
+
+      <div className="input-group">
+        <input
+        type="checkbox"
+        checked={false}
+        />
+        <label>
+          Sandbox Mode
+        </label>
+      </div>
 
 
 

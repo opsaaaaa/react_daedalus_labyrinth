@@ -126,9 +126,16 @@ w-100 {
 }
 input[type=range] {
   width: 100%;
-  vertical-align: middle;
 }
 
+input[type=checkbox] + label {
+  margin-left: 1em;
+}
+
+input[type=checkbox], input[type=range],
+input + label {
+  vertical-align: middle;
+}
 
 .actor-svg {
   height: 140%;
