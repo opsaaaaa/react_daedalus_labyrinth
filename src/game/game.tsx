@@ -104,6 +104,8 @@ export class Game {
 
     this.next_actor_turn()
 
+    if(!this.actors.find(a=>a.moves.length > 0)) {return}
+
     this.state = GAME_STATE.PLAY_MOVE
   }
 
