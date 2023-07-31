@@ -100,7 +100,6 @@ export class Game {
     if (!(this.is_state_play_slide() || settings.sandbox_mode)) {return}
 
     this.board.insert(btn.x,btn.y)
-    this.insert_btns.disable_opposing_btn(btn.id)
     this.build_actor_moves()
 
     this.next_actor_turn()

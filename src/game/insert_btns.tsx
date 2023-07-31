@@ -9,7 +9,7 @@ export type InsertArrowBtn = {
 
 export class InsertBtns {
   btns: InsertArrowBtn[];
-  dis_btns: InsertArrowBtn[];
+  // dis_btns: InsertArrowBtn[];
   w: number;
   h: number;
 
@@ -18,23 +18,23 @@ export class InsertBtns {
     this.h = h
     this.btns = new Array(w + w + h + h)
     this.init_btns()
-    this.dis_btns = []
+    // this.dis_btns = []
   }
 
-  disable_opposing_btn(id: number) {
-    this.enable_all_btns()
-    const s = this.w + this.h
-    const btn = this.btns[(id + s) % (s*2)]
-    btn.disabled = true
-    this.dis_btns.push(btn)
-  }
+  // disable_opposing_btn(id: number) {
+  //   this.enable_all_btns()
+  //   const s = this.w + this.h
+  //   const btn = this.btns[(id + s) % (s*2)]
+  //   btn.disabled = true
+  //   this.dis_btns.push(btn)
+  // }
 
-  enable_all_btns() {
-    for(const b of this.dis_btns) {
-      b.disabled = false
-    }
-    this.dis_btns = []
-  }
+  // enable_all_btns() {
+  //   for(const b of this.dis_btns) {
+  //     b.disabled = false
+  //   }
+  //   this.dis_btns = []
+  // }
 
   private init_btns() {
 
