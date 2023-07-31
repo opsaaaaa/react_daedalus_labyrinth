@@ -68,9 +68,13 @@ export class Game {
 
   select_actor(a: Actor): void {
     if(this.selected_actor && this.selected_actor.id === a.id) {
-      this.selected_actor.moves = []
+
+      if(!settings.sandbox_mode) {
+        this.selected_actor.moves = []
+        this.check_change_state_play_slide()
+      }
+
       this.selected_actor = undefined
-      this.check_change_state_play_slide()
     } else {
       this.selected_actor = a
     }
@@ -97,7 +101,7 @@ export class Game {
   }
 
   insert_with_btn(btn: InsertArrowBtn): void {
-    if (!(this.is_state_play_slide() || settings.sandbox_mode)) {return}
+    if (!this.is_state_play_slide()) {return}
 
     this.board.insert(btn.x,btn.y)
     this.build_actor_moves()
