@@ -29,14 +29,6 @@ export function GameView({setRoute, settings}: ViewProps) {
 
   return (
     <div className='game'>
-      <button
-      style={{position: 'absolute', top: 0, left: 0, marginTop: '1em'}}
-      className="btn plain-btn"
-      onClick={()=>{
-        setRoute('menu')
-      }}
-      >Exit
-      </button>
       <SvgCanvas
       w={b.width}
       h={b.height}
@@ -119,6 +111,16 @@ export function GameView({setRoute, settings}: ViewProps) {
         </g>
 
       </SvgCanvas>
+
+      <button
+      style={{position: 'absolute', top: 0, left: 0, marginTop: '1em'}}
+      className="btn plain-btn"
+      onClick={()=>{
+        setRoute('menu')
+        console.log('?')
+      }}
+      >Exit
+      </button>
     </div>
   )
 }

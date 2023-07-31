@@ -3,6 +3,7 @@ import {Tile} from './tile'
 import {Actor} from './actor'
 import {InsertBtns, InsertArrowBtn} from './insert_btns'
 import {create_actor_list} from "../game/actor"
+import {settings} from './settings'
 
 export enum GAME_STATE {
   PLAY_MOVE,
@@ -42,6 +43,7 @@ export class Game {
     this.build_actor_moves()
 
     this.state = GAME_STATE.PLAY_SLIDE
+    console.log(settings)
   }
 
   is_state_play_move(): boolean {
@@ -61,7 +63,8 @@ export class Game {
   }
 
   build_single_actor_moves(a: Actor): void {
-    a.moves = this.board.get_moves(a.tile.x,a.tile.y,a.kind.steps)
+    const steps = a.is_minotaur() ? settings.minotaur_steps : settings.player_steps
+    a.moves = this.board.get_moves(a.tile.x,a.tile.y,steps)
   }
 
   select_actor(a: Actor): void {

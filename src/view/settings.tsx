@@ -17,10 +17,10 @@ export function SettingsView({setRoute, settings}: ViewProps) {
     update()
   }
 
-  const max_step = useMemo(()=>{
+  const max_steps = useMemo(()=>{
     const m = settings.width + settings.height
-    settings.player_step = Math.min(m, settings.player_step)
-    settings.minotaur_step = Math.min(m, settings.minotaur_step)
+    settings.player_steps = Math.min(m, settings.player_steps)
+    settings.minotaur_steps = Math.min(m, settings.minotaur_steps)
     return m
   }, [settings.change])
   
@@ -51,21 +51,21 @@ export function SettingsView({setRoute, settings}: ViewProps) {
 
       <RangeElement
         label="Player Count"
-        min="1" max="4" step="1"
+        min="1" max="4" steps="1"
         value={settings.player_count}
         onChange={(e)=>{ edit('player_count', Number(e.target.value)) }}
       />
 
       <RangeElement
         label="Width"
-        min="2" max="20" step="1"
+        min="2" max="20" steps="1"
         value={settings.width}
         onChange={(e)=>{ edit('width', Number(e.target.value)) }}
       />
 
       <RangeElement
         label="Height"
-        min="2" max="20" step="1"
+        min="2" max="20" steps="1"
         value={settings.height}
         onChange={(e)=>{ edit('height', Number(e.target.value)) }}
       />
@@ -73,16 +73,16 @@ export function SettingsView({setRoute, settings}: ViewProps) {
 
       <RangeElement
         label="Player Steps"
-        min="1" max={max_step} step="1"
-        value={settings.player_step}
-        onChange={(e)=>{ edit('player_step', Number(e.target.value)) }}
+        min="1" max={max_steps} steps="1"
+        value={settings.player_steps}
+        onChange={(e)=>{ edit('player_steps', Number(e.target.value)) }}
       />
 
       <RangeElement
         label="Minotaur Steps"
-        min="1" max={max_step} step="1"
-        value={settings.minotaur_step}
-        onChange={(e)=>{ edit('minotaur_step', Number(e.target.value)) }}
+        min="1" max={max_steps} steps="1"
+        value={settings.minotaur_steps}
+        onChange={(e)=>{ edit('minotaur_steps', Number(e.target.value)) }}
       />
 
 
