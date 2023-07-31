@@ -33,7 +33,7 @@ export class Game {
       this.board.cell(w - 1, h - 1),
       this.board.cell(w - 1, 0),
       this.board.cell(0, h - 1),
-    ])
+    ].slice(0,settings.player_count))
 
     this.selected_actor = undefined
     this.turn_actor = this.actors[0]
