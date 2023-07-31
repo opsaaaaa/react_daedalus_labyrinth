@@ -130,6 +130,9 @@ input[type=range] {
 input[type=checkbox] + label {
   margin-left: 1em;
 }
+label > input[type=checkbox] {
+  margin-right: 1em;
+}
 
 input[type=checkbox], input[type=range],
 input + label {

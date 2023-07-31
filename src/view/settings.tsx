@@ -7,15 +7,15 @@ import {SettingsProps} from '../game/settings'
 export function SettingsView({setRoute, settings}: ViewProps) {
   const [updater, setUpdater] = useState(false)
 
-  function edit(key: keyof Omit<SettingsProps, 'change' | 'sandbox_mode'>, val: number): void {
-    settings[key] = val
+  function update(): void {
     settings.change = !settings.change
     setUpdater(!updater)
   }
 
-  // function check(key: keyof SettingsProps, val: boolean): void {
-  //   setUpdater(!updater)
-  // }
+  function edit(key: keyof Omit<SettingsProps, 'change' | 'sandbox_mode'>, val: number): void {
+    settings[key] = val
+    update()
+  }
 
   const max_step = useMemo(()=>{
     const m = settings.width + settings.height
@@ -87,15 +87,18 @@ export function SettingsView({setRoute, settings}: ViewProps) {
 
 
       <div className="input-group">
-        <input
-        type="checkbox"
-        checked={false}
-        />
         <label>
+          <input
+          type="checkbox"
+          checked={settings.sandbox_mode}
+          onChange={(e)=>{
+            settings.sandbox_mode = e.target.checked
+            update()
+          }}
+          />
           Sandbox Mode
         </label>
       </div>
-
 
 
 
