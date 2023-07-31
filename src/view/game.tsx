@@ -16,8 +16,13 @@ import {settings} from '../game/settings'
 export function GameView({setRoute}: ViewProps) {
   const [actionCount, setActionCount] = useState(0)
 
+  function endgame(): void {
+    console.log('gameover')
+    setRoute('gameover')
+  }
+
   const [g,b,actors,insert_btns, draw] = useMemo(()=>{
-    const g = new Game(settings.width,settings.height)
+    const g = new Game(settings.width,settings.height, endgame)
     const d = new Draw(g)
     return [g, g.board, g.actors, g.insert_btns, d]
   },[])

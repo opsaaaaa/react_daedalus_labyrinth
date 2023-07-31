@@ -3,12 +3,12 @@ import {Tile} from './tile'
 import {Actor} from './actor'
 import {InsertBtns, InsertArrowBtn} from './insert_btns'
 import {create_actor_list} from "../game/actor"
-import {settings} from './settings'
+import {settings, GAMEMODE} from './settings'
 
 export enum GAME_STATE {
   PLAY_MOVE,
   PLAY_SLIDE,
-  GAME_OVER,
+  GAMEOVER,
   SETUP,
 }
 
@@ -24,7 +24,10 @@ export class Game {
 
   state: GAME_STATE;
 
-  constructor(w:number,h:number) {
+  gameover_fn: ()=>void;
+
+  constructor(w:number,h:number,gameover_fn: ()=>void = ()=>{}) {
+    this.gameover_fn = gameover_fn
     this.board = new Board(w,h)
     this.insert_btns = new InsertBtns(w,h)
 
@@ -97,7 +100,42 @@ export class Game {
 
     this.selected_actor = undefined
 
+    if(this.check_gameover()) {return}
+
     this.check_change_state_play_slide()
+  }
+
+  private check_gameover(): boolean {
+
+    if(settings.gamemode === GAMEMODE.COMPETITIVE) {
+
+      if(this.any_player_alive() && !this.any_player_won()) { return false }
+
+    } else if(settings.gamemode === GAMEMODE.COOPERATIVE) {
+
+      if (this.any_player_alive()) { return false }
+    }
+
+    // TODO: collect stats about the game
+    this.state = GAME_STATE.GAMEOVER
+    setTimeout(()=>{
+      this.gameover_fn()
+    }, 1500)
+    return true
+  }
+
+  any_player_won(): boolean {
+    for(const a of this.actors) {
+      if (a.has_won()) { return true }
+    }
+    return false
+  }
+
+  any_player_alive(): boolean {
+    for(const a of this.actors) {
+      if(a.is_alive() && !a.is_minotaur()) {return true}
+    }
+    return false
   }
 
   insert_with_btn(btn: InsertArrowBtn): void {
@@ -146,7 +184,7 @@ export class Game {
       kill.die()
       return true
     } else {
-      const mino = this.get_minotar()
+      const mino = this.get_minotaur()
       if(mino && mino.tile.id !== a.tile.id) { return false }
       a.die()
       return true
@@ -163,7 +201,7 @@ export class Game {
     return true
   }
 
-  get_minotar(): Actor | undefined {
+  get_minotaur(): Actor | undefined {
     // this minotaur will be the first element, but im not going to assume that.
     return this.actors.find(a=>a.is_minotaur())
   }

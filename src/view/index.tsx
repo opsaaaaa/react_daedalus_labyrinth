@@ -1,15 +1,17 @@
 import {MenuView} from './menu'
 import {GameView} from './game'
 import {SettingsView} from './settings'
-export {MenuView, GameView}
+import {GameOverView} from './gameover'
 
 export const VIEWS = {
   menu: MenuView,
   game: GameView,
   settings: SettingsView,
+  gameover: GameOverView,
 }
 
-export type VIEWSkeys = 'menu' | 'game' | 'settings'
+// Aw the joys of typescript...
+export type VIEWSkeys = 'menu' | 'game' | 'settings' | 'gameover'
 
 export type ViewNode = typeof MenuView
 

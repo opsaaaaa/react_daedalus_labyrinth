@@ -139,6 +139,14 @@ input + label {
   vertical-align: middle;
 }
 
+select {
+  font-size: inherit;
+  padding: .5em 1em;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+}
+
 .actor-svg {
   height: 140%;
   margin-top: -60%;

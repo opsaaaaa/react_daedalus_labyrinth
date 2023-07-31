@@ -1,10 +1,10 @@
 
-import {useState, useMemo} from 'react'
+import {useState, useMemo, useEffect} from 'react'
 import type {ViewProps} from './props'
 import {RangeElement} from '../element/range'
 import {SettingsProps} from '../game/settings'
 
-import {settings} from '../game/settings'
+import {settings, GAMEMODE} from '../game/settings'
 
 export function SettingsView({setRoute}: ViewProps) {
   const [updater, setUpdater] = useState(false)
@@ -25,7 +25,13 @@ export function SettingsView({setRoute}: ViewProps) {
     settings.minotaur_steps = Math.min(m, settings.minotaur_steps)
     return m
   }, [settings.change])
-  
+
+  useEffect(()=>{
+    if(settings.player_count < 3 && settings.gamemode === GAMEMODE.COOPERATIVE) { 
+      settings.gamemode = GAMEMODE.COMPETITIVE
+      setUpdater(!updater)
+    }
+  }, [settings.player_count])
 
   return (
     <div
@@ -58,6 +64,27 @@ export function SettingsView({setRoute}: ViewProps) {
         onChange={(e)=>{ edit('player_count', Number(e.target.value)) }}
       />
 
+      <div className="input-group">
+        <label>
+          Game Mode
+        </label>
+        <select
+        name="game_mode"
+        id="settings.game_mode"
+        value={settings.gamemode}
+        disabled={settings.player_count < 3}
+        onChange={(e)=>{ edit('gamemode', Number(e.target.value)) }}
+        >
+          <option value={GAMEMODE.COMPETITIVE}>
+            Competitive
+          </option>
+          <option value={GAMEMODE.COOPERATIVE}>
+            Cooperative
+          </option>
+        </select>
+      </div>
+
+
       <RangeElement
         label="Width"
         min="2" max="20" step="1"
@@ -87,7 +114,6 @@ export function SettingsView({setRoute}: ViewProps) {
         onChange={(e)=>{ edit('minotaur_steps', Number(e.target.value)) }}
       />
 
-
       <div className="input-group">
         <label>
           <input
@@ -101,8 +127,6 @@ export function SettingsView({setRoute}: ViewProps) {
           Sandbox Mode
         </label>
       </div>
-
-
 
       <button
       style={{position: 'absolute', bottom: 0, right: 0, margin: '1em'}}

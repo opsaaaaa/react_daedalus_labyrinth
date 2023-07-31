@@ -62,6 +62,10 @@ export class Actor {
     return this.state === ACTOR_STATE.DEAD
   }
 
+  has_won(): boolean {
+    return this.state === ACTOR_STATE.WON
+  }
+
   win(): void {
     this.state = ACTOR_STATE.WON
     this.anim = ACTOR_ANIM.WIN
