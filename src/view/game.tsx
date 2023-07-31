@@ -29,11 +29,10 @@ export function GameView({setRoute}: ViewProps) {
   }
 
   return (
-    <div className='game'>
+    <>
       <SvgCanvas
       w={b.width}
       h={b.height}
-      style={{position: 'absolute', inset: 0, margin: 'auto'}}
       >
         <g>
           {b.tiles.map(t=>(
@@ -114,14 +113,23 @@ export function GameView({setRoute}: ViewProps) {
       </SvgCanvas>
 
       <button
-      style={{position: 'absolute', top: 0, left: 0, marginTop: '1em'}}
+      style={{position: 'absolute', top: 0, left: 0, margin: '1em'}}
       className="btn plain-btn"
       onClick={()=>{
         setRoute('menu')
       }}
-      >Exit
+      >Menu
       </button>
-    </div>
+
+      <button
+      style={{position: 'absolute', top: 0, right: 0, margin: '1em'}}
+      className="btn plain-btn"
+      onClick={()=>{
+        setRoute('settings')
+      }}
+      >Customize
+      </button>
+    </>
   )
 }
 

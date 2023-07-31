@@ -16,8 +16,8 @@
 }
 
 #root {
-  max-width: 99vh;
-  max-height: 99vw;
+  max-width: 99vw;
+  max-height: 99vh;
   position: relative;
   margin: auto;
   height: 100%;
