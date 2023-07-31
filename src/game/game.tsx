@@ -30,9 +30,9 @@ export class Game {
 
     this.actors = create_actor_list([
       this.board.cell(0,0),
+      this.board.cell(w - 1, h - 1),
       this.board.cell(w - 1, 0),
       this.board.cell(0, h - 1),
-      this.board.cell(w - 1, h - 1)
     ])
 
     this.selected_actor = undefined
@@ -43,7 +43,6 @@ export class Game {
     this.build_actor_moves()
 
     this.state = GAME_STATE.PLAY_SLIDE
-    console.log(settings)
   }
 
   is_state_play_move(): boolean {
@@ -134,7 +133,6 @@ export class Game {
   private check_death(a: Actor): boolean {
     if(a.is_minotaur()) {
       const kill = this.actors.find(k=>(a.tile.id === k.tile.id && !k.is_minotaur() && k.is_alive()))
-      console.log({kill, a, m: 'kill'})
       if (!kill) {return false}
       kill.die()
       return true

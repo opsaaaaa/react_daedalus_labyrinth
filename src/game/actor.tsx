@@ -33,8 +33,6 @@ export const ACTOR_KIND: ActorKind[] = [
   {shape: ACTOR_SHAPE.ORANGE, color: 'orange'},
 ]
 
-let id = 0
-
 export class Actor {
   id: number;
   state: ACTOR_STATE;
@@ -43,14 +41,13 @@ export class Actor {
   tile: Tile;
   moves: Tile[];
 
-  constructor(tile: Tile) {
+  constructor(tile: Tile, id: number = 0) {
     this.id = id
     this.kind = ACTOR_KIND[id % 4]
     this.tile = tile
     this.moves = []
     this.state = ACTOR_STATE.ALIVE
     this.anim = ACTOR_ANIM.IDLE
-    id++;
   }
 
   is_minotaur(): boolean {
@@ -83,12 +80,12 @@ export class Actor {
   }
 }
 
-export function create_actor(tile: Tile) {
-  return new Actor(tile)
+export function create_actor(tile: Tile, id: number = 0) {
+  return new Actor(tile, id)
 }
 
 
 export function create_actor_list(tiles: Tile[]) {
-  return tiles.map((tile)=>(create_actor(tile)))
+  return tiles.map((tile, id)=>(create_actor(tile, id)))
 }
 
