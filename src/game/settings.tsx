@@ -19,11 +19,11 @@ export type SettingsProps = {
 }
 
 export const settings: SettingsProps = {
-  width: 7,
-  height: 7,
+  width: 5,
+  height: 5,
   player_count: 2,
   player_steps: 2,
-  minotaur_steps: 5,
+  minotaur_steps: 4,
   change: false,
   sandbox_mode: false,
 }
