@@ -7,15 +7,15 @@ import {SettingsProps} from '../game/settings'
 export function SettingsView({setRoute, settings}: ViewProps) {
   const [updater, setUpdater] = useState(false)
 
-  function edit(key: keyof SettingsProps, val: number): void {
+  function edit(key: keyof Omit<SettingsProps, 'change' | 'sandbox_mode'>, val: number): void {
     settings[key] = val
     settings.change = !settings.change
     setUpdater(!updater)
   }
 
-  function check(key: keyof SettingsProps, val: boolean): void {
-    setUpdater(!updater)
-  }
+  // function check(key: keyof SettingsProps, val: boolean): void {
+  //   setUpdater(!updater)
+  // }
 
   const max_step = useMemo(()=>{
     const m = settings.width + settings.height
