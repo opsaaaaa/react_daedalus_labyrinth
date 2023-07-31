@@ -4,7 +4,9 @@ import type {ViewProps} from './props'
 import {RangeElement} from '../element/range'
 import {SettingsProps} from '../game/settings'
 
-export function SettingsView({setRoute, settings}: ViewProps) {
+import {settings} from '../game/settings'
+
+export function SettingsView({setRoute}: ViewProps) {
   const [updater, setUpdater] = useState(false)
 
   function update(): void {
