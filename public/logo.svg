@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg259"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs256" />
+  <rect
+     style="fill:#242424;fill-opacity:1;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     id="rect37"
+     width="64"
+     height="64"
+     x="0"
+     y="0"
+     ry="32"
+     rx="32" />
+  <path
+     style="fill:#94464e;fill-opacity:1;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     d="m 7,34.522714 16,26 h 18 l 16,-25 L 58.70391,24.165653 38,8.3044281 43,28.827145 H 21 L 26,8.3044281 6,25.522714 Z"
+     id="path38" />
+  <path
+     style="font-variation-settings:normal;vector-effect:none;fill:#242424;fill-opacity:1;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+     d="m 14,40.304428 c 0,0 8.83822,-3.828205 12,-1 3.00031,2.683782 2,12 2,12 z"
+     id="path39" />
+  <path
+     style="font-variation-settings:normal;vector-effect:none;fill:#242424;fill-opacity:1;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+     d="m 50,40.304428 c 0,0 -8.73978,-3.713824 -12,-1 -3.09377,2.575211 -2,12 -2,12 z"
+     id="path40" />
+  <circle
+     style="fill:#cc85ca;fill-opacity:1;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     id="circle40"
+     cx="41"
+     cy="44.007629"
+     r="2.256994" />
+  <circle
+     style="fill:#cc85ca;fill-opacity:1;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     id="circle41"
+     cx="23.703186"
+     cy="44.007629"
+     r="2.2968001" />
+  <path
+     style="font-variation-settings:normal;vector-effect:none;fill:#242424;fill-opacity:1;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+     d="M 23,60.522714 28.16009,52.965329 30,60.827145 Z"
+     id="path41" />
+  <path
+     style="font-variation-settings:normal;vector-effect:none;fill:#242424;fill-opacity:1;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+     d="m 34,60.522714 2,-7.218286 5,7.218286 z"
+     id="path42" />
+</svg>
