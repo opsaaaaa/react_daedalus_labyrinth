@@ -4,7 +4,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -28,30 +28,6 @@ body {
   height: 100vh;
   width: 100vw;
 }
-
-.block {
-  display:block;
-}
-
-.range-group {
-  position: relative;
-}
-
-.num-cir {
-  width: 2em;
-  padding: .2em;
-  font-size: 0.8rem;
-  display: inline-block;
-  margin-right: -.1em;
-
-  background: #8af;
-  color: #000;
-  font-weight: bold;
-  /* padding: .2em; */
-  border-radius: 1rem;
-  text-align: center;
-}
-
 
 .btn {
   text-align: center;
@@ -86,12 +62,9 @@ body {
 }
 
 .canvas {
-  /* max-width: 99vh; */
-  /* max-height: 99vw; */
   height: 100%;
   width: 100%;
   margin: auto;
-  /* border: red solid 1px; */
 }
 
 button {
@@ -100,15 +73,6 @@ button {
   padding: 0;
   margin: 0;
 }
-
-img {
-  width: 100%;
-  height: 100%;
-}
-
-.arrow-svg {
-  opacity: .4;
-}
 button:disabled .arrow-svg {
   display: none;
 }
@@ -116,13 +80,6 @@ button:is(:hover, :focus-visible) .arrow-svg {
   opacity: 1;
 }
 
-/* input[type=range] + label { */
-/*   margin-left: 1em; */
-/*   vertical-align: middle; */
-/* } */
-w-100 {
-  width: 100%;
-}
 input[type=range] {
   width: 100%;
 }
@@ -147,68 +104,3 @@ select {
   border-radius: 5px;
 }
 
-.actor-svg {
-  height: 140%;
-  margin-top: -60%;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.input-group * {
-}
-
-.actor-move {
-  box-sizing: border-box;
-  opacity: 0.4;
-  border: currentColor solid 8px;
-  border-radius: 1rem;
-}
-.actor-move:is(:hover, :focus) {
-  box-shadow: 0 0 5px 5px currentColor;
-  opacity: 0.8;
-}
-
-.rotate-svg {
-  opacity: 0;
-}
-@keyframes hint-rotate {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0;
-  }
-  5% {
-    transform: rotate(45deg);
-    opacity: 0.8;
-  }
-  15% {
-    transform: rotate(0deg);
-    opacity: 0;
-  }
-  100% {
-    transform: rotate(0deg);
-    opacity: 0;
-  }
-}
-
-.anim-hint-rotate {
-  animation: 8s linear 1s 5 hint-rotate;
-}
-
-button:is(:hover, :focus-visible) .rotate-svg {
-  animation: none;
-  opacity: .4;
-}
-
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-}
