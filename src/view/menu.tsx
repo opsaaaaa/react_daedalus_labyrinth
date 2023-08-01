@@ -18,7 +18,7 @@ export function MenuView({setRoute}: ViewProps) {
     }}
     >
       <h1 className="m-auto">Minituar Maze</h1>
-      <p className="m-auto" style={{textAlign: 'center', maxWidth: '30em'}}>
+      <p>
         The goal of the <strong>Minotaur</strong> is to capture the players.
         The goal of the remaining players is to be the first to <strong>escape to the flag</strong>.
         Good luck, and have fun!
@@ -37,6 +37,12 @@ export function MenuView({setRoute}: ViewProps) {
       }}
       >Customize
       </button>
+
+      <p>
+        Checkout the code on Github
+        <br/>
+        <a href="https://github.com/opsaaaaa/react_daedalus_labyrinth/">react_daedalus_labyrinth</a>
+      </p>
     </div>
   )
 }
